@@ -50,7 +50,7 @@ const links = [
     ]
   },
   {
-    heading: 'Customer Service',
+    heading: 'CUSTOMER SERVICE',
     links: [
       {
         name: 'Customer Service',

@@ -11,6 +11,11 @@
     width: 140px;
     height: 40px;
   }
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #222;
+  }
   &__links {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -23,6 +28,23 @@
           line-height: 23px;
           &:hover {
             text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  &__socials {
+    section {
+      ul {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        li {
+          font-size: 2rem;
+          color: #666;
+          &:hover {
+            color: $blue-color;
           }
         }
       }
