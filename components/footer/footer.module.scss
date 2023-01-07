@@ -50,4 +50,33 @@
       }
     }
   }
+  &__flex {
+    display: flex;
+    margin-top: 10px;
+  }
+  &__newsletter {
+    input {
+      flex: 1;
+      outline: none;
+      border: 1px solid #999;
+      padding-left: 10px;
+      font-size: 14px;
+    }
+    button {
+      width: 160px;
+      &:hover {
+        background: $grey-color;
+        color: $blue-color;
+      }
+    }
+    p {
+      margin-top: 10px;
+      font-size: 15px;
+      color: #666;
+      a {
+        color: $blue-color;
+        text-decoration: underline;
+      }
+    }
+  }
 }
