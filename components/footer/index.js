@@ -2,6 +2,7 @@ import styles from './footer.module.scss'
 import Links from './Links'
 import Socials from './Socials'
 import Newsletter from './Newsletter'
+import Payment from './Payment'
 
 export default function Footer() {
   return (
@@ -10,6 +11,7 @@ export default function Footer() {
         <Links/>
         <Socials/>
         <Newsletter/>
+        <Payment/>
       </div>
     </footer>
   )
