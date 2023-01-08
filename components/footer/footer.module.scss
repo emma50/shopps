@@ -92,4 +92,36 @@
       height: 40px;
     }
   }
+  &__copyright {
+    section {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: #666;
+      padding-bottom: 10px;
+    }
+    ul {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      column-gap: 2rem;
+      li {
+        position: relative;
+        text-decoration: underline;
+        &::after {
+          content: '';
+          width: 1px;
+          height: 15px;
+          background: #666;
+          position: absolute;
+          right: -1rem;
+          top: 5px;
+        }
+        &:last-of-type::after {
+          display: none;
+        }
+      }
+    }
+  }
 }
