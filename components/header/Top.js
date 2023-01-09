@@ -7,17 +7,21 @@ import { useState } from 'react'
 import styles from './header.module.scss'
 import UserMenu from './UserMenu'
 
-export default function Top() {
+export default function Top({ country }) {
   const [loggedIn, setLoggedIn] = useState(true)
   const [visible, setVisible] = useState(false)
+
+  const flag = JSON.parse(country.flag)
+  const name = JSON.parse(country.name)
+  const code = JSON.parse(country.code)
   return (
     <div className={styles.top}>
       <div className={styles.top__container}>
         <div></div>
         <ul className={styles.top__list}>
           <li className={styles.li}>
-            <Image src="/images/country__flag.jpg" alt="country" width={28} height={28}/>
-            <span>Nigeria / ngn</span>
+            <Image src={flag} alt="country" width={28} height={28}/>
+            <span>{name} / {code}</span>
           </li>
           <li className={styles.li}>
             <MdSecurity/>

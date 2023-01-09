@@ -25,7 +25,8 @@ const data = [
   }
 ]
 
-export default function Copyright() {
+export default function Copyright({country}) {
+  const name = JSON.parse(country.name)
   return (
     <div className={styles.footer__copyright}>
       <section>©2023 SHOPPS All Rights Reserved</section>
@@ -40,7 +41,7 @@ export default function Copyright() {
           })}
           <li>
             <a href="">
-              <IoLocationSharp/>Nigeria
+              <IoLocationSharp/>{name}
             </a>
           </li>
         </ul>
