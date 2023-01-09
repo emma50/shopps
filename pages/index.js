@@ -6,8 +6,6 @@ import axios from 'axios'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ country }) {
-  console.log(country)
-  // const parsedCountry = JSON.parse(country)
   return (
     <>
       <Header country={country}/>
