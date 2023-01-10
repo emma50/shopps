@@ -1,4 +1,5 @@
 import { Inter } from '@next/font/google'
+import { useSession, signIn, signOut } from "next-auth/react"
 import Header from '../components/header'
 import Footer from '../components/footer'
 import axios from 'axios'
@@ -6,12 +7,31 @@ import axios from 'axios'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ country }) {
-  return (
+  const { data: session } = useSession()
+  if(session) {
+   
+  }
+  return <>
+    <Header country={country}/>
+    {
+      session ?
+        <>
+          Signed in as ${session.user.email} <br/>
+          <button onClick={() => signOut()}>Sign out</button>
+        </>  :
+        <>
+          Not signed in <br/>
+          <button onClick={() => signIn()}>Sign in</button>
+        </>
+    }
+    <Footer country={country} />
+  </>
+  /* return (
     <>
       <Header country={country}/>
       <Footer country={country} />
     </>
-  )
+  ) */
 }
 
 export async function getServerSideProps() {
