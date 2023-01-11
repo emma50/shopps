@@ -4,11 +4,12 @@ import { MdSecurity } from 'react-icons/md'
 import { BsSuitHeart} from 'react-icons/bs'
 import { RiAccountPinCircleLine, RiArrowDropDownFill } from 'react-icons/ri'
 import { useState } from 'react'
+import { useSession } from 'next-auth/react'
 import styles from './header.module.scss'
 import UserMenu from './UserMenu'
 
 export default function Top({ country }) {
-  const [loggedIn, setLoggedIn] = useState(true)
+  const { data: session } = useSession()
   const [visible, setVisible] = useState(false)
 
   const flag = JSON.parse(country.flag)
@@ -43,10 +44,10 @@ export default function Top({ country }) {
             onMouseOver={() => setVisible(true)}
             onMouseLeave={() => setVisible(false)}
           >
-            {loggedIn ? 
+            {session ? 
               <div className={styles.flex}>
-                <Image src="/images/human.jpeg" alt="country" width={28} height={28}/>
-                <span>Emmanuel</span>
+                <Image src={session.user.image} alt="country" width={28} height={28}/>
+                <span>{session.user.name}</span>
                 <RiArrowDropDownFill/>
               </div> : 
               <div className={styles.flex}>
@@ -55,7 +56,7 @@ export default function Top({ country }) {
                 <RiArrowDropDownFill/>
               </div>
             }
-            {visible && <UserMenu loggedIn={loggedIn}/>}
+            {visible && <UserMenu session={session}/>}
           </li>
         </ul>
       </div>

@@ -8,11 +8,9 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ country }) {
   const { data: session } = useSession()
-  if(session) {
-   
-  }
+  console.log(session, 'SESSION')
   return <>
-    <Header country={country}/>
+    <Header country={country} />
     {
       session ?
         <>
