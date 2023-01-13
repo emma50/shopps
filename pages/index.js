@@ -8,7 +8,6 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ country }) {
   const { data: session } = useSession()
-  console.log(session, 'SESSION')
   return <>
     <Header country={country} />
     {
@@ -48,9 +47,9 @@ export async function getServerSideProps() {
     return {
       props: {
         country: {
-          name: JSON.stringify('An error occurred - Cannot fetch country name'),
-          flag: JSON.stringify('An error occurred - Cannot fetch country flag'),
-          code: JSON.stringify('An error occurred - Cannot fetch country CODE'),
+          name: JSON.stringify('Nigeria'),
+          flag: JSON.stringify('/images/country__flag.jpg'),
+          code: JSON.stringify('NGN'),
         }
       }
     }

@@ -1,0 +1,38 @@
+.button {
+  position: relative;
+  width: 220px;
+  height: 55px;
+  background: $blue-color;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 55px;
+  display: block;
+  cursor: pointer;
+  &:hover {
+    background: #fff;
+    color: $blue-color;
+    border: 2px solid $blue-color;
+    .svg__wrap {
+      background: $blue-color;
+      svg {
+        fill: #fff;
+      }
+    }
+  }
+  .svg__wrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: $grey-color;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    // Awesome findings
+    right: 5px;
+    top: 7.5px;
+    // Awesome findings
+    svg {
+      fill: $blue-color;
+    }
+  }
+}

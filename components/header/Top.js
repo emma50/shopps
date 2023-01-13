@@ -11,10 +11,9 @@ import UserMenu from './UserMenu'
 export default function Top({ country }) {
   const { data: session } = useSession()
   const [visible, setVisible] = useState(false)
-
-  const flag = JSON.parse(country.flag)
-  const name = JSON.parse(country.name)
-  const code = JSON.parse(country.code)
+  
+  // const flag = String(country.flag)
+  const flag = '/images/country__flag.jpg'
   return (
     <div className={styles.top}>
       <div className={styles.top__container}>
@@ -22,7 +21,7 @@ export default function Top({ country }) {
         <ul className={styles.top__list}>
           <li className={styles.li}>
             <Image src={flag} alt="country" width={28} height={28}/>
-            <span>{name} / {code}</span>
+            <span>{country.name} / {country.code}</span>
           </li>
           <li className={styles.li}>
             <MdSecurity/>
@@ -46,7 +45,7 @@ export default function Top({ country }) {
           >
             {session ? 
               <div className={styles.flex}>
-                <Image src={session.user.image} alt="country" width={28} height={28}/>
+                <Image src={session.user.image} alt="your image" width={28} height={28}/>
                 <span>{session.user.name}</span>
                 <RiArrowDropDownFill/>
               </div> : 
