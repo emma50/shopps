@@ -1,6 +1,5 @@
-import styles from './footer.module.scss'
 import Image from 'next/image'
-import Link from 'next/link'
+import styles from './footer.module.scss'
 
 export default function Payment() {
   return (

@@ -2,8 +2,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { RiSearch2Line } from "react-icons/ri"
 import { FaOpencart } from 'react-icons/fa'
-import styles from './header.module.scss'
 import { useSelector } from "react-redux"
+import styles from './header.module.scss'
 
 export default function Main() {
   const {cart} = useSelector((state) => ({...state}))

@@ -6,9 +6,6 @@ import styles from './login.module.scss'
 
 export default function Login({ icon, placeholder, ...props }) {
   const [field, meta] = useField(props)
-  /* console.log(field, 'FIELDDDDDDDDDDDDDD')
-  console.log(props, 'PROPPPPPPPSSSSSSSS')
-  console.log(meta, 'METAAAAAAAAAAAAAAA') */
   return (
     <div className={`${styles.input} ${meta.touched && meta.error ? styles.error : '' }`}>
       {

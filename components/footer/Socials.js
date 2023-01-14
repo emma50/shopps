@@ -1,4 +1,3 @@
-import styles from './footer.module.scss'
 import {
   FaFacebookF,
   FaTiktok
@@ -10,6 +9,7 @@ import {
   BsYoutube,
   BsPinterest 
 } from 'react-icons/bs'
+import styles from './footer.module.scss'
 
 
 export default function Socials() {

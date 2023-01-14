@@ -1,8 +1,8 @@
 import { Inter } from '@next/font/google'
 import { useSession, signIn, signOut } from "next-auth/react"
+import axios from 'axios'
 import Header from '../components/header'
 import Footer from '../components/footer'
-import axios from 'axios'
 
 const inter = Inter({ subsets: ['latin'] })
 
