@@ -12,7 +12,6 @@ export default function Top({ country }) {
   const { data: session } = useSession()
   const [visible, setVisible] = useState(false)
   
-  // const flag = String(country.flag)
   const flag = '/images/country__flag.jpg'
   return (
     <div className={styles.top}>

@@ -18,10 +18,6 @@ const links = [
         name: 'Social Responsibility',
         link: ''
       },
-      {
-        name: '',
-        link: ''
-      }
     ]
   },
   {
@@ -80,7 +76,7 @@ export default function Links() {
           <ul key={index}>
             {
               index === 0 
-              ? <Image src={'./vercel.svg'} alt='Logo' width={140} height={40}/>
+              ? <Image src={'/logo.png'} alt='Logo' width={140} height={40}/>
               : <b key={index}>{link.heading}</b>
             }
             {link.links.map((link) => {

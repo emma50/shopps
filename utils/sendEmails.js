@@ -25,7 +25,6 @@ export const sendEmail = async (to, url, subject, text) => {
     refresh_token: MAILING_SERVICE_REFRESH_TOKEN
   })
   const accessToken = await oauth2Client.getAccessToken()
-  console.log(accessToken, 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
 
   // From nodemailer
   const smtpTransport = nodemailer.createTransport({
@@ -49,10 +48,8 @@ export const sendEmail = async (to, url, subject, text) => {
 
   smtpTransport.sendMail(mailOptions, (err, info) => {
     if (err) {
-      console.log(err)
       return err
     }
-    console.log(info)
     return info
 })
 }

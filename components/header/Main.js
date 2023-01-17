@@ -12,7 +12,13 @@ export default function Main() {
       <div className={styles.main__container}>
         <Link href={'/'} legacyBehavior>
           <a className={styles.logo}>
-           <Image src='/vercel.svg' alt='logo' width={100} height={100}/>
+           <Image 
+            src='/logo.png' 
+            alt='logo' 
+            width={170} 
+            height={70} 
+            style={{borderRadius: '30%'}}
+          />
           </a>
         </Link>
         <div className={styles.search}>

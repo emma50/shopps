@@ -27,7 +27,6 @@ async function disconnectDB () {
   if (connection.isConnected) {
    if (process.env.NODE_ENV === 'production') {
     await mongoose.disconnect()
-    // connection.isConnected = 0
     console.log('Disconnecting from database when in production environment ')
    }
    else {

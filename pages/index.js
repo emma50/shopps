@@ -23,12 +23,6 @@ export default function Home({ country }) {
     }
     <Footer country={country} />
   </>
-  /* return (
-    <>
-      <Header country={country}/>
-      <Footer country={country} />
-    </>
-  ) */
 }
 
 export async function getServerSideProps() {
