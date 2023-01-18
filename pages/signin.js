@@ -189,7 +189,7 @@ export default function Signin({ providers, csrfToken, callbackUrl }) {
                       <CircledIconBtn type='submit' text='Sign in'/>
                       {login_error && <span className={styles.error}>{login_error}</span>} 
                       <div className={styles.forgot}>
-                        <Link href={'/forget'}>Forgot password ?</Link>
+                        <Link href={'/auth/forgot'}>Forgot password ?</Link>
                       </div>
                     </Form>
                   </>
