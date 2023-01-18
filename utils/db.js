@@ -18,6 +18,7 @@ async function connectDB () {
     await mongoose.disconnect()
   }
 
+  mongoose.set('strictQuery', true)
   const db = await mongoose.connect(process.env.MONGODB_URI)
   console.log('A new connection to the database was made')
   connection.isConnected = db.connections[0].readyState

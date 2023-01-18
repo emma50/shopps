@@ -4,7 +4,12 @@ import Image from 'next/image'
 import { BiLeftArrowAlt } from 'react-icons/bi'
 import { Formik, Form } from "formik";
 import * as Yup from 'yup'
-import { getProviders, signIn } from 'next-auth/react'
+import {
+  getProviders,
+  signIn,
+  getSession,
+  getCsrfToken
+} from 'next-auth/react'
 import axios from 'axios';
 import { useRouter } from 'next/router'
 import Header from '../components/header'
@@ -23,19 +28,22 @@ const country = {
 const initialValues = {
   login_email: '',
   login_password: '',
+  login_error: '',
   name: '',
   email: '',
   password: '',
   conf_password: '',
-  message: ''
+  success: '',
+  error: ''
 }
 
-export default function Signin({ providers }) {
+export default function Signin({ providers, csrfToken, callbackUrl }) {
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState(initialValues)
   const { 
     login_email, 
     login_password,
+    login_error,
     name,
     email,
     password,
@@ -87,11 +95,46 @@ export default function Signin({ providers }) {
       
       setUser({...user, error: '', success: data.message})
       setLoading(false)
-      setTimeout(() => router.push('/'), 3000)
+      setTimeout(async () => {
+        const options = {
+          email,
+          password,
+          redirect: false,
+        }
+        const res = await signIn('credentials', options)
+        router.push('/'), 3000})
     } catch(e) {
       console.log(e)
       setLoading(false)
       setUser({...user, success: '', error: e.response.data.message})
+    }
+  }
+
+  const signInHandler = async () => {
+    setLoading(true)
+
+    const options = {
+      email: login_email,
+      password: login_password,
+      redirect: false,
+    }
+
+    const res = await signIn('credentials', options)
+    
+    setUser({...user, success: '', error: ''})
+
+    if (res?.error) {
+      setLoading(false)
+      setUser({
+        ...user,
+        success: '',
+        error: '',
+        login_error: res?.error,
+      })
+    }
+    else {
+      setLoading(false)
+      setTimeout(() => router.push(callbackUrl || '/'), 3000)
     }
   }
   return (
@@ -119,12 +162,16 @@ export default function Signin({ providers }) {
                   login_password
                 }}
                 validationSchema={loginValidation}
+                onSubmit={() => signInHandler()}
               >
                 {(form) => {
-                  /* console.log(form, 'FORMMMMMM')
-                  console.log('...............................') */
                   return <>
-                    <Form>
+                    <Form method='POST' action='/api/auth/signin/email'>
+                      <input
+                        type="hidden"
+                        name='csrfToken'
+                        defaultValue={csrfToken}
+                       />
                       <Login
                         type='text' 
                         icon='email'
@@ -140,6 +187,7 @@ export default function Signin({ providers }) {
                         onChange={handleChange}
                       />
                       <CircledIconBtn type='submit' text='Sign in'/>
+                      {login_error && <span className={styles.error}>{login_error}</span>} 
                       <div className={styles.forgot}>
                         <Link href={'/forget'}>Forgot password ?</Link>
                       </div>
@@ -152,6 +200,9 @@ export default function Signin({ providers }) {
                 <div className={styles.login__socials_wrap}>
                   {
                     providers.map((provider) => {
+                      if (provider.id === 'credentials') {
+                        return;
+                      }
                       return <div key={provider.id}>
                         <button 
                           className={styles.social__btn}
@@ -234,11 +285,25 @@ export default function Signin({ providers }) {
 
 
 export async function getServerSideProps (context) {
+  const { req, query } = context
+  const { callbackUrl } = query
+  const session = await getSession({ req })
+  const csrfToken = await getCsrfToken(context)
   const providers = Object.values(await getProviders())
+
+  if (session) {
+    return {
+      redirect: {
+        destination: callbackUrl
+      }
+    }
+  }
 
   return {
     props: {
-      providers
+      providers,
+      csrfToken,
+      callbackUrl
     }
   }
 }
