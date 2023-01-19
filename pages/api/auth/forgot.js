@@ -31,7 +31,7 @@ handler.post(async (req, res) => {
 
     const user = await User.findOne({ email })
     if (!user) {
-      return res.status(400).json({ message: 'This email does mot exist' })
+      return res.status(400).json({ message: 'This email does not exist' })
     }
   
     const resetToken = createResetToken({
