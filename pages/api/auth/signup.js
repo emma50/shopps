@@ -5,6 +5,7 @@ import validateEmail from "../../../utils/validation";
 import { sendEmail } from "../../../utils/sendEmails";
 import User from "../../../models/users";
 import { createActivationToken } from "../../../utils/token";
+import { activateEmailTemplate } from "../../../emails/activateEmailTemplate";
 
 const handler = nc({
   onError: (err, req, res, next) => {
@@ -55,7 +56,7 @@ handler.get((req, res) => {
     })    
     const url = `${process.env.BASE_URL}/activate/${activationToken}`
 
-    sendEmail(email, url, 'Activate your account', '')
+    sendEmail(email, url, 'Activate your account', activateEmailTemplate)
 
     await db.disconnectDB()
 

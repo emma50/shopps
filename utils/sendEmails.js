@@ -20,7 +20,7 @@ const oauth2Client = new OAuth2(
 );
 
 // Send email
-export const sendEmail = async (to, url, subject, text) => {
+export const sendEmail = async (to, url, subject, template) => {
   oauth2Client.setCredentials({
     refresh_token: MAILING_SERVICE_REFRESH_TOKEN
   })
@@ -43,7 +43,7 @@ export const sendEmail = async (to, url, subject, text) => {
     from: SENDER_EMAIL_ADDRESS,
     to,
     subject,
-    html: activateEmailTemplate(to, url)
+    html: template(to, url)
   }
 
   smtpTransport.sendMail(mailOptions, (err, info) => {
