@@ -7,7 +7,7 @@ import Footer from '../components/footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ country }) {
-  const { data: session } = useSession()
+  // const { data: session } = useSession()
   return <>
     <Header country={country} />
     <Footer country={country} />

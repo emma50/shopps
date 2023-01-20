@@ -36,8 +36,6 @@ handler.put(async (req, res) => {
     await user.updateOne({
       password: cryptedPassword
     })
-    
-    console.log(cryptedPassword, user)
 
     await db.disconnectDB()
 
