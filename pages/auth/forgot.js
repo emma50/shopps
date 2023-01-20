@@ -79,7 +79,7 @@ export default function Forgot() {
                   placeholder={'Email Address'} 
                   onChange={handleChange}
                 />
-                <CircledIconBtn type='submit' text='Reset password'/>
+                <CircledIconBtn type='submit' text='Submit'/>
               </Form>
               {error && <span className={styles.error}>{error}</span>} 
               {success && <span className={styles.success}>{success}</span>} 
