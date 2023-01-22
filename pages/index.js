@@ -3,13 +3,20 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import axios from 'axios'
 import Header from '../components/header'
 import Footer from '../components/footer'
+import Main from '../components/home/main'
+import styles from '../styles/Home.module.scss'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ country }) {
-  // const { data: session } = useSession()
+  const { data: session } = useSession()
   return <>
     <Header country={country} />
+    <div className={styles.home}>
+      <div className={styles.container}>
+        <Main/>
+      </div>
+    </div>
     <Footer country={country} />
   </>
 }

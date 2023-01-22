@@ -1,0 +1,45 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 10px;
+  grid-template-areas: 
+    'menu header header'
+    'menu swiper user'
+    'menu offers user';
+
+  .header {
+    grid-area: header;
+    height: 40px;
+    background: #fff;
+    box-shadow: $shadow-1;
+    border-radius: 10px;
+  }
+  .menu {
+    grid-area: menu;
+    height: 560px;
+    background: #fff;
+    box-shadow: $shadow-1;
+    border-radius: 10px;
+  }
+  .swiper {
+    grid-area: swiper;
+    height: 300px;
+    background: #fff;
+    box-shadow: $shadow-1;
+    border-radius: 10px;
+  }
+  .offers {
+    grid-area: offers;
+    height: 220px;
+    background: #fff;
+    box-shadow: $shadow-1;
+    border-radius: 10px;
+  }
+  .user {
+    grid-area: user;
+    height: 510px;
+    background: #fff;
+    box-shadow: $shadow-1;
+    border-radius: 10px;
+  }
+}

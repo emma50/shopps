@@ -3,6 +3,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
 import persistStore from 'redux-persist/lib/persistStore'
 import { SessionProvider } from "next-auth/react"
+import "swiper/css/bundle";
 import '../styles/globals.scss'
 import store from '../store/index'
 

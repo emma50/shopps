@@ -4,6 +4,11 @@ $success-color: #6cc070;
 $light-error-color: #fd010169;
 $error-color: #ed4337;
 $shadow-1: rgba(99,99,99,.2) 0px 2px 8px 0px;
+.container { 
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
 .btn_primary {
   display: flex;
   align-items: center;
@@ -41,3 +46,99 @@ $shadow-1: rgba(99,99,99,.2) 0px 2px 8px 0px;
   color: $success-color;
   padding: 10px;
 }
+
+//-----------SwiperJS------------
+// SwiperJS
+.swiper {
+  width: 100%;
+  height: 100%;
+  // custom styles
+  border-radius: 10px;
+  cursor: pointer;
+  &:hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: flex !important;
+    }
+  }
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  // custom styles
+  box-shadow: $shadow-1;
+  border-radius: 10px;
+}
+
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  transform: scale(0.5) !important;
+  color: #fff !important;
+  width: 50px !important;
+  height: 80px !important;
+  transition: 0.2s;
+  background: #6666664e !important;
+  display: none !important;
+}
+
+.swiper-button-prev {
+  left: -13px !important;
+}
+
+.swiper-button-next {
+  right: -13px !important;
+}
+
+.swiper-pagination-bullet {
+  background: #fff !important;
+}
+
+// .mainSwiper {
+//   /* .swiper {
+//     border-radius: 10px;
+//   }
+//   .swiper-slide img {
+//     display: block;
+//     width: 100%;
+//     height: 100% !important;
+//     object-fit: cover !important;
+//     box-shadow: $shadow-1;
+//     border-radius: 10px;
+//   } */
+//   /* .swiper-button-prev,
+//   .swiper-button-next {
+//     transform: scale(0.5) !important;
+//     color: #fff !important;
+//     width: 50px !important;
+//     height: 80px !important;
+//     transition: 0.2s;
+//   } */
+// }
