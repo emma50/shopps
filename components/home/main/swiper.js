@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import styles from './main.module.scss'
+// import styles from './main.module.scss'
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
@@ -29,7 +29,7 @@ export default function MainSwiper() {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
-        className={styles.mainSwiper}
+        className='mainSwiper'
       >
         {
           [1,2,3,4,5,6,7,8,9,10].map((item) => {

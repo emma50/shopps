@@ -30,10 +30,14 @@
   }
   .offers {
     grid-area: offers;
-    height: 220px;
+    min-height: 220px;
     background: #fff;
     box-shadow: $shadow-1;
     border-radius: 10px;
+    overflow: hidden;
+    background-image: url('../../../public//images//flash.webp');
+    background-size: cover;
+    background-position: -220px -95px;
   }
   .user {
     grid-area: user;

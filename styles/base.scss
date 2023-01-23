@@ -3,6 +3,9 @@ $grey-color: #f8f8f8;
 $success-color: #6cc070;
 $light-error-color: #fd010169;
 $error-color: #ed4337;
+$yellow-color: #fac80f;
+$violet-color: #5a31f4;
+$reddish-color: #f15f6f;
 $shadow-1: rgba(99,99,99,.2) 0px 2px 8px 0px;
 .container { 
   max-width: 1200px;
@@ -88,57 +91,99 @@ $shadow-1: rgba(99,99,99,.2) 0px 2px 8px 0px;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  // custom styles
-  box-shadow: $shadow-1;
-  border-radius: 10px;
 }
 
-.swiper {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.swiper-button-prev,
-.swiper-button-next {
-  transform: scale(0.5) !important;
-  color: #fff !important;
-  width: 50px !important;
-  height: 80px !important;
-  transition: 0.2s;
-  background: #6666664e !important;
-  display: none !important;
-}
-
-.swiper-button-prev {
-  left: -13px !important;
-}
-
-.swiper-button-next {
-  right: -13px !important;
-}
-
-.swiper-pagination-bullet {
-  background: #fff !important;
-}
-
-// .mainSwiper {
-//   /* .swiper {
-//     border-radius: 10px;
-//   }
-//   .swiper-slide img {
-//     display: block;
-//     width: 100%;
-//     height: 100% !important;
-//     object-fit: cover !important;
-//     box-shadow: $shadow-1;
-//     border-radius: 10px;
-//   } */
-//   /* .swiper-button-prev,
-//   .swiper-button-next {
-//     transform: scale(0.5) !important;
-//     color: #fff !important;
-//     width: 50px !important;
-//     height: 80px !important;
-//     transition: 0.2s;
-//   } */
+// .swiper {
+//   margin-left: auto;
+//   margin-right: auto;
 // }
+
+.mainSwiper,
+.offersSwiper {
+  .swiper {
+    border-radius: 10px;
+  }
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover !important;
+    box-shadow: $shadow-1;
+    // border-radius: 10px;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    transform: scale(0.5) !important;
+    color: #fff !important;
+    width: 50px !important;
+    height: 80px !important;
+    transition: 0.2s;
+    background: #6666664e !important;
+    display: none !important;
+  }
+  .swiper-button-prev {
+    left: -13px !important;
+  }
+  
+  .swiper-button-next {
+    right: -13px !important;
+  }
+  
+  .swiper-pagination-bullet {
+    background: #fff !important;
+  }  
+}
+
+.offersSwiper {
+  max-width: 80%;
+  transform: translateX(30%);
+  .swiper-slide {
+    // width: 110px !important;
+    width: 120px!important;
+    height: 90%;
+    margin-top: 0.6rem;
+    box-shadow: $shadow-1;
+    &:hover {
+      transform: scale(1.1);
+      transition: 0.2s;
+    }
+  }
+  span {
+    color: #fff;
+    &:first-of-type {
+      position: absolute;
+      bottom: 15px;
+      width: 90px;
+      height: 25px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      background: $yellow-color;
+    }
+    &:last-of-type {
+      position: absolute;
+      top: -0.5px;
+      right: -0.5px;
+      font-style: italic;
+      height: 40px;
+      width: 40px;
+      background: $reddish-color;
+      border-bottom-left-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 16;
+      font-weight: 600;
+      box-shadow: $shadow-1;
+    }
+  }
+  .swiper-pagination-bullet {
+    display: none;
+  }
+  .swiper-slide a {
+    width: 100%;
+    height: 100%;
+  }
+  .swiper-button-next {
+    right: 15% !important;
+  }
+}

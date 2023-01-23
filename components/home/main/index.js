@@ -1,5 +1,6 @@
 import styles from './main.module.scss'
 import MainSwiper from './swiper'
+import Offers from './offers'
 
 export default function Main() {
   return (
@@ -7,7 +8,7 @@ export default function Main() {
       <div className={styles.header}>header</div>
       <div className={styles.menu}>menu</div>
       <MainSwiper/>
-      <div className={styles.offers}>offers</div>
+      <Offers/>
       <div className={styles.user}>user</div>
     </div>
   )

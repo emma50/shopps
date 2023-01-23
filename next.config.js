@@ -6,7 +6,9 @@ const nextConfig = {
   images: {
     domains: [
       'avatars.githubusercontent.com',
-      'lh3.googleusercontent.com']
+      'lh3.googleusercontent.com',
+      'ae01.alicdn.com'
+    ]
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
