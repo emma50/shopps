@@ -1,6 +1,7 @@
 .main {
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  /* grid-template-columns: 1fr 3fr 1fr; */
+  grid-template-columns: 22% 60% 18%;
   gap: 10px;
   grid-template-areas: 
     'menu header header'
@@ -10,27 +11,77 @@
   .header {
     grid-area: header;
     height: 40px;
-    background: #fff;
-    box-shadow: $shadow-1;
-    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      li {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        font-size: 19px;
+        color: $blue-color;
+      }
+    }
   }
   .menu {
     grid-area: menu;
+    overflow-y: scroll;
     height: 560px;
     background: #fff;
     box-shadow: $shadow-1;
     border-radius: 10px;
+    &__header {
+      width: 100%;
+      height: 35px;
+      background: $grey-color;
+      border-bottom: 3px solid $grey-color;
+      box-shadow: $shadow-2;
+      svg {
+        height: 23px;
+        width: 23px;
+      }
+    }
+    &__list {
+      margin-top: 3px;
+    }
+    ul {
+      li {
+        height: 35px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+          background: $grey-color;
+        }
+        a {
+          display: flex;
+          gap: 10px;
+          padding: 0 5px 0 10px;
+          align-items: center;
+          word-wrap: wrap;
+          color: #424141;
+          height: 100%;
+          svg {
+            fill: #8c8484;
+            stroke: #8c8484;
+          }
+        }
+      }
+    }
   }
   .swiper {
     grid-area: swiper;
-    height: 300px;
+    height: 280px;
     background: #fff;
     box-shadow: $shadow-1;
     border-radius: 10px;
   }
   .offers {
     grid-area: offers;
-    min-height: 220px;
+    min-height: 200px;
     background: #fff;
     box-shadow: $shadow-1;
     border-radius: 10px;
@@ -41,9 +92,112 @@
   }
   .user {
     grid-area: user;
-    height: 510px;
+    position: relative;
+    height: 530px;
     background: #fff;
     box-shadow: $shadow-1;
     border-radius: 10px;
+    /* &__header {
+      position: absolute;
+      top: 0;
+    } */
+    &__container {
+      padding: 1rem;
+    }
+    &__info {
+      position: absolute;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      img {
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+        box-shadow: $shadow-1;
+      }
+      h4 {
+        margin-top: 10px;
+        text-transform: capitalize;
+        text-align: center;
+        line-height: 1.5;
+      }
+      &_btns {
+        margin: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        button {
+          width: 94px;
+          height: 35px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: 600;
+          &:first-of-type {
+            background: linear-gradient($blue-color, #0000ff34);
+            color: #fff;
+          }
+          &:last-of-type {
+            color: #555;
+          }
+        }
+      }
+    }
+    &__link {
+      padding-top: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      // flex-wrap: wrap;
+      li {
+        width: 40px;
+        height: 40px;
+        background: $grey-color;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        transition: 0.2s;
+        svg {
+          width: 30px;
+          height: 30px;
+          stroke: $blue-color;
+          transform: translateY(12%);
+        }
+        &:hover {
+          background: $blue-color;
+          svg {
+            stroke: #fff;
+          }
+        }
+        &:nth-of-type(3),
+        &:nth-of-type(4) {
+          svg {
+            fill: $blue-color;
+          }
+          &:hover {
+            svg {
+              fill: #fff;
+            }
+          }
+        }
+        &:nth-of-type(4) {
+          svg {
+            padding-top: 4px;
+          }
+         }
+      }
+    }
+    &__footer {
+      position: absolute;
+      bottom: 0;
+      transform: rotate(180deg);
+    }
+    &__swiper {
+      max-width: 180px;
+      margin: 2rem auto 0;
+    }
   }
 }

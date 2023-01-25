@@ -7,8 +7,9 @@ $yellow-color: #fac80f;
 $violet-color: #5a31f4;
 $reddish-color: #f15f6f;
 $shadow-1: rgba(99,99,99,.2) 0px 2px 8px 0px;
+$shadow-2: rgba(99,99,99,.1) 0px 0px 4px 0px;
 .container { 
-  max-width: 1200px;
+  max-width: 1260px;
   margin: 0 auto;
   padding: 1rem;
 }
@@ -99,7 +100,8 @@ $shadow-1: rgba(99,99,99,.2) 0px 2px 8px 0px;
 // }
 
 .mainSwiper,
-.offersSwiper {
+.offersSwiper,
+.userMenuSwiper {
   .swiper {
     border-radius: 10px;
   }
@@ -186,4 +188,15 @@ $shadow-1: rgba(99,99,99,.2) 0px 2px 8px 0px;
   .swiper-button-next {
     right: 15% !important;
   }
+}
+.userMenuSwiper {
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+  }    
 }
