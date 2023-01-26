@@ -1,18 +1,52 @@
 .main {
   display: grid;
   /* grid-template-columns: 1fr 3fr 1fr; */
-  grid-template-columns: 22% 60% 18%;
+  grid-template-columns: 23% 57% 20%;
   gap: 10px;
   grid-template-areas: 
     'menu header header'
     'menu swiper user'
     'menu offers user';
+  @media (max-width: 1232px) {
+    grid-template-columns: 26% 3fr;
+  }
+  @media (max-width: 1030px) {
+    grid-template-columns: 60px 3fr;
+    // 375 7875%; 75 1575 15 315  3 63
+  }
+  @media (max-width: 730px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    'menu'
+    'swiper'
+    'offers';
 
+    .menu {
+      width: 100% !important;
+      min-height: fit-content !important;
+      &__list {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 1.4rem;
+        padding: 0 1rem;
+        height: fit-content !important;
+
+        li {
+          transform: translateY(-20px);
+        }
+      }
+    }
+  }
   .header {
     grid-area: header;
     height: 40px;
     display: flex;
     align-items: center;
+    @media (max-width: 730px) {
+      display: none;
+    }
     ul {
       display: flex;
       align-items: center;
@@ -28,11 +62,17 @@
   }
   .menu {
     grid-area: menu;
-    overflow-y: scroll;
-    height: 560px;
+    // height: 640px;
+    min-height: 640px;
     background: #fff;
     box-shadow: $shadow-1;
     border-radius: 10px;
+    @media (max-width: 1030px) {
+      width: 60px;
+      svg {
+        transform: scale(1.8);
+      }
+    }
     &__header {
       width: 100%;
       height: 35px;
@@ -42,6 +82,12 @@
       svg {
         height: 23px;
         width: 23px;
+      }
+      @media (max-width: 1030px) {
+       svg,
+       b {
+        display: none;
+       }
       }
     }
     &__list {
@@ -53,6 +99,7 @@
         display: flex;
         align-items: center;
         cursor: pointer;
+
         &:hover {
           background: $grey-color;
         }
@@ -64,9 +111,18 @@
           word-wrap: wrap;
           color: #424141;
           height: 100%;
+          @media (max-width: 1030px) {
+            padding: 0;
+            margin: 0 auto;
+          }
           svg {
             fill: #8c8484;
             stroke: #8c8484;
+          }
+          span {
+            @media (max-width: 1030px) {
+              display: none;
+            }
           }
         }
       }
@@ -80,8 +136,9 @@
     border-radius: 10px;
   }
   .offers {
+    // 1082 - 1232
     grid-area: offers;
-    min-height: 200px;
+    min-height: 240px;
     background: #fff;
     box-shadow: $shadow-1;
     border-radius: 10px;
@@ -93,10 +150,13 @@
   .user {
     grid-area: user;
     position: relative;
-    height: 530px;
+    height: 590px;
     background: #fff;
     box-shadow: $shadow-1;
     border-radius: 10px;
+    @media (max-width: 1232px) {
+      display: none;
+    }
     /* &__header {
       position: absolute;
       top: 0;
