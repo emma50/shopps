@@ -17,7 +17,7 @@ export default function Offers() {
     <div className={styles.offers}>
       <Swiper
         slidesPerView={3}
-        spaceBetween={30}
+        spaceBetween={20}
         pagination={{
           clickable: true,
         }}
