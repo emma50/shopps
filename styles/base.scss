@@ -219,3 +219,19 @@ $shadow-2: rgba(99,99,99,.1) 0px 0px 4px 0px;
   }
   }
 }
+.productsSwiper {
+  .swiper-button-prev,
+  .swiper-button-next {
+    background: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #666;
+    box-shadow: $shadow-1;
+    &::after {
+      transform: scale(1.2);
+    }
+  }
+}

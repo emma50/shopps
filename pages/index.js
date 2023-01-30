@@ -8,10 +8,14 @@ import Main from '../components/home/main'
 import styles from '../styles/Home.module.scss'
 import FlashDeals from '../components/home/flashDeals'
 import Category from '../components/home/category'
+import ProductsSwiper from '../components/productsSwiper'
 import {
   women_dresses,
   women_shoes,
-  women_accessories 
+  women_accessories,
+  women_swiper,
+  gamingSwiper,
+  homeImproveSwiper 
 } from '../data/home'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -57,25 +61,19 @@ export default function Home({ country }) {
               products={women_accessories}
               background={'#000'}
             />
+          </div>
         </div>
-        </div>
-        {/* <div className={styles.home__category}>
-          <Category
-            header={'Dresses'}
-            products={women_dresses}
-            background={'#5a31f4'}
-          />
-          <Category
-            header={'Shoes / High Heels'} 
-            products={women_shoes}
-            background={'#6cc070'}
-          />
-          <Category
-            header={'Accessaries'} 
-            products={women_accessories}
-            background={'#000'}
-          />
-        </div> */}
+        <ProductsSwiper products={women_swiper}/>
+        <ProductsSwiper 
+          products={gamingSwiper} 
+          header={'For Gamers'}
+          background={'#2f82ff'}
+        />
+        <ProductsSwiper 
+          products={homeImproveSwiper} 
+          header={'Home Improvements'}
+          background={'#5a31f4'}
+        />
       </div>
     </div>
     <Footer country={country} />
