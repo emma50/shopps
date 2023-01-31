@@ -44,7 +44,9 @@ const productSchema = new mongoose.Schema({
   },
   slug: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    lowercase: true,
   },
   category: {
     type: ObjectId,
@@ -73,10 +75,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     default: '30 days'
   },
-  /* user: {
-    type: String,
-    required: true
-  }, */
+  user: {
+    type: ObjectId,
+    ref: 'User',
+  },
   rating: {
     type: Number,
     required: true,
