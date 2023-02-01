@@ -11,7 +11,7 @@ import UserMenu from './UserMenu'
 export default function Top({ country }) {
   const { data: session } = useSession()
   const [visible, setVisible] = useState(false)
-  console.log(session, 'SESSION')
+  // console.log(session, 'SESSION')
   
   const flag = '/images/country__flag.jpg'
   return (

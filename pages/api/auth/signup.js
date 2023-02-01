@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import db from '../../../utils/db'
 import validateEmail from "../../../utils/validation";
 import { sendEmail } from "../../../utils/sendEmails";
-import User from "../../../models/users";
+import User from "../../../models/user";
 import { createActivationToken } from "../../../utils/token";
 import { activateEmailTemplate } from "../../../emails/activateEmailTemplate";
 

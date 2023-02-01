@@ -87,7 +87,7 @@ export function UserMenuSwiper() {
 // -------------------------------------------------------
 export default function User() {
   const { data: session } = useSession()
-  console.log(session, 'SESSION')
+  // console.log(session, 'SESSION')
   return (
     <div className={styles.user}>
       <img 

@@ -2,6 +2,8 @@ import { Inter } from '@next/font/google'
 import { useSession, signIn, signOut } from "next-auth/react"
 import axios from 'axios'
 import { useMediaQuery } from 'react-responsive'
+import db from '../utils/db'
+import Product from '../models/product'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import Main from '../components/home/main'
@@ -17,10 +19,13 @@ import {
   gamingSwiper,
   homeImproveSwiper 
 } from '../data/home'
+import ProductCard from '../components/productCard'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ country }) {
+export default function Home({ country, products }) {
+  /* console.log(products)
+  console.log(typeof products) */
   const { data: session } = useSession()
   const isMedium = useMediaQuery({ query: '(max-width: 850px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 550px)' })
@@ -74,6 +79,15 @@ export default function Home({ country }) {
           header={'Home Improvements'}
           background={'#5a31f4'}
         />
+        <div className={styles.products}>
+          {
+            products.map((product, index) => {
+              return (
+                <ProductCard key={index} product={product}/>
+              )
+            })
+          }
+        </div>
       </div>
     </div>
     <Footer country={country} />
@@ -81,6 +95,9 @@ export default function Home({ country }) {
 }
 
 export async function getServerSideProps() {
+  await db.connectDB()
+
+  let products = await Product.find().sort({createdAt: -1}).lean()
   let data;
   let error;
   try {
@@ -106,10 +123,11 @@ export async function getServerSideProps() {
   return {
     props: {
       country: {
-        name: JSON.stringify(data.name),
-        flag: JSON.stringify(data.flag.emojitwo),
-        code: JSON.stringify(data.code)
-      }
+        name: JSON.parse(JSON.stringify(data.name)),
+        flag: JSON.parse(JSON.stringify(data.flag.emojitwo)),
+        code: JSON.parse(JSON.stringify(data.code))
+      },
+      products: JSON.parse(JSON.stringify(products, undefined, 4))
     }
   }
 

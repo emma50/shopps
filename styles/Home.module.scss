@@ -19,4 +19,12 @@
       grid-template-columns: repeat(1, 1fr);
     }
   }
+  .products { 
+    margin-top: 2rem;
+    border-top: 2px solid #222;
+    padding-top: .8rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 }
