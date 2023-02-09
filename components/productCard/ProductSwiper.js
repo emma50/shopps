@@ -30,7 +30,7 @@ export default function ProductSwiper({ images }) {
     >
       <Swiper
         centeredSlides={true}
-        loop={true}
+        // loop={true}
         autoplay={{
           delay: 2500,
           stopOnLastSlide: false
