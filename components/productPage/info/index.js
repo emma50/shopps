@@ -6,7 +6,7 @@ import { BsHandbagFill, BsHeart } from 'react-icons/bs'
 import {TbMinus, TbPlus} from 'react-icons/tb'
 import styles from './info.module.scss'
 import Accordian from './Accordian'
-import Share from '../share'
+import Share from './share'
 import SimillarSwiper from './SimillarSwiper'
 
 export default function Info({ product, setActiveImg }) {
