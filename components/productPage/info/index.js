@@ -10,7 +10,6 @@ import Share from './share'
 import SimillarSwiper from './SimillarSwiper'
 
 export default function Info({ product, setActiveImg }) {
-  console.log(product)
   const router = useRouter()
   const [size, setSize] = useState(router.query.size)
   const [qty, setQty] = useState(1)

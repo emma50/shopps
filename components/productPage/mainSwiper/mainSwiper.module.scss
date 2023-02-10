@@ -6,6 +6,9 @@
     justify-self: flex-start;
     gap: 10px;
   }
+  @media (max-width: 608px) {
+    padding-right: .6rem;
+  }
   @media (min-width: 800px) {
     flex-direction: column;
   }

@@ -9,6 +9,7 @@ import Header from '../../components/header'
 import Footer from '../../components/footer'
 import MainSwiper from '../../components/productPage/mainSwiper'
 import Info from '../../components/productPage/info'
+// import Reviews from '../../components/productPage/reviews'
 
 export default function Product({ product }) {
   const [activeImg, setActiveImg] = useState('')
@@ -33,6 +34,7 @@ export default function Product({ product }) {
             <MainSwiper images={product.images} activeImg={activeImg}/>
             <Info product={product} setActiveImg={setActiveImg}/>
           </div>
+          {/* <Reviews product={product}/> */}
         </div>
       </div>
       <Footer country=''/>
