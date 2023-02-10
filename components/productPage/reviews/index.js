@@ -32,8 +32,6 @@ export default function Reviews({ product }) {
                   >
                     <Rating
                       name='half-rating-read'
-                      // value={rating}
-                      // precision={0.5}
                       defaultValue={`${5 - index}`}
                       readOnly
                       style={{color: '#facf19'}}
@@ -43,7 +41,6 @@ export default function Reviews({ product }) {
                         className={styles.bar_inner} 
                         style={{width: `${rating.percentage}%`}}
                       >
-
                       </div>
                     </div>
                     <span>{rating.percentage}%</span>
