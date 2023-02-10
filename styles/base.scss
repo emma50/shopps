@@ -94,10 +94,16 @@ $shadow-2: rgba(99,99,99,.1) 0px 0px 4px 0px;
   object-fit: cover;
 }
 
-// .swiper {
-//   margin-left: auto;
-//   margin-right: auto;
-// }
+.swiper {
+  margin-left: 0 !important;
+  cursor: pointer;
+  &:hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: grid;
+    }
+  }
+}
 
 .mainSwiper,
 .offersSwiper,
@@ -232,6 +238,23 @@ $shadow-2: rgba(99,99,99,.1) 0px 0px 4px 0px;
     box-shadow: $shadow-1;
     &::after {
       transform: scale(1.2);
+    }
+  }
+}
+
+.simillarSwiper {
+  max-width: 550px;
+  .swiper-pagination {
+    display: none !important;
+  }
+  img {
+    width: 100px;
+    height: 160px;
+    object-fit: cover;
+    cursor: pointer;
+    @media (min-width: 461px) {
+      width: 250px;
+      height: 200px;
     }
   }
 }

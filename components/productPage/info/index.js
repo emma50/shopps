@@ -4,9 +4,10 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { BsHandbagFill, BsHeart } from 'react-icons/bs'
 import {TbMinus, TbPlus} from 'react-icons/tb'
+import styles from './info.module.scss'
 import Accordian from './Accordian'
 import Share from '../share'
-import styles from './info.module.scss'
+import SimillarSwiper from './SimillarSwiper'
 
 export default function Info({ product, setActiveImg }) {
   console.log(product)
@@ -140,6 +141,7 @@ export default function Info({ product, setActiveImg }) {
         </div>
         <Share/>
         <Accordian details={[product.description, ...product.details]}/>
+        <SimillarSwiper/>
       </div>
     </div>
   )
