@@ -9,7 +9,7 @@ import Header from '../../components/header'
 import Footer from '../../components/footer'
 import MainSwiper from '../../components/productPage/mainSwiper'
 import Info from '../../components/productPage/info'
-// import Reviews from '../../components/productPage/reviews'
+import Reviews from '../../components/productPage/reviews'
 
 export default function Product({ product }) {
   const [activeImg, setActiveImg] = useState('')
@@ -34,7 +34,7 @@ export default function Product({ product }) {
             <MainSwiper images={product.images} activeImg={activeImg}/>
             <Info product={product} setActiveImg={setActiveImg}/>
           </div>
-          {/* <Reviews product={product}/> */}
+          <Reviews product={product}/> 
         </div>
       </div>
       <Footer country=''/>
@@ -85,7 +85,24 @@ export async function getServerSideProps(context) {
     price: subProduct.discount > 0 ? priceWithDiscount : subProduct.sizes[size].price.toFixed(2),
     priceBefore: subProduct.sizes[size].price.toFixed(2),
     quantity: subProduct.sizes[size].qty,
-    sortLowestAndHighestPriceWithoutDiscount
+    sortLowestAndHighestPriceWithoutDiscount,
+    ratings: [
+      {
+        'percentage': '78'
+      },
+      {
+        'percentage': '14'
+      },
+      {
+        'percentage': '6'
+      },
+      {
+        'percentage': '4'
+      },
+      {
+        'percentage': '0'
+      },
+    ]
   }
 
   console.log(product)

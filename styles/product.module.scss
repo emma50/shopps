@@ -13,7 +13,8 @@
     position: relative;
     display: grid;
     margin-top: 1rem;
-    padding: 0 .6rem;
+    // padding: 0 .6rem;
+    padding-right: .6rem;
     gap: 1rem;
     @media (min-width: 800px) {
       grid-template-columns: 1fr 350px;
