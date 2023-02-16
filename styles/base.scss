@@ -42,6 +42,9 @@ $shadow-2: rgba(99,99,99,.1) 0px 0px 4px 0px;
   align-items: center;
   gap: 5px;
 }
+.wrap {
+  flex-wrap: wrap;
+}
 .error {
   color: $error-color;
   padding: 10px;

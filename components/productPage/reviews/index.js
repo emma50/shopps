@@ -1,12 +1,14 @@
 import { Rating } from '@mui/material'
+import { useSession, signIn, signOut } from "next-auth/react"
+import AddReview from './AddReview'
 import styles from './reviews.module.scss'
 
 export default function Reviews({ product }) {
-  console.log('PRODUCTTT', product)
+  const { data: session } = useSession()
   return (
     <div className={styles.reviews}>
       <div className={styles.reviews_container}>
-        Customer reviews ({product.reviews.length})
+        <h3>Customer reviews ({product.reviews.length})</h3>
         <div className={styles.reviews__stats}>
           <div className={styles.reviews__stats_overview}>
             <span>Average rating</span>
@@ -32,7 +34,7 @@ export default function Reviews({ product }) {
                   >
                     <Rating
                       name='half-rating-read'
-                      defaultValue={`${5 - index}`}
+                      defaultValue={Number(`${5 - index}`)}
                       readOnly
                       style={{color: '#facf19'}}
                     />
@@ -50,6 +52,16 @@ export default function Reviews({ product }) {
             }
           </div>
         </div>
+        {
+          session 
+          ? <AddReview product={product}/> 
+          : <button 
+              className={styles.login_btn}
+              onClick={() => signIn()}
+            >
+              Login to add review
+            </button>
+        }
       </div>
     </div>
   )

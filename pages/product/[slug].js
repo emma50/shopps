@@ -70,13 +70,26 @@ export async function getServerSideProps(context) {
 
   const sortLowestAndHighestPriceWithoutDiscount = `${prices[0].toFixed(2)} - ${prices[prices.length - 1].toFixed(2)}$`
 
+  function flattenArr(arr) {
+    const flattenedArray = [];
+    // Loop over array contents
+    for (let i = 0; i < arr.length; i++) {
+      if (Array.isArray(arr[i])) {
+        flattenedArray.push(...flattenArr(arr[i]));
+      } else {
+        flattenedArray.push(arr[i]);
+      }
+    }
+    return flattenedArray;
+  }
+
   let newProduct = {
     ...product,
     images: subProduct.images,
     sizes: subProduct.sizes,
     discount: subProduct.discount,
     sku: subProduct.sku,
-    color: product.subProducts.map((subProduct) => subProduct.color),
+    colors: product.subProducts.map((subProduct) => subProduct.color),
     /* priceRange: prices.length > 1 ? `From ${prices[0]} to ${prices[prices.length - 1]}$` : '', */
     // ${prices[prices.length - 1] - ((subProduct.discount * prices[prices.length - 1]) / 100).toFixed(2)}$
     priceRange: subProduct.discount 
@@ -102,7 +115,12 @@ export async function getServerSideProps(context) {
       {
         'percentage': '0'
       },
-    ]
+    ],
+    allSizes: flattenArr(product.subProducts.map((subProduct) => subProduct.sizes))
+    .sort((a,b) => a.size - b.size)
+    .filter((ele, index, arr) => {
+      return arr.findIndex((ele2) => ele2.size === ele.size) === index
+    })
   }
 
   console.log(product)
