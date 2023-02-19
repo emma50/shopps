@@ -5,6 +5,7 @@ import db from '../../utils/db'
 import ProductModel from '../../models/product'
 import Category from '../../models/category'
 import SubCategory from '../../models/subCategory'
+import User from '../../models/user'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 import MainSwiper from '../../components/productPage/mainSwiper'
@@ -12,6 +13,7 @@ import Info from '../../components/productPage/info'
 import Reviews from '../../components/productPage/reviews'
 
 export default function Product({ product }) {
+  console.log(product.reviews)
   const [activeImg, setActiveImg] = useState('')
   return (
     <>
@@ -57,6 +59,7 @@ export async function getServerSideProps(context) {
     .populate({ path: 'category', model: Category })
     // .populate({ path: 'subCategories._id', model: SubCategory })
     .populate({ path: 'subCategories', model: SubCategory })
+    .populate({ path: 'reviews.reviewBy', model: User })
     .lean()
   
   const subProduct = product.subProducts[style]

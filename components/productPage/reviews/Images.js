@@ -38,7 +38,6 @@ export default function Images({ images, setImages }) {
         reader.addEventListener('load', (e) => {
           setImages((images) => [...images, e.target.result] )
         })
-        console.log('READER', reader)
       }
     })
   }
@@ -46,7 +45,7 @@ export default function Images({ images, setImages }) {
   const removeImage = (img) => {
     setImages((images) => images.filter((image) => image !== img))
   }
-  console.log('IMAGESSSS', images)
+  
   return (
     <div>
       <input 
