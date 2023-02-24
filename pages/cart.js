@@ -1,28 +1,19 @@
-import Header from '../components/header'
-import Footer from '../components/footer'
+import styles from '../styles/cart.module.scss'
+import Header from '../components/cart/header'
+import Empty from '../components/cart/empty'
 
-const country = {
-  flag: '/images/country__flag.jpg',
-  name: 'Nigeria',
-  code: 'NGN'
-}
-
-export default function Cart() {
+export default function cart() {
+  const cart = []
   return (
     <>
-    <Header country={country}/>
-    <div>cart</div>
-    <div>cart</div>
-    <div>cart</div>
-    <div>cart</div>
-    <div>cart</div>
-    <div>cart</div>
-    <div>cart</div>
-    <div>cart</div>
-    <div>cart</div>
-    <div>cart</div>
-    <div>cart</div>
-    <Footer country={country}/>
+      <Header/>
+      <div className={styles.cart}>
+        {
+          cart.length >= 1 
+          ? <div className={styles.cart__container}></div>
+          : <Empty/>
+        }
+      </div>
     </>
   )
 }
