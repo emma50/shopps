@@ -4,20 +4,67 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { BsHandbagFill, BsHeart } from 'react-icons/bs'
 import {TbMinus, TbPlus} from 'react-icons/tb'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
 import styles from './info.module.scss'
 import Accordian from './Accordian'
 import Share from './share'
 import SimillarSwiper from './SimillarSwiper'
+import { addToCart, updateCart } from '../../../store/cartSlice'
 
 export default function Info({ product, setActiveImg }) {
   const router = useRouter()
+  const dispatch = useDispatch()
   const [size, setSize] = useState(router.query.size)
   const [qty, setQty] = useState(1)
+  const [error, setError] = useState('')
+
+  const cart = useSelector((state) => state.cart)
+  console.log('CARTTTTT', cart)
 
   useEffect(() => {
     setSize('')
     setQty(1)
   }, [router.query.style])
+
+  const addToCartHandler = async () => {
+    if (!router.query.size) {
+      setError('Please select a size')
+      return;
+    }
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=${product.style}&size=${router.query.size}`
+    )
+    if (qty > data.quantity) {
+      setError('The Quantity you have choosen is more than the quantity available in stock. Try a lower quantity.')
+      return;
+    }
+    else if (data.quantity < 1) {
+      setError('This product is out of stock.')
+      return;
+    }
+    else {
+      let _uid = `${data._id}_${product.style}_${router.query.size}`
+      console.log(_uid)
+      let exist = cart.cartItems.find((item) => item._uid === _uid)
+      if (exist) {
+        let newCart = cart.cartItems.map((item) => {
+          if (item._uid === exist._uid) {
+            return {...item, qty}
+          }
+          return;
+        })
+        dispatch(updateCart(newCart))
+      } else {
+        dispatch(addToCart({
+          ...data,
+          size: data.size,
+          qty,
+          _uid,
+        }))
+      }
+    }
+  }
   return (
     <div className={styles.info}>
       <div className={styles.info__container}>
@@ -129,6 +176,7 @@ export default function Info({ product, setActiveImg }) {
           <button
             disabled={product.quantity < 1}
             style={{cursor: `${product.quantity < 1 ? 'not-allowed' : 'pointer'}`}}
+            onClick={() => addToCartHandler()}
           >
             <BsHandbagFill/>
             <b>ADD TO CART</b>
@@ -138,6 +186,9 @@ export default function Info({ product, setActiveImg }) {
             WISHLIST
           </button>
         </div>
+        {
+          error && <span className={styles.error}>{error}</span>
+        }
         <Share/>
         <Accordian details={[product.description, ...product.details]}/>
         <SimillarSwiper/>

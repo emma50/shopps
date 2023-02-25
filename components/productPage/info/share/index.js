@@ -21,7 +21,6 @@ import {
 import styles from './share.module.scss'
 
 export default function Share() {
-  console.log(window?.location.href)
   return (
     <div className={styles.share}>
       <FacebookShareButton url={window?.location.href}>

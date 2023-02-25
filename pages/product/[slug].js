@@ -13,7 +13,6 @@ import Info from '../../components/productPage/info'
 import Reviews from '../../components/productPage/reviews'
 
 export default function Product({ product }) {
-  console.log(product.reviews)
   const [activeImg, setActiveImg] = useState('')
   return (
     <>
@@ -88,6 +87,7 @@ export async function getServerSideProps(context) {
 
   let newProduct = {
     ...product,
+    style,
     images: subProduct.images,
     sizes: subProduct.sizes,
     discount: subProduct.discount,

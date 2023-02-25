@@ -4,7 +4,6 @@ import styles from './reviews.module.scss'
 
 export default function Review({ review }) {
   const { name, image } = review.reviewBy
-  console.log(typeof name)
   return (
     <div className={styles.review}>
       <div className={styles.flex}>
@@ -22,7 +21,8 @@ export default function Review({ review }) {
             readOnly
           />
           <p>{review.review}</p>
-          <p>
+          {/* <p> */}
+          <>
             <span>Overall fit:&nbsp;</span>{review.fit}&nbsp;&nbsp;
             <span>Size:&nbsp;</span>{review.size}&nbsp;&nbsp;
             <div className={styles.flex}>
@@ -32,7 +32,8 @@ export default function Review({ review }) {
                 className={styles.review__img}
               />
             </div>
-          </p>
+          </>
+          {/* </p> */}
         </div>
       </div>
       <div className={styles.flex}>
