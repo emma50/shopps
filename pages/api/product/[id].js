@@ -20,7 +20,9 @@ handler.get(async (req, res) => {
     const product = await Product.findById(id).lean()
     const discount = product.subProducts[style].discount
     const priceBefore = product.subProducts[style].sizes[size].price.toFixed(2)
-    const price = discount ?  (priceBefore - ((priceBefore * discount) / 100)).toFixed(2) : priceBefore
+    const price = discount 
+      ? (priceBefore - ((priceBefore * discount) / 100)).toFixed(2) 
+      : priceBefore
     
     res.status(200).json({
       _id: product._id,

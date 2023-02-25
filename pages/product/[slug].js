@@ -45,8 +45,7 @@ export default function Product({ product }) {
 
 export async function getServerSideProps(context) { 
   const { query } = context
-  console.log(query)
-  // const { slug, style } = query
+  
   const slug = query.slug
   const style = query.style
   const size = query.size || 0
@@ -93,8 +92,6 @@ export async function getServerSideProps(context) {
     discount: subProduct.discount,
     sku: subProduct.sku,
     colors: product.subProducts.map((subProduct) => subProduct.color),
-    /* priceRange: prices.length > 1 ? `From ${prices[0]} to ${prices[prices.length - 1]}$` : '', */
-    // ${prices[prices.length - 1] - ((subProduct.discount * prices[prices.length - 1]) / 100).toFixed(2)}$
     priceRange: subProduct.discount 
       ? `From ${priceWithDiscount} to ${hightestPriceWithDiscount}$`
       : `From ${prices[0].toFixed(2)} to ${prices[prices.length - 1].toFixed(2)}$`,
@@ -126,9 +123,6 @@ export async function getServerSideProps(context) {
     })
   }
 
-  console.log(product)
-  console.log('................................................................................')
-  console.log(newProduct)
   await db.disconnectDB()
   return {
     props: {

@@ -26,8 +26,6 @@ export default function Reset({ userId }) {
   const [success, setSuccess] = useState('')
   const [password, setPassword] = useState('')
   const [conf_password, setConf_password] = useState('')
-  
-  // const router = useRouter()
 
   const passwordValidation = Yup.object({
     password: Yup.string()

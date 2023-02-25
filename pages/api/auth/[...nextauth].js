@@ -43,7 +43,6 @@ export default NextAuth({
         // Add logic here to look up the user from the credentials supplied
         const { email, password } = credentials
         const user = await User.findOne({ email })
-        console.log(user, 'USERRRRRRRRRRRRR')
         
         if (user) {
           return signinUser({ password, user })

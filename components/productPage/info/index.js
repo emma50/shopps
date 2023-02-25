@@ -20,7 +20,6 @@ export default function Info({ product, setActiveImg }) {
   const [error, setError] = useState('')
 
   const cart = useSelector((state) => state.cart)
-  console.log('CARTTTTT', cart)
 
   useEffect(() => {
     setSize('')
@@ -45,7 +44,6 @@ export default function Info({ product, setActiveImg }) {
     }
     else {
       let _uid = `${data._id}_${product.style}_${router.query.size}`
-      console.log(_uid)
       let exist = cart.cartItems.find((item) => item._uid === _uid)
       if (exist) {
         let newCart = cart.cartItems.map((item) => {
