@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
+import { createLogger } from 'redux-logger'
 // import storage from "redux-persist/lib/storage";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { persistReducer } from "redux-persist";
@@ -24,21 +25,33 @@ const storage = typeof window !== "undefined"
   ? createWebStorage('local')
   : createNoopStorage();
 
-const reducers = combineReducers({
-  cart
-})
-
 const rootPersistConfig = {
   key: 'root',
   storage,
+  whitelist: [
+    'cart'
+  ],
+  debug: true
 }
+
+const cartPersistConfig = {
+  key: 'cart',
+  storage,
+  whitelist: [
+    'cartItems'
+  ]
+}
+
+const reducers = combineReducers({
+  cart: persistReducer(cartPersistConfig, cart)
+})
 
 const reducer = persistReducer(rootPersistConfig, reducers)
 
 const store = configureStore({
   reducer,
   devTools: process.env.NODE_ENV !== 'production',
-  middleware: [thunk]
+  middleware: [thunk, createLogger()]
 })
 
 export default store;

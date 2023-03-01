@@ -1,0 +1,35 @@
+@import '../base';
+
+.cart {
+  &__method {
+    h2 {
+      &:last-of-type {
+        margin-top: 10px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+.images {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e8e7e7;
+  img {
+    width: 40px;
+  }
+}
+.protection {
+  margin-top: 5px;
+  display: flex;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #222;
+  img {
+    height: 25px;
+    width: 25px;
+  }
+}
