@@ -8,8 +8,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-// import styles from './main.module.scss'
-
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
 

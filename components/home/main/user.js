@@ -17,45 +17,6 @@ import "swiper/css/effect-cards";
 // import required modules
 import { EffectCards, Navigation } from "swiper";
 
-// const iconsArray = [
-//   {
-//     icon: 'IoSettingsOutline',
-//     href: ''
-//   },
-//   {
-//     icon: 'HiOutlineClipboard',
-//     href: ''
-//   },
-//   {
-//     icon: 'AiOutlineMessage',
-//     href: ''
-//   },
-//   {
-//     icon: 'BsHeart',
-//     href: ''
-//   }
-// ]
-
-// export function UserMenuLink() {
-//   return (
-//     <>
-//       <li>
-//         {
-//           iconsArray.map((icon, index) => {
-//             return (
-//             <Link href={icon.href} legacyBehavior key={index}>
-//               <a href={icon.href}>
-//                 <icon.icon/>
-//               </a>
-//             </Link>
-//             )
-//           })
-//         }
-//       </li>
-//     </>
-//   )
-// }
-
 export function UserMenuSwiper() {
   return (
     <>

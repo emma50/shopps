@@ -21,7 +21,6 @@ export default function Review({ review }) {
             readOnly
           />
           <p>{review.review}</p>
-          {/* <p> */}
           <>
             <span>Overall fit:&nbsp;</span>{review.fit}&nbsp;&nbsp;
             <span>Size:&nbsp;</span>{review.size}&nbsp;&nbsp;

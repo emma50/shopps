@@ -6,6 +6,7 @@ import { SessionProvider } from "next-auth/react"
 import "swiper/css/bundle";
 import '../styles/globals.scss'
 import store from '../store/index'
+import DotLoaderSpinner from '../components/loaders/dotLoaders'
 
 const persistor = persistStore(store)
 
@@ -20,7 +21,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
       </Head>
       <SessionProvider session={session}>
         <Provider store={store}>
-          <PersistGate loading={'Loading.....'} persistor={persistor}>
+          <PersistGate loading={<DotLoaderSpinner loading={true}/>} persistor={persistor}>
             <Component {...pageProps} />
           </PersistGate>
         </Provider>
