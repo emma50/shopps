@@ -33,9 +33,6 @@ const cartSchema = new mongoose.Schema({
   cartTotal: {
     type: Number
   },
-  /* totalAfterDiscount: {
-    type: Number
-  }, */
   user: {
     type: ObjectId,
     ref: 'User'

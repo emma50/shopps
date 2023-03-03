@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { useSession, signIn, getSession } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import styles from '../styles/cart.module.scss'
@@ -24,8 +24,7 @@ export default function Cart() {
   const [shippingFee, setShippingFee] = useState(0)
   const [subTotal, setSubTotal] = useState(0)
   const [total, setTotal] = useState(0)
-  console.log('USESESSION--> ', useSession())
-  console.log('GETSESSION--> ', getSession())
+ 
   useEffect(() => {
     setShippingFee(selected.reduce((acc, value) => acc + value.shipping, 0))
     setSubTotal(selected.reduce((acc, value) => acc + (value.price * value.qty), 0))
@@ -70,7 +69,6 @@ export default function Cart() {
               <div className={styles.cart__products}>
                 {
                   cart.cartItems.map((product) => {
-                    console.log('CARTTTTPRODUCT----> ', product)
                     return (
                       <Product 
                         product={product} 

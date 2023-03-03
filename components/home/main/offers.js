@@ -29,10 +29,6 @@ export default function Offers() {
           offers.map((offer, index) => {
             return (
               <SwiperSlide key={index}>
-                {/* <img 
-                    src={`${offer.image}`}
-                    alt={'offer'}
-                  /> */}
                 <Link href={offer.image}>
                   <img 
                     src={`${offer.image}`}

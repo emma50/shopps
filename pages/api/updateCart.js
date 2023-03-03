@@ -13,7 +13,6 @@ const handler = nc({
 })
 
 handler.post(async (req, res) => {
-  console.log('REQUEST', req.body)
   try {
     await db.connectDB()
 

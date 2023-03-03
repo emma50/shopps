@@ -50,8 +50,6 @@ export async function getServerSideProps(context) {
   const style = query.style
   const size = query.size || 0
 
-  console.log('TYPEOFSIZE--->', typeof size, size)
-
   await db.connectDB()
 
   const product = await ProductModel
@@ -97,7 +95,9 @@ export async function getServerSideProps(context) {
     priceRange: subProduct.discount 
       ? `From ${priceWithDiscount} to ${hightestPriceWithDiscount}$`
       : `From ${prices[0].toFixed(2)} to ${prices[prices.length - 1].toFixed(2)}$`,
-    price: subProduct.discount > 0 ? priceWithDiscount : subProduct.sizes[size].price.toFixed(2),
+    price: subProduct.discount > 0 
+      ? priceWithDiscount 
+      : subProduct.sizes[size].price.toFixed(2),
     priceBefore: subProduct.sizes[size].price.toFixed(2),
     quantity: subProduct.sizes[size].qty,
     sortLowestAndHighestPriceWithoutDiscount,

@@ -24,7 +24,6 @@ import ProductCard from '../components/productCard'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ country, products }) {
-  console.log('ALLLPRODUCTSSS--->', products)
   const { data: session } = useSession()
   const isMedium = useMediaQuery({ query: '(max-width: 850px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 550px)' })
@@ -129,5 +128,4 @@ export async function getServerSideProps() {
       products: JSON.parse(JSON.stringify(products, undefined, 4))
     }
   }
-
 }

@@ -19,8 +19,8 @@ handler.post(async (req, res) => {
     await db.connectDB()
 
     const { cart, userId } = req.body
+    
     let products = []
-    console.log('ALLPRODUCTSINDB--->', await Product.find({}))
     let user = await User.findById(userId)
 
     const existingCart = await Cart.findOne({ user: userId })
@@ -45,7 +45,7 @@ handler.post(async (req, res) => {
       let price = Number(
         subProduct.sizes.find((item) => item.size === cart[i].size).price
       )
-      
+
       tempProduct.price = subProduct.discount 
         ? (price - ((price * subProduct.discount) / 100)).toFixed(2)
         : price.toFixed(2)
