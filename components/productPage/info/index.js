@@ -48,12 +48,10 @@ export default function Info({ product, setActiveImg }) {
       
       if (exist) {
         let newCart = cart.cartItems.map((item) => {
-          console.log('CARTITEMMSSSSSSS', cart.cartItems)
-          console.log('NEWWWWWWWWWWW', item._uid)
           if (item._uid === exist._uid) {
             return {...item, qty}
           }
-          return;
+          return item;
         })
         dispatch(updateCart(newCart))
       } else {
@@ -84,22 +82,22 @@ export default function Info({ product, setActiveImg }) {
         </div>
         <div className={styles.info__price}>
           {
-            size >= 0
+            size
             ? <h1>{product.price}</h1>
             : <h2>{product.priceRange}</h2>
           } 
           {
             product.discount > 0
             ? <h3>
-              <span>
-                {
-                  size >= 0
-                  ? `${product.priceBefore}`
-                  : `${product.sortLowestAndHighestPriceWithoutDiscount}`
-                }$
-              </span>
-              <span>(-{product.discount}%)</span>
-            </h3>
+                <span>
+                  {
+                    size
+                    ? `${product.priceBefore}`
+                    : `${product.sortLowestAndHighestPriceWithoutDiscount}`
+                  }$
+                </span>
+                <span>(-{product.discount}%)</span>
+              </h3>
             : ''
           }
         </div>
@@ -113,7 +111,7 @@ export default function Info({ product, setActiveImg }) {
         {' '}
         <span>
           {
-            size >= 0
+            size
             ? product.quantity
             : `A total of ${product.sizes.reduce((start, next) => start + next.qty, 0)}`
           }{' '}pieces available.
@@ -130,7 +128,7 @@ export default function Info({ product, setActiveImg }) {
                   >
                     <div 
                       className={`${styles.info__sizes_size} ${index === Number(router.query.size) ? styles.active_size : ''}`}
-                      onClick={() => setSize(index)}
+                      onClick={() => setSize(size.size)}
                     >
                       {size.size}
                     </div>
@@ -169,14 +167,19 @@ export default function Info({ product, setActiveImg }) {
           </button>
           <span>{qty}</span>
           <button 
-            onClick={() => qty < product.quantity ? setQty((prev) => prev + 1) : setQty(product.quantity)}>
+            onClick={
+              () => qty < product.quantity ? setQty((prev) => prev + 1) : setQty(product.quantity)
+            }
+          >
             <TbPlus/>
           </button>
         </div>
         <div className={styles.info__actions}>
           <button
             disabled={product.quantity < 1}
-            style={{cursor: `${product.quantity < 1 ? 'not-allowed' : 'pointer'}`}}
+            style={{
+              cursor: `${product.quantity < 1 ? 'not-allowed' : 'pointer'}`
+            }}
             onClick={() => addToCartHandler()}
           >
             <BsHandbagFill/>

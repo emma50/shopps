@@ -50,6 +50,8 @@ export async function getServerSideProps(context) {
   const style = query.style
   const size = query.size || 0
 
+  console.log('TYPEOFSIZE--->', typeof size, size)
+
   await db.connectDB()
 
   const product = await ProductModel

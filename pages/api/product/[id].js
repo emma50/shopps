@@ -24,6 +24,8 @@ handler.get(async (req, res) => {
       ? (priceBefore - ((priceBefore * discount) / 100)).toFixed(2) 
       : priceBefore
     
+    await db.disconnectDB()
+    
     res.status(200).json({
       _id: product._id,
       style: Number(style),
