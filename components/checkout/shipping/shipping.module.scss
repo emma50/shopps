@@ -1,0 +1,30 @@
+.shipping {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  .col {
+    display: flex;
+    flex-direction: column;
+    @media (min-width: 700px) {
+      flex-direction: row;
+      gap: 1rem;
+    }
+  }
+  form {
+    width: 100%;
+    button {
+      width: 150px;
+      height: 50px;
+      color: #fff;
+      font-weight: 600;
+      background: #000;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .select {
+      width: 180px;
+      margin-bottom: 1rem;
+    }
+  }
+}

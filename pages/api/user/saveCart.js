@@ -70,7 +70,7 @@ handler.post(async (req, res) => {
     await db.disconnectDB()
 
     return res.status(200).json({
-      message: `You have successfully reset your password.`,
+      message: `You have successfully saved Items to cart.`,
       email: user.email
     })
   } catch(e) {

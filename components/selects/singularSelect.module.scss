@@ -1,0 +1,11 @@
+.select {
+  width: 100%;
+}
+.error__select {
+  background: rgba(250,0,0,0.031) !important;
+  border: 1px solid #cc674f !important;
+}
+.error__msg {
+  color: $error-color;
+  font-size: 13px;
+}
