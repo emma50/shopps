@@ -86,8 +86,7 @@ export default function Shipping({
   }
 
   const saveShippingHandler = async () => {
-    const res = await saveAddress(shipping, user._id)
-    console.log('RES-->', res)
+    const res = await saveAddress(shipping)
     setAddresses([...addresses, res])
     setSelectedAddress(res)
   }

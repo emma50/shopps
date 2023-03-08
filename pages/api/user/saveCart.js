@@ -3,6 +3,7 @@ import db from '../../../utils/db'
 import Cart from '../../../models/cart'
 import Product from '../../../models/product'
 import User from '../../../models/user'
+import authMiddleware from "../../../middleware/auth";
 
 const handler = nc({
   onError: (err, req, res, next) => {
@@ -12,16 +13,16 @@ const handler = nc({
   onNoMatch: (req, res) => {
     res.status(404).end("Page is not found");
   },
-})
+}).use(authMiddleware)
 
 handler.post(async (req, res) => {
   try {
     await db.connectDB()
 
-    const { cart, userId } = req.body
+    const { cart } = req.body
     
     let products = []
-    let user = await User.findById(userId)
+    let user = await User.findById(req.user)
 
     const existingCart = await Cart.findOne({ user: userId })
     if (existingCart) {
