@@ -15,7 +15,7 @@ const authMiddleware = async (req, res, next) => {
     // Not Signed in
     res.status(401).json({ message: 'Not signed in' })
   }
-  res.end()
+  // res.end()
 }
 
 export default authMiddleware

@@ -1,7 +1,5 @@
 import nc from "next-connect";
 import db from '../../../utils/db'
-import Cart from '../../../models/cart'
-import Product from '../../../models/product'
 import User from '../../../models/user'
 import authMiddleware from "../../../middleware/auth";
 
@@ -29,15 +27,16 @@ handler.post(async (req, res) => {
       return res.status(404).json({message: 'User not found'})
     }
 
-    await user.updateOne({
-      $push: {
-        address
-      } 
-    })
-    
-    return res.status(200).json(address)
+    await user.updateOne(
+      { $push: { address: address } }
+    )
+
+    const updatedUser = await User.findById(req.user)
+
+    await db.disconnectDB()
+    return res.status(200).json({ addresses: updatedUser.address })
   } catch(e) {
-    res.status(500).json({ message: e.message })
+    return res.status(500).json({ message: e.message })
   }
 })
 

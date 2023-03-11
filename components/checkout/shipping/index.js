@@ -6,11 +6,17 @@ import { FaIdCard, FaMapMarkerAlt } from 'react-icons/fa'
 import { GiPhone } from "react-icons/gi";
 import { IoMdArrowDropupCircle } from 'react-icons/io'
 import { AiOutlinePlus } from 'react-icons/ai'
+import { IoIosRemoveCircleOutline } from "react-icons/io"
 import styles from './shipping.module.scss'
 import ShippingInput from '../../inputs/shipping';
 import { countries } from '../../../data/countries';
 import SingularSelect from '../../selects/SingularSelect';
-import { saveAddress } from '../../../requests/user';
+import {
+  saveAddress, 
+  changeActiveAddress, 
+  deleteAddress 
+} from '../../../requests/user';
+// import { compareObjects } from '../../../utils/objectsUtils';
 
 const initialValues = {
   firstName: '',
@@ -25,11 +31,10 @@ const initialValues = {
 }
 
 export default function Shipping({ 
-  selectedAddress,
-  setSelectedAddress,
-  user 
+  user,
+  addresses,
+  setAddresses 
 }) {
-  const [addresses, setAddresses] = useState(user?.address || [])
   const [shipping, setShipping] = useState(initialValues)
   const [visible, setVisible] = useState(user?.address.length ? false : true)
   const {
@@ -43,7 +48,7 @@ export default function Shipping({
     state,
     country,
   } = shipping
-
+  
   const shippingValidation = Yup.object({
     firstName: Yup.string()
       .required('First name is required')
@@ -87,20 +92,39 @@ export default function Shipping({
 
   const saveShippingHandler = async () => {
     const res = await saveAddress(shipping)
-    setAddresses([...addresses, res])
-    setSelectedAddress(res)
+    setAddresses(res.addresses)
+  }
+
+  const changeActiveHandler = async (id) => {
+    const res = await changeActiveAddress(id)
+    setAddresses(res.addresses)
+  }
+
+  const deleteHandler = async (id) => {
+    const res = await deleteAddress(id)
+    setAddresses(res.addresses)
   }
 
   return (
     <div className={styles.shipping}>
+      <div className={styles.header}>
+        <h2>Shipping Information</h2>
+      </div>
       <div className={styles.addresses}>
         {
           addresses.length > 0 &&
           addresses.map((address, index) => (
-            <div 
-              className={`
-                ${styles.address} ${addresses === selectedAddress && styles.active}`} 
-                key={index}
+            <div key={index} style={{position: 'relative'}}>
+              <div 
+                className={styles.address__delete}
+                onClick={() => deleteHandler(address._id)}
+                style={{zIndex: 2, cursor: 'pointer'}}
+              >
+                <IoIosRemoveCircleOutline/>
+              </div>
+              <div 
+                className={`${styles.address} ${address.active && styles.active}`} 
+                onClick={() => changeActiveHandler(address._id)}
               >
                 <div className={styles.address__side}>
                   <img src={user.image} alt="" />
@@ -113,6 +137,7 @@ export default function Shipping({
                   </span>
                   <span>
                     <GiPhone/>
+                    {address.phoneNumber}
                   </span>
                 </div>
                 <div className={styles.address__col}>
@@ -121,15 +146,18 @@ export default function Shipping({
                     {address.address1}
                   </span>
                   <span>{address.address2 && address.address2}</span>{' '}
-                  <span>{address.city}, {address.state}, {address.country}</span>
+                  <span>{address.city}, {address.state}, {address.country}</span>{' '}
                   <span>{address.zipCode}</span>
                 </div>
-                <div 
-                  className={styles.active_text}
-                  style={{display: `${selectedAddress === address && "none"}`}}
+                <span 
+                  className={styles.active__text}
+                  style={{
+                    display: `${address.active ? "inline" : 'none'}`     
+                  }}
                 >
                   Active
-                </div>
+                </span>
+              </div>
             </div>
           ))
         }

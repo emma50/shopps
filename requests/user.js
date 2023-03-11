@@ -7,7 +7,7 @@ export const saveCart = async (cart) => {
     })
     return data
   } catch(e) {
-    return response.data.e.message
+    return e.response.data.message
   }
 }
 
@@ -16,8 +16,33 @@ export const saveAddress = async (address) => {
     const { data } = await axios.post('/api/user/saveAddress', {
       address
     })
+    
     return data
   } catch(e) {
-    return response.data.e.message
+    return e.response.data.message
+  }
+}
+
+export const changeActiveAddress = async (id) => {
+  try {
+    const { data } = await axios.put('/api/user/manageAddress', {
+      id
+    })
+    
+    return data
+  } catch(e) {
+    return e.response.data.message
+  }
+}
+
+export const deleteAddress = async (id) => {
+  try {
+    const { data } = await axios.delete('/api/user/manageAddress', {
+      data: { id }
+    })
+  
+    return data
+  } catch(e) {
+    return e.response.data.message
   }
 }
