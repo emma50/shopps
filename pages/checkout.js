@@ -6,6 +6,7 @@ import User from '../models/user'
 import Cart from '../models/cart'
 import Header from '../components/cart/header'
 import Shipping from '../components/checkout/shipping'
+import Products from '../components/checkout/products'
 
 export default function Checkout({ cart, user }) {
   const [addresses, setAddresses] = useState(user?.address || [])
@@ -20,6 +21,7 @@ export default function Checkout({ cart, user }) {
             addresses={addresses}
             setAddresses={setAddresses}
           />
+          <Products cart={cart}/>
         </div>
         <div className={styles.checkout__side}>
 
