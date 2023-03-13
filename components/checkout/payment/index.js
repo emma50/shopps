@@ -2,8 +2,6 @@ import styles from './payment.module.scss'
 import { paymentMethods } from '../../../data/paymentMethods'
 
 export default function Payment({ paymentMethod, setPaymentMethod }) {
-  console.log('PAYMENT------->', paymentMethod)
-  console.log('PAYMENTMETHODS-->', paymentMethods)
   return (
     <div className={styles.payment}>
       <div className={styles.header}>

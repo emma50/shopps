@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from '../styles/checkout.module.scss' 
 import db from '../utils/db'
 import User from '../models/user'
