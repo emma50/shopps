@@ -1,7 +1,5 @@
 import nc from "next-connect";
 import db from '../../../utils/db'
-import Cart from '../../../models/cart'
-import Product from '../../../models/product'
 import User from '../../../models/user'
 import Order from '../../../models/order'
 import authMiddleware from "../../../middleware/auth";
@@ -28,10 +26,6 @@ handler.post(async (req, res) => {
     } = req.body
     
     const user = await User.findById(req.user)
-    console.log('PRODUCTS-->', products, 
-     'SHIPPINGADDRESS-->', shippingAddress,
-     'PAYMENTMETHOD-->', paymentMethod,
-     'TOTAL-->', total)
 
     const newOrder = await new Order({
       user: user._id,
@@ -42,8 +36,6 @@ handler.post(async (req, res) => {
     })
 
     await newOrder.save()
-
-    console.log('NEWORDER', newOrder)
     
     await db.disconnectDB()
 
