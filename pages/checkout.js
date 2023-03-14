@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from '../styles/checkout.module.scss' 
 import db from '../utils/db'
 import User from '../models/user'
@@ -8,11 +8,27 @@ import Header from '../components/cart/header'
 import Shipping from '../components/checkout/shipping'
 import Products from '../components/checkout/products'
 import Payment from '../components/checkout/payment'
+import Summary from '../components/checkout/summary'
 
 export default function Checkout({ cart, user }) {
   const [addresses, setAddresses] = useState(user?.address || [])
   const [paymentMethod, setPaymentMethod] = useState('')
+  const [totalAfterDiscount, setTotalAfterDiscount] = useState('')
+  const [selectedAddress, setSelectedAddress] = useState('')
 
+  useEffect(() => {
+    let check = addresses && addresses.find((address) => {
+      return address.active === true
+    })
+
+    if (check) {
+      setSelectedAddress(check)
+    }
+    else {
+      setSelectedAddress('')
+    }
+  }, [addresses])
+  
   return (
     <>
       <Header/>
@@ -29,6 +45,14 @@ export default function Checkout({ cart, user }) {
           <Payment 
             paymentMethod={paymentMethod}
             setPaymentMethod={setPaymentMethod}
+          />
+          <Summary
+            totalAfterDiscount={totalAfterDiscount}
+            setTotalAfterDiscount={setTotalAfterDiscount}
+            user={user}
+            cart={cart}
+            paymentMethod={paymentMethod}
+            selectedAddress={selectedAddress}
           />
         </div>
       </div>
