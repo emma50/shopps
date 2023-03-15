@@ -21,7 +21,7 @@ export default function Summary({
   const [order_error, setOrder_Error] = useState('')
 
   const router = useRouter()
-// console.log('CART--->', cart)
+
   const validateCoupon = Yup.object({
     coupon: Yup.string().required('Please enter a coupon first!')
   })
@@ -53,12 +53,13 @@ export default function Summary({
         products: cart.products,
         shippingAddress: selectedAddress,
         paymentMethod,
-        total: totalAfterDiscount ? totalAfterDiscount : cart.cartTotal
+        total: totalAfterDiscount ? totalAfterDiscount : cart.cartTotal,
+        totalAfterDiscount: cart.cartTotal,
+        couponApplied: coupon
       })
       console.log(data)
       router.push(`/order/${data.orderId}`)
     } catch(e) {
-      console.log('ERROR--->', e)
       setOrder_Error(e.response.data.message)
     }
   }

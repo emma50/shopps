@@ -22,7 +22,9 @@ handler.post(async (req, res) => {
       products,
       shippingAddress,
       paymentMethod,
-      total
+      total,
+      totalBeforeDiscount,
+      couponApplied
     } = req.body
     
     const user = await User.findById(req.user)
@@ -32,7 +34,9 @@ handler.post(async (req, res) => {
       products,
       shippingAddress,
       paymentMethod,
-      total
+      total,
+      totalBeforeDiscount,
+      couponApplied
     })
 
     await newOrder.save()
