@@ -10,8 +10,8 @@ import Header from "../../components/header";
 import OrderModel from "../../models/order";
 // import User from "../../models/user";
 
-export default function Order({ order }) {
-  console.log('ORDER-->', order)
+export default function Order({ orderData }) {
+  console.log('orderData-->', orderData)
   return (
     <>
       <Header country='Country'/>
@@ -22,11 +22,11 @@ export default function Order({ order }) {
               <div className={styles.order__header_head}>
                 Home <IoIosArrowForward/> 
                 Orders <IoIosArrowForward/> 
-                ID:{' '}{order._id}
+                ID:{' '}{orderData._id}
               </div>
               <div className={styles.order__header_status}>
                 Payment status: {
-                  order.isPaid 
+                  orderData.isPaid 
                   ? <img src='/images/verified.png' alt="paid" /> 
                   : <img src='/images/unverified.png' alt="paid" /> 
                 }
@@ -35,26 +35,26 @@ export default function Order({ order }) {
                 Order status:{' '}
                 <span
                   className={
-                    order.status === 'Not Processed' 
+                    orderData.status === 'Not Processed' 
                     ? styles.not_processed
-                    : order.status === 'Processing' 
+                    : orderData.status === 'Processing' 
                     ? styles.processing
-                    : order.status === 'Dispatched' 
+                    : orderData.status === 'Dispatched' 
                     ? styles.dispatched
-                    : order.status === 'Cancelled' 
+                    : orderData.status === 'Cancelled' 
                     ? styles.cancelled
-                    : order.status === 'Completed' 
+                    : orderData.status === 'Completed' 
                     ? styles.completed
                     : ''
                   }
                 >
-                  {order.status}
+                  {orderData.status}
                 </span>
               </div>
             </div>
             <div className={styles.order__products}>
               {
-                order.products.map((product) => (
+                orderData.products.map((product) => (
                   <div className={styles.product} key={product._id}>
                     <div className={styles.product__img}>
                       <img src={product.image} alt={product.name}></img>
@@ -82,29 +82,29 @@ export default function Order({ order }) {
               }
               <div className={styles.order__products_total}>
                 {
-                  order.couponApplied 
+                  orderData.couponApplied 
                   ? <>
                     <div className={styles.order__products_total_sub}>
                       <span>Subtotal:</span>{' '}
-                      <span>{order.totalBeforeDiscount}$</span>
+                      <span>{orderData.totalBeforeDiscount}$</span>
                     </div>
                     <div className={styles.order__products_total_sub}>
                       <span>
                         Coupon Applied:
                       </span>{' '}
                       <span>
-                        <em>({order.couponApplied})</em>
+                        <em>({orderData.couponApplied})</em>
                       </span>
                     </div>
                     <div className={styles.order__products_total_sub}>
                       <span>Amount Saved:</span>{' '}
                       <span>
-                        {order.totalBeforeDiscount - order.total}$
+                        {orderData.totalBeforeDiscount - orderData.total}$
                       </span>
                     </div>
                     <div className={styles.order__products_total_sub}>
                       <span>Tax Price:</span>{' '}
-                      <span>+{order.taxPrice}$</span>
+                      <span>+{orderData.taxPrice}$</span>
                     </div>
                     <div 
                       className={
@@ -112,13 +112,13 @@ export default function Order({ order }) {
                       }
                     >
                       <span>TOTAL AMOUNT TO PAY:</span>{' '}
-                      <b>{order.total}$</b>
+                      <b>{orderData.total}$</b>
                     </div>
                   </>
                   : <>
                     <div className={styles.order__products_total_sub}>
                       <span>Tax Price:</span>{' '}
-                      <span>+{order.taxPrice}$</span>
+                      <span>+{orderData.taxPrice}$</span>
                     </div>
                     <div 
                       className={
@@ -126,7 +126,7 @@ export default function Order({ order }) {
                       }
                     >
                       <span>TOTAL AMOUNT TO PAY:</span>{' '}
-                      <b>{order.total}$</b>
+                      <b>{orderData.total}$</b>
                     </div>
                   </>
                 }
@@ -138,42 +138,42 @@ export default function Order({ order }) {
               <h1>Customer&#39;s order</h1>
               <div className={styles.order__address_user}>
                 <div className={styles.order__address_user_info}>
-                  <img src={order.user.image} alt="" />
+                  <img src={orderData.user.image} alt="" />
                   <div>
-                    <span>{order.user.name}</span>
-                    <span>{order.user.email}</span>
+                    <span>{orderData.user.name}</span>
+                    <span>{orderData.user.email}</span>
                   </div>
                 </div>
               </div>
               <div className={styles.order__address_shipping}>
                 <h2>Shipping Address</h2>
                 <span>
-                  {order.shippingAddress.firstName}{' '}
-                  {order.shippingAddress.lastName}
+                  {orderData.shippingAddress.firstName}{' '}
+                  {orderData.shippingAddress.lastName}
                 </span>
-                <span>{order.shippingAddress.address1}</span>
-                <span>{order.shippingAddress.address2}</span>
+                <span>{orderData.shippingAddress.address1}</span>
+                <span>{orderData.shippingAddress.address2}</span>
                 <span>
-                  {order.shippingAddress.city},
-                  {order.shippingAddress.state}
+                  {orderData.shippingAddress.city},
+                  {orderData.shippingAddress.state}
                 </span>
-                <span>{order.shippingAddress.zipCode}</span>
-                <span>{order.shippingAddress.country}</span>
+                <span>{orderData.shippingAddress.zipCode}</span>
+                <span>{orderData.shippingAddress.country}</span>
               </div>
               <div className={styles.order__address_shipping}>
                 <h2>Billing Address</h2>
                 <span>
-                  {order.shippingAddress.firstName}{' '}
-                  {order.shippingAddress.lastName}
+                  {orderData.shippingAddress.firstName}{' '}
+                  {orderData.shippingAddress.lastName}
                 </span>
-                <span>{order.shippingAddress.address1}</span>
-                <span>{order.shippingAddress.address2}</span>
+                <span>{orderData.shippingAddress.address1}</span>
+                <span>{orderData.shippingAddress.address2}</span>
                 <span>
-                  {order.shippingAddress.city},
-                  {order.shippingAddress.state}
+                  {orderData.shippingAddress.city},
+                  {orderData.shippingAddress.state}
                 </span>
-                <span>{order.shippingAddress.zipCode}</span>
-                <span>{order.shippingAddress.country}</span>
+                <span>{orderData.shippingAddress.zipCode}</span>
+                <span>{orderData.shippingAddress.country}</span>
               </div>
             </div>
           </div>
@@ -191,7 +191,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      order: JSON.parse(JSON.stringify(order))
+      orderData: JSON.parse(JSON.stringify(order))
     }
   }
 }
