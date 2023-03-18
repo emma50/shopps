@@ -86,6 +86,67 @@
         }
       }
     }
+    &_total {
+      margin-top: 1rem;
+      &_sub {
+        padding: 5px 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        b {
+          font-size: 20px;
+        }
+        em {
+          color: $green-color;
+        }
+      }
+      .bordertop {
+        border-top: 1px solid #eee;
+      }
+    }
+  }
+  &__actions {
+    height: fit-content;
+    box-shadow: $shadow-1;
+    padding: 1rem 0;
+  }
+  &__address {
+    padding: 0 1rem;
+    h1 {
+      font-size: 23px;
+      margin-top: 1rem;
+    }
+    &_user {
+      padding-bottom: 10px;
+      &_info {
+        display: flex;
+        gap: 10px;
+        img {
+          width: 55px;
+          height: 55px;
+          border-radius: 10px;
+          object-fit: cover;
+        }
+        span {
+          display: block;
+          &:first-of-type {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    h2 {
+      color: #40404d;
+      font-size: 17px;
+      margin-top: 10px;
+    }
+    &_shipping {
+      border-top: 1px solid #eee;
+      padding-bottom: 10px;
+      span {
+        display: block;
+      }
+    }
   }
 }
 .not_processed {

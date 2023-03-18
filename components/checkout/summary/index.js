@@ -54,7 +54,7 @@ export default function Summary({
         shippingAddress: selectedAddress,
         paymentMethod,
         total: totalAfterDiscount ? totalAfterDiscount : cart.cartTotal,
-        totalAfterDiscount: cart.cartTotal,
+        totalBeforeDiscount: cart.cartTotal,
         couponApplied: coupon
       })
       console.log(data)
