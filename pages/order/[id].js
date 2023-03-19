@@ -1,17 +1,97 @@
 import { IoIosArrowForward } from "react-icons/io";
-// import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useReducer, useEffect } from "react";
 import axios from "axios";
 import { getSession } from "next-auth/react";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import db from "../../utils/db";
-// import StripePayment from "../../components/stripePayment";
+import StripePayment from "../../components/stripePayment";
 import styles from "../../styles/order.module.scss";
 import Header from "../../components/header";
 import OrderModel from "../../models/order";
-// import User from "../../models/user";
 
-export default function Order({ orderData }) {
-  console.log('orderData-->', orderData)
+function reducer(state, action) {
+  switch(action.type) {
+    case 'PAY_REQUEST':
+      return {...state, loading: true};
+    case 'PAY_SUCCESS':
+      return {...state, loading: false, success: true};
+    case 'PAY_FAIL':
+      return {...state, loading: false, success: false, error: action.payload};
+    case 'PAY_RESET':
+      return {...state, loading: false, success: false, error: ''};
+  }
+}
+
+export default function Order({
+  orderData,
+  paypal_client_id,
+  stripe_public_key
+}) {
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+  const [state, dispatch] = useReducer(reducer, { 
+    loading: false, 
+    order: {}, 
+    error: '',
+    success: false,
+  })
+
+  useEffect(() => {
+    if (!orderData._id || state.success) {
+      if (state.success) {
+        dispatch({ type: 'PAY_RESET' })
+      }
+    } else {
+      paypalDispatch({
+        type: "resetOptions",
+        value: {
+          "client-id": paypal_client_id,
+          currency: "USD",
+        },
+      })
+      paypalDispatch({
+        type: "setLoadingStatus",
+        value: "pending",
+      });
+    }
+  }, [orderData])
+
+  const createOrderHandler = (data, actions) => {
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            amount: {
+              value: orderData.total,
+            },
+          },
+        ],
+      })
+      .then((order_id) => {
+        console.log('ORDERID--->', order_id)
+        return order_id;
+      });
+  }
+  
+  const onApproveHandler = (data, actions) => {
+    return actions.order.capture().then(async function (details) {
+      console.log('DETAILS--->', details)
+      try {
+        dispatch({ type: "PAY_REQUEST" });
+        const { data } = await axios.put(
+          `/api/order/${orderData._id}/pay`,
+          details
+        );
+        dispatch({ type: "PAY_SUCCESS", payload: data });
+      } catch (error) {
+        dispatch({ type: "PAY_ERROR", payload: error });
+      }
+    });
+  }
+  
+  const onErrorHandler = (error) => {
+    console.log(error);
+  }
+
   return (
     <>
       <Header country='Country'/>
@@ -176,6 +256,34 @@ export default function Order({ orderData }) {
                 <span>{orderData.shippingAddress.country}</span>
               </div>
             </div>
+            {
+              !orderData.isPaid &&
+              <div className={styles.order__payment}>
+                {
+                  orderData.paymentMethod === 'paypal' &&
+                  <div>
+                    {
+                      isPending ?
+                      <span>loading...</span> :
+                      <PayPalButtons
+                        createOrder={createOrderHandler}
+                        onApprove={onApproveHandler}
+                        onError={onErrorHandler}
+                      >
+
+                      </PayPalButtons>
+                    }
+                  </div>
+                }
+                {orderData.paymentMethod === 'credit_card' &&
+                  <StripePayment
+                    total={orderData.total}
+                    order_id={orderData._id}
+                    stripe_public_key={stripe_public_key}
+                  />
+                }
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -184,14 +292,23 @@ export default function Order({ orderData }) {
 }
 
 export async function getServerSideProps(context) {
+  await db.connectDB()
+
   const { query } = context
   const id = query.id
 
   const order = await OrderModel.findById(id).populate('user').lean()
 
+  const paypal_client_id = process.env.PAYPAL_CLIENT_ID
+  const stripe_public_key = process.env.STRIPE_PUBLIC_KEY
+
+  await db.disconnectDB()
+
   return {
     props: {
-      orderData: JSON.parse(JSON.stringify(order))
+      orderData: JSON.parse(JSON.stringify(order)),
+      paypal_client_id,
+      stripe_public_key
     }
   }
 }

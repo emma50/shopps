@@ -3,6 +3,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
 import persistStore from 'redux-persist/lib/persistStore'
 import { SessionProvider } from "next-auth/react"
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import "swiper/css/bundle";
 import '../styles/globals.scss'
 import store from '../store/index'
@@ -22,7 +23,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
       <SessionProvider session={session}>
         <Provider store={store}>
           <PersistGate loading={<DotLoaderSpinner loading={true}/>} persistor={persistor}>
-            <Component {...pageProps} />
+            <PayPalScriptProvider deferLoading={true}>
+              <Component {...pageProps} />
+            </PayPalScriptProvider>
           </PersistGate>
         </Provider>
       </SessionProvider>
