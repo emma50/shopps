@@ -10,4 +10,6 @@ export const uploadImages = async (formData) => {
       }
     }
   )
+
+  return data
 }
