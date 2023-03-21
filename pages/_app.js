@@ -4,6 +4,8 @@ import { Provider } from 'react-redux'
 import persistStore from 'redux-persist/lib/persistStore'
 import { SessionProvider } from "next-auth/react"
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "swiper/css/bundle";
 import '../styles/globals.scss'
 import store from '../store/index'
@@ -24,6 +26,18 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         <Provider store={store}>
           <PersistGate loading={<DotLoaderSpinner loading={true}/>} persistor={persistor}>
             <PayPalScriptProvider deferLoading={true}>
+              <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+              />
               <Component {...pageProps} />
             </PayPalScriptProvider>
           </PersistGate>
