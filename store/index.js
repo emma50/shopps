@@ -6,6 +6,7 @@ import { createLogger } from 'redux-logger'
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { persistReducer } from "redux-persist";
 import cart from './cartSlice'
+import expandSidebar from './expandSlice'
 
 const createNoopStorage = () => {
   return {
@@ -29,7 +30,8 @@ const rootPersistConfig = {
   key: 'root',
   storage,
   whitelist: [
-    'cart'
+    'cart',
+    'expandSidebar'
   ],
   debug: true
 }
@@ -42,8 +44,17 @@ const cartPersistConfig = {
   ]
 }
 
+const expandSidebarPersistConfig = {
+  key: 'expandSidebar',
+  storage,
+  whitelist: [
+    'expandSidebar'
+  ]
+}
+
 const reducers = combineReducers({
-  cart: persistReducer(cartPersistConfig, cart)
+  cart: persistReducer(cartPersistConfig, cart),
+  expandSidebar: persistReducer(expandSidebarPersistConfig, expandSidebar)
 })
 
 const reducer = persistReducer(rootPersistConfig, reducers)
