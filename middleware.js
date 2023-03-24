@@ -9,8 +9,8 @@ export async function middleware(req) {
     secret: process.env.JWT_SECRET,
     secureCookie: process.env.NODE_ENV === "production",
   });
-  console.log('SESSION--->', session)
-  if (session.email === 'dennis@test.com') {
+
+  if (session?.email === 'dennis@test.com') {
     session.role = 'admin'
   }
 

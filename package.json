@@ -51,6 +51,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "sass": "^1.57.1",
+    "slugify": "^1.6.5",
     "stripe": "^11.15.0",
     "swiper": "^8.4.6",
     "yup": "^0.32.11",

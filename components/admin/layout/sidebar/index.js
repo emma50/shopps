@@ -23,12 +23,14 @@ import styles from './sidebar.module.scss'
 
 export default function Sidebar() {
   const { data: session } = useSession()
+  
   const router = useRouter()
   const route = router.pathname.split('/admin/dashboard')[1]
   const dispatch = useDispatch()
+
   const expandSidebar = useSelector((state) => state.expandSidebar)
   const expand = !expandSidebar.expandSidebar
-  console.log('ROUTER-->', route)
+  
   const handleExpand = () => {
     dispatch(toggleSidebar())
   }
@@ -136,7 +138,7 @@ export default function Sidebar() {
             <div className={styles.show}>Categories / Subs</div>
           </div>
           <ul className={styles.sidebar__list}>
-            <li className={route === "categories" ? styles.active : ""}>
+            <li className={router.pathname === "/admin/dashboard/categories" ? styles.active : ""}>
               <Link href={'/admin/dashboard/categories'} legacyBehavior>
                 <a>
                   <MdOutlineCategory />
