@@ -146,7 +146,7 @@ export default function Sidebar() {
                 </a>
               </Link>
             </li>
-            <li className={route === "subCategories" ? styles.active : ""}>
+            <li className={router.pathname === "/admin/dashboard/subCategories" ? styles.active : ""}>
               <Link href={'/admin/dashboard/subCategories'} legacyBehavior>
                 <a>
                   <div style={{ transform: "rotate(180deg)" }}>
@@ -163,7 +163,7 @@ export default function Sidebar() {
             <div className={styles.show}>Coupons</div>
           </div>
           <ul className={styles.sidebar__list}>
-            <li className={route == "coupons" ? styles.active : ""}>
+            <li className={router.pathname === "/admin/dashboard/coupons" ? styles.active : ""}>
               <Link href={'/admin/dashboard/coupons'} legacyBehavior>
                 <a>
                   <RiCoupon3Fill />
