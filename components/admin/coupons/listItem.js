@@ -59,7 +59,7 @@ export default function ListItem({ coupon, setCoupons }) {
       toast.error(error.response.data.message);
     }
   };
-  
+
   return (
     <li className={styles.list__item}>
       <input

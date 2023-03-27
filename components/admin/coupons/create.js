@@ -81,14 +81,14 @@ export default function Create({ setCoupons }) {
               type="text"
               label="Name"
               name="name"
-              placholder="Coupon name"
+              placeholder="Coupon name"
               onChange={(e) => setName(e.target.value)}
             />
             <AdminInput
               type="number"
               label="Discount"
               name="discount"
-              placholder="Discount"
+              placeholder="Discount"
               onChange={(e) => setDiscount(Number(e.target.value))}
             />
             <div className={styles.date_picker}>

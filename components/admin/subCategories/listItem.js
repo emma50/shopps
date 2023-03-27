@@ -7,8 +7,8 @@ import styles from "./categories.module.scss";
 
 export default function ListItem({ subCategory, setSubCategories, categories }) {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [parent, setParent] = useState("");
+  const [name, setName] = useState(subCategory.name);
+  const [parent, setParent] = useState(subCategory.parent.name);
 
   const input = useRef(null);
 
@@ -29,7 +29,7 @@ export default function ListItem({ subCategory, setSubCategories, categories }) 
     try {
       const { data } = await axios.put("/api/admin/subCategory", {
         id,
-        name: name || subCategory.name,
+        name: name,
         parent: parent || subCategory.parent._id,
       });
 
@@ -46,7 +46,7 @@ export default function ListItem({ subCategory, setSubCategories, categories }) 
       <input
         className={open ? styles.open : ""}
         type="text"
-        value={name ? name : subCategory.name}
+        value={name}
         onChange={(e) => setName(e.target.value)}
         disabled={!open}
         ref={input}
@@ -79,8 +79,8 @@ export default function ListItem({ subCategory, setSubCategories, categories }) 
             className={styles.btn}
             onClick={() => {
               setOpen(false);
-              setName("");
-              setParent('')
+              setName(subCategory.name);
+              setParent(subCategory.parent.name)
             }}
           >
             Cancel

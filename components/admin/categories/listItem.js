@@ -7,7 +7,7 @@ import styles from "./categories.module.scss";
 
 export default function ListItem({ category, setCategories }) {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(category.name);
 
   const input = useRef(null);
 
@@ -44,7 +44,7 @@ export default function ListItem({ category, setCategories }) {
       <input
         className={open ? styles.open : ""}
         type="text"
-        value={name ? name : category.name}
+        value={name}
         onChange={(e) => setName(e.target.value)}
         disabled={!open}
         ref={input}
@@ -61,7 +61,7 @@ export default function ListItem({ category, setCategories }) {
             className={styles.btn}
             onClick={() => {
               setOpen(false);
-              setName("");
+              setName(category.name);
             }}
           >
             Cancel
