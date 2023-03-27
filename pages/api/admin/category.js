@@ -2,7 +2,7 @@ import nc from "next-connect";
 import slugify from "slugify";
 import authMiddleWare from "../../../middleware/auth";
 import adminMiddleware from "../../../middleware/admin";
-import Category from "../../../models/Category";
+import Category from "../../../models/category";
 import db from "../../../utils/db";
 
 const handler = nc({
