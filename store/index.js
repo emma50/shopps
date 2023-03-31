@@ -7,6 +7,7 @@ import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { persistReducer } from "redux-persist";
 import cart from './cartSlice'
 import expandSidebar from './expandSlice'
+import dialog from './dialogSlice'
 
 const createNoopStorage = () => {
   return {
@@ -31,7 +32,8 @@ const rootPersistConfig = {
   storage,
   whitelist: [
     'cart',
-    'expandSidebar'
+    'expandSidebar',
+    'dialog'
   ],
   debug: true
 }
@@ -52,9 +54,21 @@ const expandSidebarPersistConfig = {
   ]
 }
 
+const dialogPersistConfig = {
+  key: 'dialog',
+  storage,
+  whitelist: [
+    'show',
+    'header',
+    'msg',
+    'link'
+  ]
+}
+
 const reducers = combineReducers({
   cart: persistReducer(cartPersistConfig, cart),
-  expandSidebar: persistReducer(expandSidebarPersistConfig, expandSidebar)
+  expandSidebar: persistReducer(expandSidebarPersistConfig, expandSidebar),
+  dialog: persistReducer(dialogPersistConfig, dialog)
 })
 
 const reducer = persistReducer(rootPersistConfig, reducers)
