@@ -97,4 +97,26 @@ handler.put(async (req, res) => {
   }
 });
 
+handler.get(async (req, res) => {
+  try {
+    const { category } = req.query;
+    console.log(category);
+
+    if (!category) {
+      return res.json([]);
+    }
+
+    await db.connectDB();
+
+    const results = await SubCategory.find({ parent: category }).select("name");
+    console.log(results);
+
+    await db.disconnectDB();
+    
+    return res.json(results);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
 export default handler;

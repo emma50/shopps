@@ -16,17 +16,21 @@ handler.get(async (req, res) => {
   try {
     await db.connectDB()
 
-    const { id, size, style } = req.query
+    const { id } = req.query
+    const size = req.query.size || 0
+    const style = req.query.style || 0
+
     const product = await Product.findById(id).lean()
     const discount = product.subProducts[style].discount
     const priceBefore = product.subProducts[style].sizes[size].price.toFixed(2)
+
     const price = discount 
       ? (priceBefore - ((priceBefore * discount) / 100)).toFixed(2) 
       : priceBefore
     
     await db.disconnectDB()
     
-    res.status(200).json({
+    return res.status(200).json({
       _id: product._id,
       style: Number(style),
       name: product.name,

@@ -1,16 +1,32 @@
 import { TextField, MenuItem } from '@mui/material'
 import { useField, ErrorMessage } from 'formik'
-import styles from './singularSelect.module.scss'
+import styles from './selects.module.scss'
 
 export default function SingularSelect({
   data,
   placeholder, 
-  handleChange, 
+  handleChange,
+  header,
+  disabled, 
   ...props
 }) {
   const [field, meta] = useField(props)
   return (
-    <div style={{marginBottom: '1rem'}}>
+    <div >
+      {header && (
+        <div
+          className={`${styles.header} ${
+            meta.error ? styles.header__error : ""
+          }`}
+        >
+          <div className={styles.flex} style={{marginBottom: 0}}>
+            {meta.error && (
+              <img src="../../../images/warning.png" alt="warning" />
+            )}
+            {header}
+          </div>
+        </div>
+      )}
       <TextField
         // id="outlined-basic" 
         label={placeholder}
@@ -18,6 +34,7 @@ export default function SingularSelect({
         name={field.name}
         value={field.value}
         select
+        disabled={disabled}
         onChange={handleChange}
         className={
           `${styles.select} ${meta.touched && meta.error && styles.error__select}`

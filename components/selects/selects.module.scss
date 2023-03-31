@@ -1,5 +1,13 @@
+@import '../admin/base';
+
 .select {
   width: 100%;
+  margin-top: .5rem !important;
+  div {
+    div {
+      padding: 1rem;
+    }
+  }
 }
 .error__select {
   background: rgba(250,0,0,0.031) !important;

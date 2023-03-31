@@ -46,7 +46,7 @@ export default function ListItem({ subCategory, setSubCategories, categories }) 
       <input
         className={open ? styles.open : ""}
         type="text"
-        value={name}
+        value={name || subCategory.name}
         onChange={(e) => setName(e.target.value)}
         disabled={!open}
         ref={input}
@@ -62,7 +62,7 @@ export default function ListItem({ subCategory, setSubCategories, categories }) 
           >
             {categories.map((category) => (
               <option 
-                value={category._id} 
+                value={category.name}
                 key={category._id}
               >
                 {category.name}
