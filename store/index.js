@@ -33,7 +33,7 @@ const rootPersistConfig = {
   whitelist: [
     'cart',
     'expandSidebar',
-    'dialog'
+    // 'dialog'
   ],
   debug: true
 }
@@ -54,21 +54,22 @@ const expandSidebarPersistConfig = {
   ]
 }
 
-const dialogPersistConfig = {
-  key: 'dialog',
-  storage,
-  whitelist: [
-    'show',
-    'header',
-    'msg',
-    'link'
-  ]
-}
+// const dialogPersistConfig = {
+//   key: 'dialog',
+//   storage,
+//   whitelist: [
+//     'show',
+//     'header',
+//     'msgs',
+//     'link'
+//   ]
+// }
 
 const reducers = combineReducers({
   cart: persistReducer(cartPersistConfig, cart),
   expandSidebar: persistReducer(expandSidebarPersistConfig, expandSidebar),
-  dialog: persistReducer(dialogPersistConfig, dialog)
+  dialog
+  // dialog: persistReducer(dialogPersistConfig, dialog)
 })
 
 const reducer = persistReducer(rootPersistConfig, reducers)

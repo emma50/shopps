@@ -25,13 +25,6 @@ const Transition = React.forwardRef(
 export default function DialogModal({ type }) {
   const dispatch = useDispatch();
   const { dialog } = useSelector((state) => ({ ...state }));
-  console.log('DIALOG--->', dialog)
-  /* dialog.show = true
-  dialog.header = 'Coming to the club soon'
-  dialog.msgs = [
-    {type: 'error', msg: 'Choose at least two images'},
-    {type: 'success', msg: 'Choose at least two images'}
-  ]  */
 
   const test = dialog.msgs.find((x) => x.type === "error");
 
@@ -43,7 +36,7 @@ export default function DialogModal({ type }) {
     <div
       style={{
         position: "fixed",
-        zIndex: "999999999999999",
+        zIndex: "99999",
       }}
     >
       <Dialog

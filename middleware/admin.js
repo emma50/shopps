@@ -1,5 +1,5 @@
 import { getToken } from "next-auth/jwt";
-import User from "../models/User";
+import User from "../models/user";
 import db from "../utils/db";
 
 const adminMiddleware = async (req, res, next) => {

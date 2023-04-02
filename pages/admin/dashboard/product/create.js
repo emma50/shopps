@@ -11,6 +11,9 @@ import Category from '../../../../models/category'
 import SingularSelect from '../../../../components/selects/SingularSelect'
 import AdminInput from '../../../../components/inputs/admin/'
 import MultipleSelect from '../../../../components/selects/MultipleSelect'
+import Images from '../../../../components/admin/createProduct/images'
+import Colors from '../../../../components/admin/createProduct/colors'
+import Style from '../../../../components/admin/createProduct/style'
 
 const initialState = {
   name: "",
@@ -56,8 +59,7 @@ export default function CreateProduct({ parents, categories }) {
   const [images, setImages] = useState([]);
   const [description_images, setDescription_images] = useState("");
   const [loading, setLoading] = useState(false);
-// console.log('PRODUCTS--->', product)
-// console.log('SUBS--->', subs)
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -145,15 +147,15 @@ export default function CreateProduct({ parents, categories }) {
         >
           {(formik) => (
             <Form>
-              {/* <Images
+              <Images
                 name="imageInputFile"
-                header="Product Carousel Images"
+                header="Product Images Carousel"
                 text="Add images"
                 images={images}
                 setImages={setImages}
                 setColorImage={setColorImage}
-              /> */}
-              <div className={styles.flex}>
+              />
+              <div className={styles.flex}>444444444
                 {product.color.image && (
                   <img
                     src={product.color.image}
@@ -168,18 +170,18 @@ export default function CreateProduct({ parents, categories }) {
                   ></span>
                 )}
               </div>
-              {/* <Colors
+              <Colors
                 name="color"
                 product={product}
                 setProduct={setProduct}
                 colorImage={colorImage}
-              /> */}
-              {/* <Style
+              />
+              <Style
                 name="styleInput"
                 product={product}
                 setProduct={setProduct}
                 colorImage={colorImage}
-              /> */}
+              />
               <SingularSelect
                 name="parent"
                 value={product.parent}
@@ -244,21 +246,6 @@ export default function CreateProduct({ parents, categories }) {
                 placeholder="Product discount"
                 onChange={handleChange}
               />
-              {/* <Sizes
-                sizes={product.sizes}
-                product={product}
-                setProduct={setProduct}
-              /> */}
-             {/*  <Details
-                details={product.details}
-                product={product}
-                setProduct={setProduct}
-              /> */}
-              {/* <Questions
-                questions={product.questions}
-                product={product}
-                setProduct={setProduct}
-              /> */}
               <button
                 className={
                   `${styles.btn} ${styles.btn__primary} ${styles.submit_btn}`
