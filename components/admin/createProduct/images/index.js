@@ -20,7 +20,7 @@ export default function Images({
   const fileInput = useRef(null);
 
   const [meta, field] = useField(props);
-  const { dialog } = useSelector((state) => ({ ...state }));
+  // const { dialog } = useSelector((state) => ({ ...state }));
 
   const handleImages = (e) => {
     let files = Array.from(e.target.files);

@@ -9,13 +9,13 @@ export default function Layout({ children }) {
   const expandSidebar = useSelector((state) => state.expandSidebar)
   const expand = expandSidebar.expandSidebar
 
- /*  const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(hideDialog({
       show: false
     }))
-  }, []) */
+  }, [])
 
   return (
     <div>

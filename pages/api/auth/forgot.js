@@ -1,6 +1,6 @@
 import nc from "next-connect";
 import db from '../../../utils/db'
-import validateEmail from "../../../utils/validation";
+import { validateEmail } from "../../../utils/validation";
 import { sendEmail } from "../../../utils/sendEmails";
 import User from "../../../models/users";
 import { createResetToken } from "../../../utils/token";

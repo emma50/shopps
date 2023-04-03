@@ -17,6 +17,8 @@ import Style from '../../../../components/admin/createProduct/style'
 import Sizes from '../../../../components/admin/createProduct/clickToAdd/Sizes'
 import Details from '../../../../components/admin/createProduct/clickToAdd/Details'
 import Questions from '../../../../components/admin/createProduct/clickToAdd/Questions'
+import { validateCreateProduct } from '../../../../utils/validation'
+import { showDialog } from '../../../../store/dialogSlice'
 
 const initialState = {
   name: "",
@@ -117,14 +119,29 @@ export default function CreateProduct({ parents, categories }) {
       .max(300, "Product name must not exceed 300 characters."),
     brand: Yup.string().required("Please add a brand"),
     category: Yup.string().required("Please select a category."),
-    subCategories: Yup.array().min(
+    /* subCategories: Yup.array().min(
       1,
       "Please select atleast one sub Category."
-    ),
+    ), */
     sku: Yup.string().required("Please add a sku/number"),
     color: Yup.string().required("Please add a color"),
     description: Yup.string().required("Please add a description"),
   });
+
+  const createProduct = async () => {
+    let test = validateCreateProduct(product, images);
+    console.log('TEST--->', test)
+    if (test === "valid") {
+      createProductHandler();
+    } else {
+      dispatch(
+        showDialog({
+          header: "Please follow the instructions.",
+          msgs: test,
+        })
+      );
+    }
+  };
 
   return (
     <div>
