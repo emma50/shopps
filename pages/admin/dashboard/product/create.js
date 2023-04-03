@@ -158,7 +158,7 @@ export default function CreateProduct({ parents, categories }) {
                 setImages={setImages}
                 setColorImage={setColorImage}
               />
-              <div className={styles.flex}>444444444
+              <div className={styles.flex}>
                 {product.color.image && (
                   <img
                     src={product.color.image}
