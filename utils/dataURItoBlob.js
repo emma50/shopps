@@ -8,7 +8,7 @@ export default function dataURItoBlob(dataURI) {
   else {
     byteString = unescape(dataURI.split(",")[1]);
   }
-console.log('BYTESTRING', byteString)
+
   // separate out the mime component
   let mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
   
@@ -18,6 +18,6 @@ console.log('BYTESTRING', byteString)
   for (let i = 0; i < byteString.length; i++) {
     ia[i] = byteString.charCodeAt(i);
   }
-console.log('IA', ia)
+
   return new Blob([ia], { type: mimeString });
 }

@@ -30,17 +30,14 @@ handler.post(async (req, res) => {
   try {
     const { path } = req.body;
 
-    /* let files = Object.values(req.files).flat(); */
     let files = flattenArray(Object.values(req.files))
     let images = [];
-    console.log('FILES-->', files, 'BODY-->', req.body)
 
     for (const file of files) {
       const img = await uploadToCloudinaryHandler(file, path);
       images.push(img);
       removeTmp(file.tempFilePath);
     }
-    console.log('IMAGES--->', images)
 
     return res.json(images);
   } catch (error) {

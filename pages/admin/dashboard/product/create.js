@@ -181,10 +181,7 @@ export default function CreateProduct({ parents, categories }) {
 
       let cloudinary_style_img = await uploadImages(formData);
       style_img = cloudinary_style_img[0].url;
-      console.log('2NDCLOUD->', cloudinary_style_img, '2NDSTYLE->', style_img)
     }
-    console.log('UPLOADEDIMAGES--->', uploaded_images)
-    console.log('STYLE_IMG--->', style_img)
 
     try {
       const { data } = await axios.post("/api/admin/product", {

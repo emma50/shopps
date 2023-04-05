@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const uploadImages = async (formData) => {
-  const res = await axios.post('/api/cloudinary',
+  const { data } = await axios.post('/api/cloudinary',
     formData,
     {
       headers: {
@@ -9,7 +9,6 @@ export const uploadImages = async (formData) => {
       }
     }
   )
-  console.log('RESDATA--->', res)
-  const data = res.data
+  
   return data
 }
