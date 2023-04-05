@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import fs from "fs";
 import fileUpload from "express-fileupload";
 import { imgMiddleware } from "../../../middleware/imgMiddleware";
+import { flattenArray } from "../../../utils/arraysUtils";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -11,15 +12,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-const handler = nc({
-    onError: (err, req, res, next) => {
-      console.error(err.stack);
-      res.status(500).end("Something broke!");
-    },
-    onNoMatch: (req, res) => {
-      res.status(404).end("Page is not found");
-    },
-  })
+const handler = nc()
   .use(
     fileUpload({
       useTempFiles: true,
@@ -27,19 +20,20 @@ const handler = nc({
   )
   .use(imgMiddleware);
 
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// };
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 handler.post(async (req, res) => {
   try {
     const { path } = req.body;
 
-    let files = Object.values(req.files).flat();
+    /* let files = Object.values(req.files).flat(); */
+    let files = flattenArray(Object.values(req.files))
     let images = [];
-    // console.log('FILES-->', files, 'REQ.FILES-->', req.files)
+    console.log('FILES-->', files, 'BODY-->', req.body)
 
     for (const file of files) {
       const img = await uploadToCloudinaryHandler(file, path);
@@ -48,7 +42,7 @@ handler.post(async (req, res) => {
     }
     console.log('IMAGES--->', images)
 
-    return res.json(files);
+    return res.json(images);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });

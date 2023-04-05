@@ -1,4 +1,5 @@
 import fs from "fs";
+import { flattenArray } from "../utils/arraysUtils";
 
 export const imgMiddleware = async (req, res, next) => {
   try {
@@ -6,7 +7,8 @@ export const imgMiddleware = async (req, res, next) => {
       return res.status(400).json({ message: "No files were choosen." });
     }
 
-    let files = Object.values(req.files).flat();
+    // let files = Object.values(req.files).flat();
+    let files = flattenArray(Object.values(req.files))
 
     for (const file of files) {
       //---------------

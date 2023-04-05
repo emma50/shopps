@@ -74,7 +74,7 @@ export default function Sizes({ sizes, product, setProduct }) {
                 name="qty"
                 placeholder={noSize ? "Product Quantity" : "Size Quantity"}
                 min={1}
-                value={size.qty}
+                value={Number(size.qty)}
                 onChange={(e) => handleSize(index, e)}
               />
               <input
@@ -82,7 +82,7 @@ export default function Sizes({ sizes, product, setProduct }) {
                 name="price"
                 placeholder={noSize ? "Product Price" : "Size Price"}
                 min={1}
-                value={size.price}
+                value={Number(size.price)}
                 onChange={(e) => handleSize(index, e)}
               />
               {!noSize ? (
@@ -96,8 +96,8 @@ export default function Sizes({ sizes, product, setProduct }) {
                           ...sizes,
                           {
                             size: "",
-                            qty: "",
-                            price: "",
+                            qty: 0,
+                            price: 0,
                           },
                         ],
                       });

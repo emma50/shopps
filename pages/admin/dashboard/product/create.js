@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
+import { toast } from "react-toastify";
 import styles from '../../../../styles/products.module.scss'
 import Layout from '../../../../components/admin/layout'
 import db from '../../../../utils/db'
@@ -19,6 +20,9 @@ import Details from '../../../../components/admin/createProduct/clickToAdd/Detai
 import Questions from '../../../../components/admin/createProduct/clickToAdd/Questions'
 import { validateCreateProduct } from '../../../../utils/validation'
 import { showDialog } from '../../../../store/dialogSlice'
+import dataURItoBlob from '../../../../utils/dataURItoBlob'
+import { uploadImages } from '../../../../requests/upload'
+
 
 const initialState = {
   name: "",
@@ -38,8 +42,8 @@ const initialState = {
   sizes: [
     {
       size: "",
-      qty: "",
-      price: "",
+      qty: 0,
+      price: 0,
     },
   ],
   details: [
@@ -130,7 +134,7 @@ export default function CreateProduct({ parents, categories }) {
 
   const createProduct = async () => {
     let test = validateCreateProduct(product, images);
-    console.log('TEST--->', test)
+    
     if (test === "valid") {
       createProductHandler();
     } else {
@@ -140,6 +144,63 @@ export default function CreateProduct({ parents, categories }) {
           msgs: test,
         })
       );
+    }
+  };
+
+  let uploaded_images = [];
+  let style_img = "";
+
+  const createProductHandler = async () => {
+    setLoading(true);
+    
+    if (images) {
+      let temp = images.map((img) => {
+        return dataURItoBlob(img);
+      });
+
+      const path = "product images";
+      const formData = new FormData();
+      formData.append("path", path);
+
+      temp.forEach((image) => {
+        formData.append("file", image);
+      });
+
+      uploaded_images = await uploadImages(formData);
+      console.log('1STTEM->', temp, '1STFORMDATA->', Array.from(formData), 'UPLOADED_IMAGES->', uploaded_images)
+    }
+
+    if (product.color.image) {
+      let temp = dataURItoBlob(product.color.image);
+      let path = "product style images";
+    
+      let formData = new FormData();
+      formData.append("path", path);
+      formData.append("file", temp);
+      console.log('2NDTEM->', temp, '2NDFORMDATA->', Array.from(formData))
+
+      let cloudinary_style_img = await uploadImages(formData);
+      style_img = cloudinary_style_img[0].url;
+      console.log('2NDCLOUD->', cloudinary_style_img, '2NDSTYLE->', style_img)
+    }
+    console.log('UPLOADEDIMAGES--->', uploaded_images)
+    console.log('STYLE_IMG--->', style_img)
+
+    try {
+      const { data } = await axios.post("/api/admin/product", {
+        ...product,
+        images: uploaded_images,
+        color: {
+          image: style_img,
+          color: product.color.color,
+        },
+      });
+
+      setLoading(false);
+      toast.success(data.message);
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.response.data.message);
     }
   };
 

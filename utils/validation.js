@@ -53,7 +53,7 @@ export const validateCreateProduct = (product, images) => {
   }
 
   for (var i = 0; i < sizes.length; i++) {
-    if (sizes[i].qty === "" || sizes[i].price === "" || sizes[i].size === "") {
+    if (sizes[i].qty === "" || sizes[i].price === 0 || sizes[i].size === 0) {
       checks.push({
         msg: `Please fill all information on sizes.`,
         type: "error",
