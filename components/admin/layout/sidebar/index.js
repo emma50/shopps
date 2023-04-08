@@ -70,7 +70,7 @@ export default function Sidebar() {
         </div>
         <ul className={styles.sidebar__list}>
           <li className={`${!route ? styles.active : ''}`}>
-            <Link href={'/admin/dasboard'} legacyBehavior>
+            <Link href={'/admin/dashboard'} legacyBehavior>
               <a>
                 <MdSpaceDashboard/>
                 <span className={styles.show}>Dashboard</span>
