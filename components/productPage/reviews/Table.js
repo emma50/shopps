@@ -12,7 +12,6 @@ export default function Table({ reviews, allSizes, colors }) {
   const _DATA = usePagination(reviews, PER_PAGE)
 
   const handleChange = (e, p) => {
-    console.log('PPPPPPPPPPPPPPP', p)
     setPage(p)
     _DATA.jump(p)
   }

@@ -3,20 +3,23 @@ import { AiOutlineLike } from 'react-icons/ai'
 import styles from './reviews.module.scss'
 
 export default function Review({ review }) {
-  const { name, image } = review.reviewBy
+  const image = review.reviewBy?.image
+  const name = review.reviewBy?.name
+
   return (
     <div className={styles.review}>
       <div className={styles.flex}>
         <div className={styles.review__user}>
           <h4>
-            {name.slice(0,1)}***{name.slice(name.length - 1, name.length)}
+            {name?.slice(0,1)}***{name?.slice(name.length - 1, name.length)}
           </h4>
-          <img src={image} alt=""/>
+          {image && <img src={image} alt=""/>}
         </div>
         <div className={styles.review__review}>
           <Rating
             name={'half-rating-read'}
-            defaultValue={review.rating}
+            defaultValue={Number(review.rating)}
+            value={Number(review.rating)}
             style={{color: '#facf19'}}
             readOnly
           />
@@ -48,7 +51,7 @@ export default function Review({ review }) {
             <AiOutlineLike/>
           </div>
           <div className={styles.review__extra_date}>
-            {review?.updatedAt?.slice(0, 10)}
+            {review?.reviewBy?.updatedAt?.slice(0, 10)}
           </div>
         </div>
       </div>

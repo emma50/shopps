@@ -5,7 +5,7 @@ import styles from './header.module.scss'
 
 export default function UserMenu({session}) {
   return (
-    <div className={styles.menu}>
+    <div className={styles.menu} style={{zIndex: '99999'}}>
       <h4>Welcome to Shopps!</h4>
       {session ? 
         <div className={styles.flex}>

@@ -11,9 +11,12 @@ import Footer from '../../components/footer'
 import MainSwiper from '../../components/productPage/mainSwiper'
 import Info from '../../components/productPage/info'
 import Reviews from '../../components/productPage/reviews'
+import { flattenArray } from '../../utils/arraysUtils'
 
 export default function Product({ product }) {
+  console.log('PRODUCT--->', product)
   const [activeImg, setActiveImg] = useState('')
+
   return (
     <>
       <Head>
@@ -65,24 +68,14 @@ export async function getServerSideProps(context) {
     return size.price
   }).sort((a, b) => a - b)
 
-  const priceWithDiscount = (subProduct.sizes[size].price) - ((subProduct.discount * subProduct.sizes[size].price) / 100).toFixed(2)
+  const priceWithDiscount = (subProduct.sizes[size].price) - 
+    ((subProduct.discount * subProduct.sizes[size].price) / 100).toFixed(2)
 
-  const hightestPriceWithDiscount = (prices[prices.length - 1] - ((subProduct.discount * prices[prices.length - 1]) / 100).toFixed(2))
+  const hightestPriceWithDiscount = (prices[prices.length - 1] - 
+    ((subProduct.discount * prices[prices.length - 1]) / 100).toFixed(2))
 
-  const sortLowestAndHighestPriceWithoutDiscount = `${prices[0].toFixed(2)} - ${prices[prices.length - 1].toFixed(2)}$`
-
-  function flattenArr(arr) {
-    const flattenedArray = [];
-    // Loop over array contents
-    for (let i = 0; i < arr.length; i++) {
-      if (Array.isArray(arr[i])) {
-        flattenedArray.push(...flattenArr(arr[i]));
-      } else {
-        flattenedArray.push(arr[i]);
-      }
-    }
-    return flattenedArray;
-  }
+  const sortLowestAndHighestPriceWithoutDiscount = 
+    `${prices[0].toFixed(2)} - ${prices[prices.length - 1].toFixed(2)}$`
 
   let newProduct = {
     ...product,
@@ -92,7 +85,11 @@ export async function getServerSideProps(context) {
     discount: subProduct.discount,
     sku: subProduct.sku,
     colors: product.subProducts.map((subProduct) => subProduct.color),
-    priceRange: subProduct.discount 
+    priceRange: subProduct.sizes.length === 1 && subProduct.discount
+      ? `${priceWithDiscount}$`
+      : subProduct.sizes.length === 1
+      ? `${newProduct.price}$`
+      : subProduct.discount 
       ? `From ${priceWithDiscount} to ${hightestPriceWithDiscount}$`
       : `From ${prices[0].toFixed(2)} to ${prices[prices.length - 1].toFixed(2)}$`,
     price: subProduct.discount > 0 
@@ -118,14 +115,16 @@ export async function getServerSideProps(context) {
         'percentage': '0'
       },
     ],
-    allSizes: flattenArr(product.subProducts.map((subProduct) => subProduct.sizes))
-    .sort((a,b) => a.size - b.size)
-    .filter((ele, index, arr) => {
-      return arr.findIndex((ele2) => ele2.size === ele.size) === index
-    })
+    reviews: product.reviews.reverse(),
+    allSizes: flattenArray(product.subProducts.map((subProduct) => subProduct.sizes))
+      .sort((a,b) => a.size - b.size)
+      .filter((ele, index, arr) => {
+        return arr.findIndex((ele2) => ele2.size === ele.size) === index
+      }),
   }
 
   await db.disconnectDB()
+
   return {
     props: {
       product: JSON.parse(JSON.stringify(newProduct))

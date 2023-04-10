@@ -45,9 +45,10 @@ export default function Select({ property, text, data, handleChange }) {
                 if (text === 'Size') {
                   return (
                     <li key={index}
-                      onClick={() => handleChange(item.size)}
+                      onClick={() => item.size && handleChange(item.size)}
                     >
-                      <span>{item.size}</span>
+                      {/* <span>{item.size}</span> */}
+                      <span>{`${item.size ? item.size : 'No available size'}`}</span>
                     </li>
                   )
                 }

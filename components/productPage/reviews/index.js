@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Rating } from '@mui/material'
 import { useSession, signIn, signOut } from "next-auth/react"
 import AddReview from './AddReview'
@@ -6,6 +7,8 @@ import Table from './Table'
 
 export default function Reviews({ product }) {
   const { data: session } = useSession()
+  const [reviews, setReviews] = useState(product?.reviews)
+
   return (
     <div className={styles.reviews}>
       <div className={styles.reviews_container}>
@@ -55,7 +58,7 @@ export default function Reviews({ product }) {
         </div>
         {
           session 
-          ? <AddReview product={product}/> 
+          ? <AddReview product={product} setReviews={setReviews}/> 
           : <button 
               className={styles.login_btn}
               onClick={() => signIn()}
@@ -64,7 +67,7 @@ export default function Reviews({ product }) {
             </button>
         }
         <Table 
-          reviews={product.reviews} 
+          reviews={reviews} 
           allSizes={product.allSizes} 
           colors={product.colors}
         />
