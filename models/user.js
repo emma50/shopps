@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+const { ObjectId } = mongoose.Schema
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -47,7 +49,18 @@ const userSchema = new mongoose.Schema({
         default: false
       },
     }
-  ]
+  ],
+  wishlist: [
+    {
+      product: {
+        type: ObjectId,
+        ref: "Product",
+      },
+      style: {
+        type: String,
+      },
+    },
+  ],
 }, { timestamps: true });
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);

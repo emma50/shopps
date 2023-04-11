@@ -36,7 +36,7 @@ export default function DialogModal({ type }) {
     <div
       style={{
         position: "fixed",
-        zIndex: "99999",
+        zIndex: "999999999",
       }}
     >
       <Dialog

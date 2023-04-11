@@ -6,18 +6,24 @@ import { BsHandbagFill, BsHeart } from 'react-icons/bs'
 import {TbMinus, TbPlus} from 'react-icons/tb'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
+import { signIn, useSession } from "next-auth/react";
 import styles from './info.module.scss'
 import Accordian from './Accordian'
 import Share from './share'
 import SimillarSwiper from './SimillarSwiper'
 import { addToCart, updateCart } from '../../../store/cartSlice'
+import DialogModal from "../../dialogModal"
+import { showDialog } from '../../../store/dialogSlice'
 
 export default function Info({ product, setActiveImg }) {
+  const { data: session } = useSession();
   const router = useRouter()
   const dispatch = useDispatch()
   const [size, setSize] = useState(router.query.size)
   const [qty, setQty] = useState(1)
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState("");
+  
 
   const cart = useSelector((state) => state.cart)
 
@@ -64,8 +70,48 @@ export default function Info({ product, setActiveImg }) {
       }
     }
   }
+
+  const handleWishlist = async () => {
+    try {
+      if (!session) {
+        return signIn();
+      }
+
+      const { data } = await axios.put("/api/user/wishlist", {
+        product_id: product._id,
+        style: product.style,
+      })
+
+      dispatch(
+        showDialog({
+          header: "Product Added to Whishlist Successfully",
+          msgs: [
+            {
+              msg: data.message,
+              type: "success",
+            },
+          ],
+        })
+      );
+    } catch (error) {
+      console.log(error)
+      dispatch(
+        showDialog({
+          header: "Whishlist Error",
+          msgs: [
+            {
+              msg: error.response.data.message,
+              type: "error",
+            },
+          ],
+        })
+      );
+    }
+  };
+
   return (
     <div className={styles.info}>
+      <DialogModal type={'success'}/>
       <div className={styles.info__container}>
         <h1 className={styles.info__name}>{product.name}</h1>
         <h2 className={styles.info__sku}>{product?.sku}</h2>
@@ -140,7 +186,7 @@ export default function Info({ product, setActiveImg }) {
         </div>
         <div className={styles.info__colors}>
           {
-            product.color && product.color.map((item, index) => {
+            product.colors && product.colors.map((item, index) => {
               return (
                 <span 
                   key={index}
@@ -185,14 +231,13 @@ export default function Info({ product, setActiveImg }) {
             <BsHandbagFill/>
             <b>ADD TO CART</b>
           </button>
-          <button>
+          <button onClick={() => handleWishlist()}>
             <BsHeart/>
             WISHLIST
           </button>
         </div>
-        {
-          error && <span className={styles.error}>{error}</span>
-        }
+        {error && <span className={styles.error}>{error}</span>}
+        {success && <span className={styles.success}>{success}</span>}
         <Share/>
         <Accordian details={[product.description, ...product.details]}/>
         <SimillarSwiper/>
