@@ -20,6 +20,7 @@ export default function Review({ review }) {
             name={'half-rating-read'}
             defaultValue={Number(review.rating)}
             value={Number(review.rating)}
+            precision={0.5}
             style={{color: '#facf19'}}
             readOnly
           />

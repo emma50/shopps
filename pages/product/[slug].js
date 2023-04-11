@@ -85,6 +85,27 @@ export async function getServerSideProps(context) {
     discount: subProduct.discount,
     sku: subProduct.sku,
     colors: product.subProducts.map((subProduct) => subProduct.color),
+    priceBefore: subProduct.sizes[size].price.toFixed(2),
+    quantity: subProduct.sizes[size].qty,
+    sortLowestAndHighestPriceWithoutDiscount,
+    reviews: product.reviews,
+    ratings: [
+      {
+        'percentage': calculatePercentage('5')
+      },
+      {
+        'percentage': calculatePercentage('4')
+      },
+      {
+        'percentage': calculatePercentage('3')
+      },
+      {
+        'percentage': calculatePercentage('2')
+      },
+      {
+        'percentage': calculatePercentage('1')
+      },
+    ],
     priceRange: subProduct.sizes.length === 1 && subProduct.discount
       ? `${priceWithDiscount}$`
       : subProduct.sizes.length === 1
@@ -95,34 +116,31 @@ export async function getServerSideProps(context) {
     price: subProduct.discount > 0 
       ? priceWithDiscount 
       : subProduct.sizes[size].price.toFixed(2),
-    priceBefore: subProduct.sizes[size].price.toFixed(2),
-    quantity: subProduct.sizes[size].qty,
-    sortLowestAndHighestPriceWithoutDiscount,
-    ratings: [
-      {
-        'percentage': '78'
-      },
-      {
-        'percentage': '14'
-      },
-      {
-        'percentage': '6'
-      },
-      {
-        'percentage': '4'
-      },
-      {
-        'percentage': '0'
-      },
-    ],
-    reviews: product.reviews.reverse(),
-    allSizes: flattenArray(product.subProducts.map((subProduct) => subProduct.sizes))
+    allSizes: flattenArray(
+        product.subProducts.map((subProduct) => subProduct.sizes)
+      )
       .sort((a,b) => a.size - b.size)
       .filter((ele, index, arr) => {
         return arr.findIndex((ele2) => ele2.size === ele.size) === index
       }),
   }
 
+  function calculatePercentage(num) {
+    return (
+      (product.reviews.reduce((a, review) => {
+        return (
+          a +
+          (
+            review.rating === Number(num) ||
+            review.rating === Number(num) + 0.5
+          )
+        );
+      }, 0) *
+        100) /
+      product.reviews.length
+    ).toFixed(1);
+  }
+  
   await db.disconnectDB()
 
   return {

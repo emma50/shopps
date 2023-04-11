@@ -82,6 +82,20 @@
     color: #fff;
     cursor: pointer;
   }
+  .submit_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1rem;
+    span {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .disabled {
+    cursor: not-allowed;
+    background: #cccccc4f;
+  }
   &__add {
     margin-top: 1rem;
     padding: 1rem;

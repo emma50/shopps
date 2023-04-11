@@ -7,7 +7,7 @@ import Images from './Images'
 import styles from './reviews.module.scss'
 import Select from './Select'
 import DialogModal from '../../dialogModal'
-import { hideDialog, showDialog } from "../../../store/dialogSlice"
+import { showDialog } from "../../../store/dialogSlice"
 import dataURItoBlob from "../../../utils/dataURItoBlob"
 import { uploadImages } from "../../../requests/upload"
 
@@ -150,10 +150,11 @@ export default function AddReview({ product, setReviews }) {
           style={{color: '#facf19', fontSize: '3rem'}}
         />
         <button 
-          className={styles.submit_btn}
+          className={`${styles.submit_btn} ${loading ? styles.disabled : ''}`}
           onClick={handleSubmit}
+          disabled={loading}
         >
-          Submit review
+          Submit review <span>{loading && <ClipLoader color="#fff" size={32}/>}</span>
         </button>
       </div>
     </div>
