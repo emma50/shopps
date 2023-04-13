@@ -26,23 +26,44 @@ export default function Item({ item, visible, index }) {
         <ul>
           {item.links.map((link, i) => (
             <span key={i}>
-              {<li
-                  className={
-                    (router.query.q || "") ===
-                    slugify(link.name, { lower: true })
-                      ? styles.active
-                      : ""
-                  }
-                >
-                  <Link
-                    legacyBehavior
-                    href={`${link.link}?tab=${index}&q=${slugify(link.name, {
-                      lower: true,
-                    })}`}
+              {
+                link.link.startsWith("/profile/orders") ?
+                  <li
+                    className={
+                      (router.query.q?.split("__")[0] || "") ===
+                        slugify(link.name, { lower: true })
+                          ? styles.active
+                          : ""
+                    }
                   >
-                    <a>{link.name}</a>
-                  </Link>
-                </li>}
+                    <Link
+                      legacyBehavior
+                      href={`${link.link}?tab=${index}&q=${slugify(link.name, {
+                        lower: true,
+                      })}__${link.filter}`}
+                    >
+                      <a>{link.name}</a>
+                    </Link>
+                  </li>
+                 : 
+                  <li
+                    className={
+                      (router.query.q || "") ===
+                      slugify(link.name, { lower: true })
+                        ? styles.active
+                        : ""
+                    }
+                  >
+                    <Link
+                      legacyBehavior
+                      href={`${link.link}?tab=${index}&q=${slugify(link.name, {
+                        lower: true,
+                      })}`}
+                    >
+                      <a>{link.name}</a>
+                    </Link>
+                  </li>
+              }
             </span>
           ))}
         </ul>
