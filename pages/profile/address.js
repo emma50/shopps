@@ -8,7 +8,6 @@ import styles from "../../styles/profile.module.scss";
 
 export default function Addresses({ user, tab }) {
   const [addresses, setAddresses] = useState(user.address.address);
-  console.log('USER-->', user)
 
   return (
     <Layout session={user.user} tab={tab}>

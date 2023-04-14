@@ -8,6 +8,7 @@ import Layout from "../../components/profile/layout";
 import { ordersLinks } from "../../data/profile";
 import Order from "../../models/order";
 import styles from "../../styles/profile.module.scss";
+import db from "../../utils/db";
 
 export default function Orders({ user, tab, orders }) {
   const router = useRouter();
@@ -103,6 +104,8 @@ export async function getServerSideProps(ctx) {
   //------------
   const filter = query.q.split("__")[1];
 
+  await db.connectDB()
+
   let orders = [];
 
   if (!filter) {
@@ -133,6 +136,8 @@ export async function getServerSideProps(ctx) {
       })
       .lean();
   }
+
+  await db.disconnectDB()
 
   return {
     props: {
