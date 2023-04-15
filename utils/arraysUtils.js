@@ -26,3 +26,28 @@ export const flattenArray = (array) => {
 
   return flat;
 }
+
+export const filterArray = (array, property) => {
+  return array
+    .filter((item) => item.name === property)
+    .map((s) => {
+      return s.value;
+    });
+};
+
+export const removeDuplicates = (array) => {
+  return [...new Set(array)];
+};
+
+export const randomize = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  
+  return array
+}
+
+// export const randomize = (array) => {
+//   return [...array].sort(() => 0.5 - Math.random());
+// };
