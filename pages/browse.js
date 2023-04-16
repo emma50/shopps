@@ -15,14 +15,16 @@ import {
   removeDuplicates,
 } from "../utils/arraysUtils";
 import ProductCard from "../components/ProductCard";
+import CategoryFilter from "../components/browse/categoryFilter";
 
 export default function Browse({
   categories,
+  subCategories,
   products,
   country,
 }) {
   const router = useRouter();
-  
+
   return (
     <div className={styles.browse}>
       <div>
@@ -51,6 +53,10 @@ export default function Browse({
             >
               Clear All ({Object.keys(router.query).length})
             </button>
+            <CategoryFilter
+              categories={categories}
+              // subCategories={subCategories}
+            />
           </div>
           <div className={styles.browse__store_products_wrap}>
             <div className={styles.browse__store_products}>
@@ -92,7 +98,7 @@ export async function getServerSideProps(ctx) {
   );
 
   let details = await Product.find({}).distinct("details");
-  
+
   let stylesDb = filterArray(details, "Style");
   let patternsDb = filterArray(details, "Pattern Type");
   let materialsDb = filterArray(details, "Material");
