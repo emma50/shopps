@@ -16,12 +16,16 @@ import {
 } from "../utils/arraysUtils";
 import ProductCard from "../components/ProductCard";
 import CategoryFilter from "../components/browse/categoryFilter";
+import SizesFilter from "../components/browse/sizesFilter";
+import ColorsFilter from "../components/browse/colorsFilter";
 
 export default function Browse({
   categories,
   subCategories,
   products,
   country,
+  sizes,
+  colors
 }) {
   const router = useRouter();
 
@@ -57,6 +61,8 @@ export default function Browse({
               categories={categories}
               // subCategories={subCategories}
             />
+            <SizesFilter sizes={sizes} />
+            <ColorsFilter colors={colors}/>
           </div>
           <div className={styles.browse__store_products_wrap}>
             <div className={styles.browse__store_products}>
