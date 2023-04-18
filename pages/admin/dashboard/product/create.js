@@ -66,7 +66,7 @@ export default function CreateProduct({ parents, categories }) {
   const [subs, setSubs] = useState([])
   const [colorImage, setColorImage] = useState("");
   const [images, setImages] = useState([]);
-  const [description_images, setDescription_images] = useState("");
+  // const [description_images, setDescription_images] = useState("");
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -167,7 +167,6 @@ export default function CreateProduct({ parents, categories }) {
       });
 
       uploaded_images = await uploadImages(formData);
-      console.log('1STTEM->', temp, '1STFORMDATA->', Array.from(formData), 'UPLOADED_IMAGES->', uploaded_images)
     }
 
     if (product.color.image) {
@@ -177,7 +176,6 @@ export default function CreateProduct({ parents, categories }) {
       let formData = new FormData();
       formData.append("path", path);
       formData.append("file", temp);
-      console.log('2NDTEM->', temp, '2NDFORMDATA->', Array.from(formData))
 
       let cloudinary_style_img = await uploadImages(formData);
       style_img = cloudinary_style_img[0].url;

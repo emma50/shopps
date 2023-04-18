@@ -5,8 +5,8 @@ import Link from "next/link";
 // import axios from "axios";
 import styles from "../styles/browse.module.scss";
 import db from "../utils/db";
-import Product from "../models/Product";
-import Category from "../models/Category";
+import Product from "../models/product";
+import Category from "../models/category";
 import Header from "../components/header";
 import SubCategory from "../models/SubCategory";
 import {
@@ -18,6 +18,11 @@ import ProductCard from "../components/ProductCard";
 import CategoryFilter from "../components/browse/categoryFilter";
 import SizesFilter from "../components/browse/sizesFilter";
 import ColorsFilter from "../components/browse/colorsFilter";
+import BrandsFilter from "../components/browse/brandsFilter";
+import StylesFilter from "../components/browse/stylesFilter";
+import PatternsFilter from "../components/browse/patternsFilter";
+import MaterialsFilter from "../components/browse/materialsFilter";
+import GenderFilter from "../components/browse/genderFilter";
 
 export default function Browse({
   categories,
@@ -25,10 +30,14 @@ export default function Browse({
   products,
   country,
   sizes,
-  colors
+  colors,
+  brands,
+  stylesData,
+  patterns,
+  materials
 }) {
   const router = useRouter();
-
+  
   return (
     <div className={styles.browse}>
       <div>
@@ -63,6 +72,11 @@ export default function Browse({
             />
             <SizesFilter sizes={sizes} />
             <ColorsFilter colors={colors}/>
+            <BrandsFilter brands={brands}/>
+            <StylesFilter data={stylesData}/>
+            <PatternsFilter patterns={patterns}/>
+            <MaterialsFilter materials={materials}/>
+            <GenderFilter/>
           </div>
           <div className={styles.browse__store_products_wrap}>
             <div className={styles.browse__store_products}>

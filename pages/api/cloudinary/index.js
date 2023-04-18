@@ -65,7 +65,7 @@ const deleteFromCloudinaryHandler = async (image_id) => {
       if (err) {
         return res.status(400).json({ success: false, err });
       }
-      console.log('DESTROYEDCLOUDINARY--->', res)
+
       resolve(res)
     });
   })
@@ -78,10 +78,12 @@ const uploadToCloudinaryHandler = async (file, path) => {
       file.tempFilePath, { folder: path, }, (err, res) => {
         if (err) {
           removeTmp(file.tempFilePath);
-          console.log(err);
-          return res.status(400).json({ message: "Uploading image to cloudinary failed." });
+        
+          return res.status(400).json({
+            message: "Uploading image to cloudinary failed."
+          });
         }
-        console.log('CLOUDINARYRESPONSE--->', res)
+        
         resolve({
           url: res.secure_url,
           public_url: res.public_id,

@@ -1,9 +1,16 @@
 import nc from "next-connect";
 import slugify from "slugify";
+import fs from 'fs'
 import db from "../../../../utils/db";
-import Product from "../../../../models/Product";
+import Product from "../../../../models/product";
 import authMiddleware from "../../../../middleware/auth";
 import adminMiddleware from "../../../../middleware/admin";
+import { 
+  getBrandImage, 
+  getBrandImageExt,
+  downloadImage 
+} from "../../../../requests/brand";
+import { svgToPng } from "../../../../utils/brand";
 
 const handler = nc()
   .use(authMiddleware)
@@ -36,6 +43,37 @@ handler.post(async (req, res) => {
           },
           { new: true }
         );
+        
+        try {
+          const brandImage = await getBrandImage(parent.brand)
+          const brandImageExt = getBrandImageExt(brandImage)
+          const path = 
+            `${process.cwd()}/public/images/brands/${parent.brand}.${brandImageExt}`
+
+          fs.access(path, fs.F_OK, async (err) => {
+            if (err) {
+              console.error(err)
+              await downloadImage(brandImage, path)
+            }
+          
+            return;
+          })
+
+          await svgToPng(
+            path, 
+            `${process.cwd()}/public/images/brands/${parent.brand}.png`
+          )
+
+          fs.unlink(path, (err) => {
+            if (err) {
+                console.log(err)
+            }
+        
+            console.log(`${path} deleted File successfully.`);
+          });
+        } catch (error) {
+          console.log(error)
+        }
       }
     } 
     else {
@@ -63,8 +101,34 @@ handler.post(async (req, res) => {
 
       await newProduct.save();
 
+      try {
+        const brandImage = await getBrandImage(newProduct.brand)
+        const brandImageExt = getBrandImageExt(brandImage)
+        const path =
+          `${process.cwd()}/public/images/brands/${newProduct.brand}.${brandImageExt}`
+        
+        await downloadImage(brandImage, path)
+
+        await svgToPng(
+          path, 
+          `${process.cwd()}/public/images/brands/${newProduct.brand}.png`
+        )
+
+        fs.unlink(path, (err) => {
+          if (err) {
+              console.log(err)
+          }
+      
+          console.log(`${path} deleted File successfully.`);
+        });
+      } catch (error) {
+        console.log('-----------------------------')
+        console.log(error)
+      }
+
       return res.status(200).json({ message: "Product created Successfully." });
     }
+
     await db.disconnectDB();
   } catch (error) {
     return res.status(500).json({ message: error.message });
