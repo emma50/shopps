@@ -38,11 +38,40 @@ export default function Browse({
   materials
 }) {
   const router = useRouter();
+
+  const filter = ({
+    search,
+    category,
+    brand,
+    style,
+  }) => {
+    const path = router.pathname;
+    const { query } = router;
+
+    // Add query to existing filter query(ies)
+    if (search) query.search = search;
+    if (category) query.category = category;
+    if (brand) query.brand = brand;
+    if (style) query.style = style;
+
+    router.push({
+      pathname: path,
+      query: query,
+    });
+  };
+
+  const searchHandler = (search) => {
+    if (search === "") {
+      filter({ search: {} });
+    } else {
+      filter({ search });
+    }
+  };
   
   return (
     <div className={styles.browse}>
       <div>
-        <Header country={country} />
+        <Header country={country} searchHandler={searchHandler} />
       </div>
       <div className={styles.browse__container}>
         <div>
@@ -94,9 +123,21 @@ export default function Browse({
 }
 
 export async function getServerSideProps(ctx) {
+  const { query } = ctx
+  const searchQuery = query.search || "";
+
+  const search = searchQuery && searchQuery !== ""
+    ? {
+        name: {
+          $regex: searchQuery,
+          $options: "i",
+        },
+      }
+    : {};
+
   await db.connectDB();
   
-  let productsDb = await Product.find({}).sort({createdAt: -1}).lean();
+  let productsDb = await Product.find({...search}).sort({createdAt: -1}).lean();
   
   let products = randomize(productsDb);
   
