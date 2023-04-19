@@ -8,13 +8,13 @@ import db from "../utils/db";
 import Product from "../models/product";
 import Category from "../models/category";
 import Header from "../components/header";
-import SubCategory from "../models/SubCategory";
+import SubCategory from "../models/subCategory";
 import {
   filterArray,
   randomize,
   removeDuplicates,
 } from "../utils/arraysUtils";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/productCard";
 import CategoryFilter from "../components/browse/categoryFilter";
 import SizesFilter from "../components/browse/sizesFilter";
 import ColorsFilter from "../components/browse/colorsFilter";
