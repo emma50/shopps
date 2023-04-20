@@ -3,7 +3,7 @@ import { BsPlusLg } from "react-icons/bs";
 import { FaMinus } from "react-icons/fa";
 import styles from "../browse.module.scss";
 
-export default function BrandsFilter({ brands }) {
+export default function BrandsFilter({ brands, brandHandler }) {
   const [show, setShow] = useState(true);
 
   return (
@@ -18,6 +18,7 @@ export default function BrandsFilter({ brands }) {
               <button
                 key={i}
                 className={`${styles.filter__brand}`}
+                onClick={() => brandHandler(brand)}
               >
                 <img src={`../../../images/brands/${brand}.png`} alt="" />
               </button>

@@ -4,7 +4,7 @@ import { FaMinus } from "react-icons/fa";
 import styles from "../browse.module.scss";
 import Card from "./card";
 
-export default function CategoryFilter({ categories }) {
+export default function CategoryFilter({ categories, categoryHandler }) {
   const [show, setShow] = useState(true);
 
   return (
@@ -17,7 +17,7 @@ export default function CategoryFilter({ categories }) {
           <Card
             key={i}
             category={category}
-
+            categoryHandler={categoryHandler}
           />
         ))}
     </div>

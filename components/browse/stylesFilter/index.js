@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { FaMinus } from "react-icons/fa";
+import { useRouter } from "next/router";
 import styles from "../browse.module.scss";
 
-export default function StyleFilter({ data }) {
+export default function StyleFilter({ data, styleHandler }) {
   const [show, setShow] = useState(true);
+
+  const router = useRouter()
+  const existedStyle = router.query.style
 
   return (
     <div className={styles.filter}>
@@ -18,6 +22,13 @@ export default function StyleFilter({ data }) {
               <div
                 key={i}
                 className={styles.filter__sizes_size}
+                onClick={() => 
+                  styleHandler(
+                    existedStyle ? 
+                      `${existedStyle}_${style}` 
+                      : style
+                  )
+                }
               >
                 <input
                   type="checkbox"

@@ -3,13 +3,13 @@ import { FaMinus } from "react-icons/fa";
 import { useState } from "react";
 import styles from "../browse.module.scss";
 
-export default function Card({ category }) {
+export default function Card({ category, categoryHandler }) {
   const [show, setShow] = useState(false);
 
   return (
     <>
       <section>
-        <li>
+        <li onClick={() => categoryHandler(category._id)}>
           <input
             type="radio"
             name="filter"
