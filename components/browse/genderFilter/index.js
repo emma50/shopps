@@ -3,8 +3,8 @@ import { BsPlusLg } from "react-icons/bs";
 import { FaMinus } from "react-icons/fa";
 import styles from "../browse.module.scss";
 
-export default function GenderFilter() {
-  const genders = ["Men", "Women", "Unisex"];
+export default function GenderFilter({ genderHandler }) {
+  const genders = ["Male", "Female", "Unisex"];
 
   const [show, setShow] = useState(true);
 
@@ -21,6 +21,7 @@ export default function GenderFilter() {
                 key={i}
                 htmlFor={gender}
                 className={styles.filter__sizes_size}
+                onClick={() => genderHandler(gender)}
               >
                 <input
                   type="checkbox"

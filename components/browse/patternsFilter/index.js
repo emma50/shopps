@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { FaMinus } from "react-icons/fa";
+import { useRouter } from "next/router";
 import styles from "../browse.module.scss";
 
-export default function PatternsFilter({ patterns }) {
+export default function PatternsFilter({ patterns, patternHandler }) {
   const [show, setShow] = useState(true);
+
+  const router = useRouter()
+  const existedPattern = router.query.pattern || "";
 
   return (
     <div className={styles.filter}>
@@ -19,6 +23,13 @@ export default function PatternsFilter({ patterns }) {
                 key={i}
                 htmlFor={pattern}
                 className={styles.filter__sizes_size}
+                onClick={() => 
+                  patternHandler(
+                    existedPattern ? 
+                      `${existedPattern}_${pattern}` 
+                      : pattern
+                  )
+                }
               >
                 <input
                   type="checkbox"

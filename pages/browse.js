@@ -45,7 +45,10 @@ export default function Browse({
     brand,
     style,
     size,
-    color
+    color,
+    material,
+    pattern,
+    gender,
   }) => {
     const path = router.pathname;
     const { query } = router;
@@ -57,6 +60,9 @@ export default function Browse({
     if (style) query.style = style;
     if (size) query.size = size;
     if (color) query.color = color;
+    if (material) query.material = material;
+    if (pattern) query.pattern = pattern;
+    if (gender) query.gender = gender;
 
     router.push({
       pathname: path,
@@ -90,6 +96,22 @@ export default function Browse({
 
   const colorHandler = (color) => {
     filter({ color })
+  };
+
+  const patternHandler = (pattern) => {
+    filter({ pattern });
+  };
+
+  const materialHandler = (material) => {
+    filter({ material });
+  };
+
+  const genderHandler = (gender) => {
+    if (gender === "Unisex") {
+      filter({ gender: {} });
+    } else {
+      filter({ gender });
+    }
   };
   
   return (
@@ -129,9 +151,11 @@ export default function Browse({
             <ColorsFilter colors={colors} colorHandler={colorHandler}/>
             <BrandsFilter brands={brands} brandHandler={brandHandler}/>
             <StylesFilter data={stylesData} styleHandler={styleHandler}/>
-            <PatternsFilter patterns={patterns}/>
-            <MaterialsFilter materials={materials}/>
-            <GenderFilter/>
+            <PatternsFilter patterns={patterns} patternHandler={patternHandler}/>
+            <MaterialsFilter materials={materials} materialHandler={materialHandler}/>
+            <GenderFilter 
+              genderHandler={genderHandler}
+            />
           </div>
           <div className={styles.browse__store_products_wrap}>
             <HeadingFilters/>
@@ -152,6 +176,7 @@ export async function getServerSideProps(ctx) {
 
   const searchQuery = query.search || "";
   const categoryQuery = query.category || "";
+  const genderQuery = query.gender || "";
   
   const brandQuery = query.brand?.split("_") || "";
   const brandRegex = `^${brandQuery[0]}`;
@@ -169,56 +194,39 @@ export async function getServerSideProps(ctx) {
   const colorRegex = `^${colorQuery[0]}`;
   const colorSearchRegex = createRegex(colorQuery, colorRegex);
 
-  const search = searchQuery && searchQuery !== ""
-    ? {
-        name: {
-          $regex: searchQuery,
-          $options: "i",
-        },
-      }
-    : {};
+  const patternQuery = query.pattern?.split("_") || "";
+  const patternRegex = `^${patternQuery[0]}`;
+  const patternSearchRegex = createRegex(patternQuery, patternRegex);
+
+  const materialQuery = query.material?.split("_") || "";
+  const materialRegex = `^${materialQuery[0]}`;
+  const materialSearchRegex = createRegex(materialQuery, materialRegex);
 
   const category = categoryQuery && categoryQuery !== "" 
     ? { 
         category: categoryQuery 
       } 
     : {};
+
+  const search = dataQuery(searchQuery, searchQuery, "name")
+  const brand = dataQuery(brandQuery, brandSearchRegex, "brand")
+  const style = dataQuery(styleQuery, styleSearchRegex, "details.value")
+  const size = dataQuery(sizeQuery, sizeSearchRegex, "subProducts.sizes.size")
+  const color = dataQuery(colorQuery, colorSearchRegex, "subProducts.color.color")
+  const pattern = dataQuery(patternQuery, patternSearchRegex, "details.value")
+  const material = dataQuery(materialQuery, materialSearchRegex, "details.value")
+  const gender = dataQuery(genderQuery, genderQuery, "details.value")
   
-  const brand = brandQuery && brandQuery !== "" 
-    ? { 
-        brand: {
-          $regex: brandSearchRegex,
-          $options: "i",
-        },
-      } 
-    : {};
-
-  const style = styleQuery && styleQuery !== ""
-    ? {
-        "details.value": {
-          $regex: styleSearchRegex,
-          $options: "i",
-        },
-      }
-    : {};
-
-  const size = sizeQuery && sizeQuery !== ""
-    ? {
-        "subProducts.sizes.size": {
-          $regex: sizeSearchRegex,
-          $options: "i",
-        },
-      }
-    : {};
-
-  const color = colorQuery && colorQuery !== ""
-    ? {
-        "subProducts.color.color": {
-          $regex: colorSearchRegex,
-          $options: "i",
-        },
-      }
-    : {};
+  function dataQuery(queryType, regexType, queryBy) {
+    return queryType && queryType !== ""
+      ? {
+          [queryBy]: {
+            $regex: regexType,
+            $options: "i",
+          },
+        }
+      : {};
+  }
   
   function createRegex(data, styleRegex) {
     if (data.length > 1) {
@@ -238,6 +246,9 @@ export async function getServerSideProps(ctx) {
     ...style,
     ...size,
     ...color,
+    ...pattern,
+    ...material,
+    ...gender,
   }).sort({createdAt: -1}).lean();
   
   let products = randomize(productsDb);
@@ -262,7 +273,7 @@ export async function getServerSideProps(ctx) {
   );
 
   let details = await Product.find({...category}).distinct("details");
-
+  
   let stylesDb = filterArray(details, "Style");
   let patternsDb = filterArray(details, "Pattern Type");
   let materialsDb = filterArray(details, "Material");
