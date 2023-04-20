@@ -44,6 +44,8 @@ export default function Browse({
     category,
     brand,
     style,
+    size,
+    color
   }) => {
     const path = router.pathname;
     const { query } = router;
@@ -53,6 +55,8 @@ export default function Browse({
     if (category) query.category = category;
     if (brand) query.brand = brand;
     if (style) query.style = style;
+    if (size) query.size = size;
+    if (color) query.color = color;
 
     router.push({
       pathname: path,
@@ -78,6 +82,14 @@ export default function Browse({
 
   const styleHandler = (style) => {
     filter({ style })
+  };
+
+  const sizeHandler = (size) => {
+    filter({ size })
+  };
+
+  const colorHandler = (color) => {
+    filter({ color })
   };
   
   return (
@@ -113,8 +125,8 @@ export default function Browse({
               // subCategories={subCategories}
               categoryHandler={categoryHandler}
             />
-            <SizesFilter sizes={sizes} />
-            <ColorsFilter colors={colors}/>
+            <SizesFilter sizes={sizes} sizeHandler={sizeHandler}/>
+            <ColorsFilter colors={colors} colorHandler={colorHandler}/>
             <BrandsFilter brands={brands} brandHandler={brandHandler}/>
             <StylesFilter data={stylesData} styleHandler={styleHandler}/>
             <PatternsFilter patterns={patterns}/>
@@ -137,13 +149,25 @@ export default function Browse({
 
 export async function getServerSideProps(ctx) {
   const { query } = ctx
+
   const searchQuery = query.search || "";
   const categoryQuery = query.category || "";
-  const brandQuery = query.brand || "";
+  
+  const brandQuery = query.brand?.split("_") || "";
+  const brandRegex = `^${brandQuery[0]}`;
+  const brandSearchRegex = createRegex(brandQuery, brandRegex);
 
   const styleQuery = query.style?.split("_") || "";
   const styleRegex = `^${styleQuery[0]}`;
   const styleSearchRegex = createRegex(styleQuery, styleRegex);
+
+  const sizeQuery = query.size?.split("_") || "";
+  const sizeRegex = `^${sizeQuery[0]}`;
+  const sizeSearchRegex = createRegex(sizeQuery, sizeRegex);
+
+  const colorQuery = query.color?.split("_") || "";
+  const colorRegex = `^${colorQuery[0]}`;
+  const colorSearchRegex = createRegex(colorQuery, colorRegex);
 
   const search = searchQuery && searchQuery !== ""
     ? {
@@ -162,7 +186,10 @@ export async function getServerSideProps(ctx) {
   
   const brand = brandQuery && brandQuery !== "" 
     ? { 
-        brand: brandQuery 
+        brand: {
+          $regex: brandSearchRegex,
+          $options: "i",
+        },
       } 
     : {};
 
@@ -175,6 +202,24 @@ export async function getServerSideProps(ctx) {
       }
     : {};
 
+  const size = sizeQuery && sizeQuery !== ""
+    ? {
+        "subProducts.sizes.size": {
+          $regex: sizeSearchRegex,
+          $options: "i",
+        },
+      }
+    : {};
+
+  const color = colorQuery && colorQuery !== ""
+    ? {
+        "subProducts.color.color": {
+          $regex: colorSearchRegex,
+          $options: "i",
+        },
+      }
+    : {};
+  
   function createRegex(data, styleRegex) {
     if (data.length > 1) {
       for (var i = 1; i < data.length; i++) {
@@ -191,6 +236,8 @@ export async function getServerSideProps(ctx) {
     ...category,
     ...brand,
     ...style,
+    ...size,
+    ...color,
   }).sort({createdAt: -1}).lean();
   
   let products = randomize(productsDb);

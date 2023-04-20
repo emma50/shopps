@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { FaMinus } from "react-icons/fa";
+import { useRouter } from "next/dist/client/router";
 import styles from "../browse.module.scss";
 
 export default function BrandsFilter({ brands, brandHandler }) {
   const [show, setShow] = useState(true);
+
+  const router = useRouter()
+  const existedBrand = router.query.brand || "";
 
   return (
     <div className={styles.filter}>
@@ -18,7 +22,13 @@ export default function BrandsFilter({ brands, brandHandler }) {
               <button
                 key={i}
                 className={`${styles.filter__brand}`}
-                onClick={() => brandHandler(brand)}
+                onClick={() => 
+                  brandHandler(
+                    existedBrand ? 
+                      `${existedBrand}_${brand}` 
+                      : brand
+                  )
+                }
               >
                 <img src={`../../../images/brands/${brand}.png`} alt="" />
               </button>
