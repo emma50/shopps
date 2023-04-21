@@ -49,6 +49,7 @@ export default function Browse({
     material,
     pattern,
     gender,
+    price,
   }) => {
     const path = router.pathname;
     const { query } = router;
@@ -63,6 +64,7 @@ export default function Browse({
     if (material) query.material = material;
     if (pattern) query.pattern = pattern;
     if (gender) query.gender = gender;
+    if (price) query.price = price;
 
     router.push({
       pathname: path,
@@ -114,6 +116,26 @@ export default function Browse({
     }
   };
   
+  const priceHandler = (price, type) => {
+    let priceQuery = router.query.price?.split("_") || "";
+    let min = priceQuery[0] || "";
+    let max = priceQuery[1] || "";
+    let newPrice = "";
+
+    if (type === "min") {
+      newPrice = `${price}_${max}`;
+    } 
+    else {
+      newPrice = `${min}_${price}`;
+    }
+
+    filter({ price: newPrice });
+  };
+
+  const multiPriceHandler = (min, max) => {
+    filter({ price: `${min}_${max}` });
+  };
+
   return (
     <div className={styles.browse}>
       <div>
@@ -151,14 +173,21 @@ export default function Browse({
             <ColorsFilter colors={colors} colorHandler={colorHandler}/>
             <BrandsFilter brands={brands} brandHandler={brandHandler}/>
             <StylesFilter data={stylesData} styleHandler={styleHandler}/>
-            <PatternsFilter patterns={patterns} patternHandler={patternHandler}/>
-            <MaterialsFilter materials={materials} materialHandler={materialHandler}/>
-            <GenderFilter 
-              genderHandler={genderHandler}
+            <PatternsFilter 
+              patterns={patterns} 
+              patternHandler={patternHandler}
             />
+            <MaterialsFilter 
+              materials={materials} 
+              materialHandler={materialHandler}
+            />
+            <GenderFilter genderHandler={genderHandler}/>
           </div>
           <div className={styles.browse__store_products_wrap}>
-            <HeadingFilters/>
+            <HeadingFilters 
+              priceHandler={priceHandler}
+              multiPriceHandler={multiPriceHandler}
+            />
             <div className={styles.browse__store_products}>
               {products.map((product) => (
                 <ProductCard product={product} key={product._id} />
@@ -177,7 +206,8 @@ export async function getServerSideProps(ctx) {
   const searchQuery = query.search || "";
   const categoryQuery = query.category || "";
   const genderQuery = query.gender || "";
-  
+  const priceQuery = query.price?.split("_") || "";
+
   const brandQuery = query.brand?.split("_") || "";
   const brandRegex = `^${brandQuery[0]}`;
   const brandSearchRegex = createRegex(brandQuery, brandRegex);
@@ -208,6 +238,15 @@ export async function getServerSideProps(ctx) {
       } 
     : {};
 
+  const price = priceQuery && priceQuery !== ""
+    ? {
+        "subProducts.sizes.price": {
+          $gte: Number(priceQuery[0]) || 0,
+          $lte: Number(priceQuery[1]) || Infinity,
+        },
+      }
+    : {};
+
   const search = dataQuery(searchQuery, searchQuery, "name")
   const brand = dataQuery(brandQuery, brandSearchRegex, "brand")
   const style = dataQuery(styleQuery, styleSearchRegex, "details.value")
@@ -216,7 +255,7 @@ export async function getServerSideProps(ctx) {
   const pattern = dataQuery(patternQuery, patternSearchRegex, "details.value")
   const material = dataQuery(materialQuery, materialSearchRegex, "details.value")
   const gender = dataQuery(genderQuery, genderQuery, "details.value")
-  
+
   function dataQuery(queryType, regexType, queryBy) {
     return queryType && queryType !== ""
       ? {
@@ -249,6 +288,7 @@ export async function getServerSideProps(ctx) {
     ...pattern,
     ...material,
     ...gender,
+    ...price,
   }).sort({createdAt: -1}).lean();
   
   let products = randomize(productsDb);
