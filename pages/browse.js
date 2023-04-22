@@ -38,7 +38,7 @@ export default function Browse({
   materials
 }) {
   const router = useRouter();
-
+console.log('ROUTER-->', router)
   const filter = ({
     search,
     category,
@@ -136,6 +136,44 @@ export default function Browse({
     filter({ price: `${min}_${max}` });
   };
 
+  function replaceQuery(queryName, value) {
+    const existedQuery = router.query[queryName];
+    const valueCheck = existedQuery?.search(value);
+    const _check = existedQuery?.search(`_${value}`);
+
+    let result = "";
+
+    if (existedQuery) {
+      if (existedQuery === value) {
+        result = {};
+      } 
+      else {
+        if (valueCheck !== -1) {
+          if (_check !== -1) {
+            result = existedQuery?.replace(`_${value}`, "");
+          } 
+          else if (valueCheck === 0) {
+            result = existedQuery?.replace(`${value}_`, "");
+          } 
+          else {
+            result = existedQuery?.replace(value, "");
+          }
+        } 
+        else {
+          result = `${existedQuery}_${value}`;
+        }
+      }
+    } 
+    else {
+      result = value;
+    }
+    
+    return {
+      result,
+      active: existedQuery && valueCheck !== -1 ? true : false,
+    };
+  }
+
   return (
     <div className={styles.browse}>
       <div>
@@ -168,25 +206,47 @@ export default function Browse({
               categories={categories}
               // subCategories={subCategories}
               categoryHandler={categoryHandler}
+              replaceQuery={replaceQuery}
             />
-            <SizesFilter sizes={sizes} sizeHandler={sizeHandler}/>
-            <ColorsFilter colors={colors} colorHandler={colorHandler}/>
-            <BrandsFilter brands={brands} brandHandler={brandHandler}/>
-            <StylesFilter data={stylesData} styleHandler={styleHandler}/>
+            <SizesFilter 
+              sizes={sizes} 
+              sizeHandler={sizeHandler}
+            />
+            <ColorsFilter 
+              colors={colors} 
+              colorHandler={colorHandler}
+              replaceQuery={replaceQuery}
+            />
+            <BrandsFilter 
+              brands={brands} 
+              brandHandler={brandHandler}
+              replaceQuery={replaceQuery}
+            />
+            <StylesFilter 
+              data={stylesData} 
+              styleHandler={styleHandler}
+              replaceQuery={replaceQuery}
+            />
             <PatternsFilter 
               patterns={patterns} 
               patternHandler={patternHandler}
+              replaceQuery={replaceQuery}
             />
             <MaterialsFilter 
               materials={materials} 
               materialHandler={materialHandler}
+              replaceQuery={replaceQuery}
             />
-            <GenderFilter genderHandler={genderHandler}/>
+            <GenderFilter 
+              genderHandler={genderHandler}
+              replaceQuery={replaceQuery}
+            />
           </div>
           <div className={styles.browse__store_products_wrap}>
             <HeadingFilters 
               priceHandler={priceHandler}
               multiPriceHandler={multiPriceHandler}
+              replaceQuery={replaceQuery}
             />
             <div className={styles.browse__store_products}>
               {products.map((product) => (

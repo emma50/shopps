@@ -4,12 +4,11 @@ import { FaMinus } from "react-icons/fa";
 import { useRouter } from "next/router";
 import styles from "../browse.module.scss";
 
-export default function StyleFilter({ data, styleHandler }) {
+export default function StyleFilter({ data, styleHandler, replaceQuery }) {
   const [show, setShow] = useState(true);
 
   const router = useRouter()
-  const existedStyle = router.query.style
-
+  
   return (
     <div className={styles.filter}>
       <h3>
@@ -18,22 +17,19 @@ export default function StyleFilter({ data, styleHandler }) {
       {show && (
         <div className={styles.filter__sizes}>
           {data.map((style, i) => {
+            const check = replaceQuery("style", style);
             return (
               <div
                 key={i}
                 className={styles.filter__sizes_size}
-                onClick={() => 
-                  styleHandler(
-                    existedStyle ? 
-                      `${existedStyle}_${style}` 
-                      : style
-                  )
-                }
+                onClick={() => styleHandler(check.result)}
               >
                 <input
                   type="checkbox"
                   name="style"
                   id={style}
+                  checked={check.active}
+                  onChange={() => styleHandler(check.result)}
                 />
                 <label htmlFor={style}>{style}</label>
               </div>

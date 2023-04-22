@@ -4,11 +4,14 @@ import { FaMinus } from "react-icons/fa";
 import { useRouter } from "next/router";
 import styles from "../browse.module.scss";
 
-export default function PatternsFilter({ patterns, patternHandler }) {
+export default function PatternsFilter({ 
+  patterns, 
+  patternHandler, 
+  replaceQuery 
+}) {
   const [show, setShow] = useState(true);
 
   const router = useRouter()
-  const existedPattern = router.query.pattern || "";
 
   return (
     <div className={styles.filter}>
@@ -18,23 +21,20 @@ export default function PatternsFilter({ patterns, patternHandler }) {
       {show && (
         <div className={styles.filter__sizes}>
           {patterns.map((pattern, i) => {
+            const check = replaceQuery("pattern", pattern);
             return (
               <label
                 key={i}
                 htmlFor={pattern}
                 className={styles.filter__sizes_size}
-                onClick={() => 
-                  patternHandler(
-                    existedPattern ? 
-                      `${existedPattern}_${pattern}` 
-                      : pattern
-                  )
-                }
+                onClick={() => patternHandler(check.result)}
               >
                 <input
                   type="checkbox"
                   name="pattern"
                   id={pattern}
+                  checked={check.active}
+                  onChange={() => patternHandler(check.result)}  
                 />
                 <label htmlFor={pattern}>
                   {pattern.length > 12

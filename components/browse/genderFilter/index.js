@@ -3,7 +3,7 @@ import { BsPlusLg } from "react-icons/bs";
 import { FaMinus } from "react-icons/fa";
 import styles from "../browse.module.scss";
 
-export default function GenderFilter({ genderHandler }) {
+export default function GenderFilter({ genderHandler, replaceQuery }) {
   const genders = ["Male", "Female", "Unisex"];
 
   const [show, setShow] = useState(true);
@@ -16,17 +16,20 @@ export default function GenderFilter({ genderHandler }) {
       {show && (
         <div className={styles.filter__sizes}>
           {genders.map((gender, i) => {
+            const check = replaceQuery("gender", gender);
             return (
               <label
                 key={i}
                 htmlFor={gender}
                 className={styles.filter__sizes_size}
-                onClick={() => genderHandler(gender)}
+                onClick={() => genderHandler(check.result)}
               >
                 <input
                   type="checkbox"
                   name="gender"
                   id={gender}
+                  checked={check.active}
+                  onChange={() => genderHandler(check.result)}
                 />
                 <label htmlFor={gender}>{gender}</label>
               </label>

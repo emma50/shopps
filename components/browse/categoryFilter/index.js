@@ -4,7 +4,11 @@ import { FaMinus } from "react-icons/fa";
 import styles from "../browse.module.scss";
 import Card from "./card";
 
-export default function CategoryFilter({ categories, categoryHandler }) {
+export default function CategoryFilter({ 
+  categories, 
+  categoryHandler,
+  replaceQuery, 
+}) {
   const [show, setShow] = useState(true);
 
   return (
@@ -18,6 +22,7 @@ export default function CategoryFilter({ categories, categoryHandler }) {
             key={i}
             category={category}
             categoryHandler={categoryHandler}
+            replaceQuery={replaceQuery}
           />
         ))}
     </div>

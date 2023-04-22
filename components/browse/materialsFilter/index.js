@@ -4,11 +4,14 @@ import { FaMinus } from "react-icons/fa";
 import { useRouter } from "next/router";
 import styles from "../browse.module.scss";
 
-export default function MaterialsFilter({ materials, materialHandler }) {
+export default function MaterialsFilter({ 
+  materials, 
+  materialHandler, 
+  replaceQuery 
+}) {
   const [show, setShow] = useState(true)
 
   const router = useRouter()
-  const existedMaterial = router.query.material || "";
 
   return (
     <div className={styles.filter}>
@@ -18,23 +21,20 @@ export default function MaterialsFilter({ materials, materialHandler }) {
       {show && (
         <div className={styles.filter__sizes}>
           {materials.map((material, i) => {
+            const check = replaceQuery("material", material);
             return (
               <label
                 key={i}
                 htmlFor={material}
                 className={styles.filter__sizes_size}
-                onClick={() => 
-                  materialHandler(
-                    existedMaterial ? 
-                      `${existedMaterial}_${material}` 
-                      : material
-                  )
-                }
+                onClick={() => materialHandler(check.result)}
               >
                 <input
                   type="checkbox"
                   name="material"
                   id={material}
+                  checked={check.active}
+                  onChange={() => materialHandler(check.result)}
                 />
                 <label htmlFor={material}>
                   {material.length > 12
