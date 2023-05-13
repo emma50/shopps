@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { FaMinus } from "react-icons/fa";
-import { useRouter } from "next/router";
 import styles from "../browse.module.scss";
 
 export default function MaterialsFilter({ 
@@ -10,8 +9,6 @@ export default function MaterialsFilter({
   replaceQuery 
 }) {
   const [show, setShow] = useState(true)
-
-  const router = useRouter()
 
   return (
     <div className={styles.filter}>
