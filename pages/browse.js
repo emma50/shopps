@@ -35,10 +35,10 @@ export default function Browse({
   brands,
   stylesData,
   patterns,
-  materials
+  materials,
 }) {
   const router = useRouter();
-console.log('ROUTER-->', router)
+
   const filter = ({
     search,
     category,
@@ -50,6 +50,8 @@ console.log('ROUTER-->', router)
     pattern,
     gender,
     price,
+    shipping,
+    rating
   }) => {
     const path = router.pathname;
     const { query } = router;
@@ -65,6 +67,8 @@ console.log('ROUTER-->', router)
     if (pattern) query.pattern = pattern;
     if (gender) query.gender = gender;
     if (price) query.price = price;
+    if (shipping) query.shipping = shipping
+    if (rating) query.rating = rating
 
     router.push({
       pathname: path,
@@ -134,6 +138,14 @@ console.log('ROUTER-->', router)
 
   const multiPriceHandler = (min, max) => {
     filter({ price: `${min}_${max}` });
+  };
+
+  const shippingHandler = (shipping) => {
+    filter({ shipping });
+  };
+
+  const ratingHandler = (rating) => {
+    filter({ rating });
   };
 
   function replaceQuery(queryName, value) {
@@ -246,6 +258,8 @@ console.log('ROUTER-->', router)
             <HeadingFilters 
               priceHandler={priceHandler}
               multiPriceHandler={multiPriceHandler}
+              shippingHandler={shippingHandler}
+              ratingHandler={ratingHandler}
               replaceQuery={replaceQuery}
             />
             <div className={styles.browse__store_products}>
@@ -267,6 +281,8 @@ export async function getServerSideProps(ctx) {
   const categoryQuery = query.category || "";
   const genderQuery = query.gender || "";
   const priceQuery = query.price?.split("_") || "";
+  const shippingQuery = query.shipping || 0;
+  const ratingQuery = query.rating || "";
 
   const brandQuery = query.brand?.split("_") || "";
   const brandRegex = `^${brandQuery[0]}`;
@@ -306,6 +322,22 @@ export async function getServerSideProps(ctx) {
         },
       }
     : {};
+
+  const shipping =
+    shippingQuery && shippingQuery === "0"
+      ? {
+          shipping: 0,
+        }
+      : {};
+
+  const rating =
+    ratingQuery && ratingQuery !== ""
+      ? {
+          rating: {
+            $gte: Number(ratingQuery),
+          },
+        }
+      : {};
 
   const search = dataQuery(searchQuery, searchQuery, "name")
   const brand = dataQuery(brandQuery, brandSearchRegex, "brand")
@@ -349,6 +381,8 @@ export async function getServerSideProps(ctx) {
     ...material,
     ...gender,
     ...price,
+    ...shipping,
+    ...rating
   }).sort({createdAt: -1}).lean();
   
   let products = randomize(productsDb);
