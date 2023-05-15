@@ -94,6 +94,11 @@ const productSchema = new mongoose.Schema({
     required: true,
     default: 0
   },
+  views: {
+    type: Number,
+    // required: true,
+    default: 0
+  },
   subProducts: [
     {
       sku: String,

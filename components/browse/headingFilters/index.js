@@ -175,6 +175,10 @@ const sortingOptions = [
     value: "popular",
   },
   {
+    name: "Most Viewed",
+    value: "viewed",
+  },
+  {
     name: "New Arrivals",
     value: "newest",
   },

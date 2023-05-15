@@ -55,6 +55,19 @@ export async function getServerSideProps(context) {
 
   await db.connectDB()
 
+  const views = await ProductModel
+    .findOne({ slug: JSON.parse(JSON.stringify(slug)) })
+    .select('views -_id')
+  
+  await ProductModel
+    .updateOne(
+      { slug: JSON.parse(JSON.stringify(slug)) },
+      { 
+        views: Number(views.views) + 1
+      },
+      { returnDocument: 'after' }
+    )
+
   const product = await ProductModel
     .findOne({ slug: JSON.parse(JSON.stringify(slug)) })
     .populate({ path: 'category', model: Category })
@@ -123,6 +136,7 @@ export async function getServerSideProps(context) {
       .filter((ele, index, arr) => {
         return arr.findIndex((ele2) => ele2.size === ele.size) === index
       }),
+    views: Number(product.views),
   }
 
   function calculatePercentage(num) {
