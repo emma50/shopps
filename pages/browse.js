@@ -51,7 +51,8 @@ export default function Browse({
     gender,
     price,
     shipping,
-    rating
+    rating,
+    sort,
   }) => {
     const path = router.pathname;
     const { query } = router;
@@ -69,6 +70,7 @@ export default function Browse({
     if (price) query.price = price;
     if (shipping) query.shipping = shipping
     if (rating) query.rating = rating
+    if (sort) query.sort = sort
 
     router.push({
       pathname: path,
@@ -146,6 +148,10 @@ export default function Browse({
 
   const ratingHandler = (rating) => {
     filter({ rating });
+  };
+
+  const sortHandler = (sort) => {
+    filter({ sort });
   };
 
   function replaceQuery(queryName, value) {
@@ -260,6 +266,7 @@ export default function Browse({
               multiPriceHandler={multiPriceHandler}
               shippingHandler={shippingHandler}
               ratingHandler={ratingHandler}
+              sortHandler={sortHandler}
               replaceQuery={replaceQuery}
             />
             <div className={styles.browse__store_products}>
@@ -283,6 +290,7 @@ export async function getServerSideProps(ctx) {
   const priceQuery = query.price?.split("_") || "";
   const shippingQuery = query.shipping || 0;
   const ratingQuery = query.rating || "";
+  const sortQuery = query.sort || "";
 
   const brandQuery = query.brand?.split("_") || "";
   const brandRegex = `^${brandQuery[0]}`;
@@ -338,6 +346,25 @@ export async function getServerSideProps(ctx) {
           },
         }
       : {};
+  
+  const sort =
+    sortQuery === ""
+      ? {}
+      : sortQuery === "popular"
+      ? { rating: -1, "subProducts.sold": -1 }
+      : sortQuery === "viewed"
+      ? {"subProducts.views": -1 }
+      : sortQuery === "newest"
+      ? { createdAt: -1 }
+      : sortQuery === "topSelling"
+      ? { "subProducts.sold": -1 }
+      : sortQuery === "topReviewed"
+      ? { rating: -1 }
+      : sortQuery === "priceHighToLow"
+      ? { "subProducts.sizes.price": -1 }
+      : sortQuery === "priceLowToHigh"
+      ? { "subProducts.sizes.price": 1 }
+      : {};
 
   const search = dataQuery(searchQuery, searchQuery, "name")
   const brand = dataQuery(brandQuery, brandSearchRegex, "brand")
@@ -383,9 +410,9 @@ export async function getServerSideProps(ctx) {
     ...price,
     ...shipping,
     ...rating
-  }).sort({createdAt: -1}).lean();
-  
-  let products = randomize(productsDb);
+  }).sort(sort).lean();
+  console.log('SUBPRODUCTS--->', productsDb.map((p) => p.subProducts))
+  let products = sortQuery && sortQuery !== '' ? productsDb : randomize(productsDb);
   
   let categories = await Category.find().lean();
 

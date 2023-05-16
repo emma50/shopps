@@ -12,6 +12,7 @@ export default function HeadingFilters({
   multiPriceHandler,
   shippingHandler,
   ratingHandler,
+  sortHandler,
   replaceQuery 
 }) {
   const router = useRouter();
@@ -23,6 +24,8 @@ export default function HeadingFilters({
   )
 
   const checkRating = replaceQuery("rating", "4");
+  const sortQuery = router.query.sort || "";
+  console.log("sortQuery", sortQuery);
   
   return (
     <div className={styles.filters}>
@@ -134,7 +137,11 @@ export default function HeadingFilters({
           onMouseLeave={() => setShow(false)}
         >
           <button>
-            Recommend
+            {
+              sortQuery === ""
+              ? "Recommend"
+              : sortingOptions.find((x) => x.value === sortQuery).name
+            }
             <div
               style={{ transform: `${show ? "rotate(180deg)" : "rotate(0"}` }}
             >
@@ -147,14 +154,23 @@ export default function HeadingFilters({
             }}
           >
             {
-              sortingOptions.map((s, i) => (
+              sortingOptions.map((option, i) => (
                 <li key={i}>
-                  <Link href={''} legacyBehavior>
-                    {s.name === 'Recommend' 
-                      ? <b>{s.name} <BsCheckLg/></b>
-                      : s.name
+                  <a onClick={() => sortHandler(option.value)}>
+                    {
+                      sortQuery === option.value
+                      ? <b>{option.name}</b>
+                      : option.name
+                    }{" "}
+                    {sortQuery === option.value ? <BsCheckLg /> : ""}
+                    {
+                      sortQuery !== option.value 
+                      ? <div className={styles.check}>
+                          <BsCheckLg />
+                        </div> 
+                      : ""
                     }
-                  </Link>
+                  </a>
                 </li>
               ))
             }
