@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
-// import { Pagination } from "@mui/material";
-// import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 // import axios from "axios";
 import Pagination from '@mui/material/Pagination';
@@ -201,13 +200,34 @@ export default function Browse({
     };
   }
 
+  const [scrollY, setScrollY] = useState(0);
+  const [height, setHeight] = useState(0);
+  const headerRef = useRef(null);
+  const el = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    setHeight(Number(headerRef.current?.offsetHeight + el.current?.offsetHeight));
+    console.log('HEADER-->', headerRef.current?.offsetHeight, 'ELEMENT-->', el.current?.offsetHeight)
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  console.log(scrollY, height);
+
   return (
     <div className={styles.browse}>
-      <div>
+      <div ref={headerRef}>
         <Header country={country} searchHandler={searchHandler} />
       </div>
       <div className={styles.browse__container}>
-        <div>
+        <div ref={el}>
           <div className={styles.browse__path}>Home / Browse</div>
           <div className={styles.browse__tags}>
             {categories.map((c) => (
@@ -218,7 +238,9 @@ export default function Browse({
           </div>
         </div>
         <div
-          className={`${styles.browse__store}`}
+          className={`${styles.browse__store} ${
+            scrollY >= height ? styles.fixed : ""
+          }`}
         >
           <div
             className={`${styles.browse__store_filters} ${styles.scrollbar}`}
@@ -268,6 +290,7 @@ export default function Browse({
               genderHandler={genderHandler}
               replaceQuery={replaceQuery}
             />
+            <br/>
           </div>
           <div className={styles.browse__store_products_wrap}>
             <HeadingFilters 
