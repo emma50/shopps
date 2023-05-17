@@ -213,13 +213,11 @@ export default function Browse({
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     setHeight(Number(headerRef.current?.offsetHeight + el.current?.offsetHeight));
-    console.log('HEADER-->', headerRef.current?.offsetHeight, 'ELEMENT-->', el.current?.offsetHeight)
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  console.log(scrollY, height);
 
   return (
     <div className={styles.browse}>
@@ -332,7 +330,6 @@ export async function getServerSideProps(ctx) {
   const shippingQuery = query.shipping || 0;
   const ratingQuery = query.rating || "";
   const sortQuery = query.sort || "";
-  // const pageSize = 50;
   let productsPerPage = 10;
   const page = query.page || 1;
 
