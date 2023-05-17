@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 // import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 // import axios from "axios";
+import Pagination from '@mui/material/Pagination';
 import styles from "../styles/browse.module.scss";
 import db from "../utils/db";
 import Product from "../models/product";
@@ -36,6 +37,8 @@ export default function Browse({
   stylesData,
   patterns,
   materials,
+  paginationCount,
+  // country
 }) {
   const router = useRouter();
 
@@ -53,6 +56,7 @@ export default function Browse({
     shipping,
     rating,
     sort,
+    page
   }) => {
     const path = router.pathname;
     const { query } = router;
@@ -71,6 +75,7 @@ export default function Browse({
     if (shipping) query.shipping = shipping
     if (rating) query.rating = rating
     if (sort) query.sort = sort
+    if (page) query.page = page
 
     router.push({
       pathname: path,
@@ -152,6 +157,10 @@ export default function Browse({
 
   const sortHandler = (sort) => {
     filter({ sort });
+  };
+
+  const pageHandler = (e, page) => {
+    filter({ page })
   };
 
   function replaceQuery(queryName, value) {
@@ -274,6 +283,15 @@ export default function Browse({
                 <ProductCard product={product} key={product._id} />
               ))}
             </div>
+            <div className={styles.pagination}>
+              <Pagination 
+                count={paginationCount}
+                variant="outlined" 
+                color="primary" 
+                defaultPage={Number(router.query.page) || 1}
+                onChange={pageHandler}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -291,6 +309,10 @@ export async function getServerSideProps(ctx) {
   const shippingQuery = query.shipping || 0;
   const ratingQuery = query.rating || "";
   const sortQuery = query.sort || "";
+  // const pageSize = 50;
+  let productsPerPage = 10;
+  const page = query.page || 1;
+
 
   const brandQuery = query.brand?.split("_") || "";
   const brandRegex = `^${brandQuery[0]}`;
@@ -410,8 +432,12 @@ export async function getServerSideProps(ctx) {
     ...price,
     ...shipping,
     ...rating
-  }).sort(sort).lean();
-  console.log('SUBPRODUCTS--->', productsDb.map((p) => p.subProducts))
+  })
+  .skip(productsPerPage * (page - 1))
+  .limit(productsPerPage)
+  .sort(sort)
+  .lean();
+  
   let products = sortQuery && sortQuery !== '' ? productsDb : randomize(productsDb);
   
   let categories = await Category.find().lean();
@@ -443,6 +469,21 @@ export async function getServerSideProps(ctx) {
   let materials = removeDuplicates(materialsDb);
   let brands = removeDuplicates(brandsDb);
 
+  let totalProducts = await Product.countDocuments({
+    ...search,
+    ...category,
+    ...brand,
+    ...style,
+    ...size,
+    ...color,
+    ...pattern,
+    ...material,
+    ...gender,
+    ...price,
+    ...shipping,
+    ...rating,
+  });
+
   return {
     props: {
       categories: JSON.parse(JSON.stringify(categories)),
@@ -454,6 +495,7 @@ export async function getServerSideProps(ctx) {
       stylesData: styles,
       patterns,
       materials,
+      paginationCount: Math.ceil(totalProducts / productsPerPage ),
       country: {
         name: "Nigeria",
         flag: "https://cdn-icons-png.flaticon.com/512/197/197551.png?w=360",
