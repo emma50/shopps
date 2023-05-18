@@ -1,5 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from 'next/link'
+import Image from 'next/image'
 
 // Import Swiper styles
 import "swiper/css";
@@ -33,7 +34,8 @@ export default function SimillarSwiper() {
             return (
               <SwiperSlide key={index}>
                 <Link href={''}>
-                  <img src={item} alt="Images" />
+                  {/* <img src={item} alt="Images" /> */}
+                  <Image src={item} alt=""/>
                 </Link>
               </SwiperSlide>
             )

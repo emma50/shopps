@@ -1,6 +1,7 @@
 import { ErrorMessage, useField } from "formik";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
+import Image from 'next/image'
 import styles from "./style.module.scss";
 import { showDialog } from "../../../../store/dialogSlice";
 
@@ -77,7 +78,8 @@ export default function Style({
         <div className={styles.flex}>
           {
             meta.error && 
-            <img src="../../../images/warning.png" alt="" />
+            // <img src="../../../images/warning.png" alt="" />
+            <Image src="/images/warning.png" alt="" />
           }
           Pick a Product style image
         </div>

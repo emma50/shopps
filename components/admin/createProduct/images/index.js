@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { RiDeleteBin7Fill, RiShape2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { GiExtractionOrb } from "react-icons/gi";
+import Image from 'next/image'
 import { showDialog } from "../../../../store/dialogSlice";
 import styles from "./images.module.scss";
 
@@ -94,7 +95,11 @@ export default function Images({
         className={`${styles.header} ${meta.error ? styles.header__error : ""}`}
       >
         <div className={styles.flex}>
-          {meta.error && <img src="../../../images/warning.png" alt="" />}
+          {
+            meta.error && 
+            // <img src="../../../images/warning.png" alt="" />
+            <Image src={'/images/warning.png'} alt=""/>
+          }
           {header}
         </div>
         <span>
@@ -133,11 +138,13 @@ export default function Images({
         >
           {
             !images.length ? 
-            <img src="../../../images/no_image.png" alt=""/> :
+            // <img src="../../../images/no_image.png" alt=""/> 
+            <Image src={'images/no_image.png'} alt=""/> :
             images.map((img, index) => (
               <div className={`${styles.images__main_grid_wrap}`} key={index}>
                 <div className={styles.blur}></div>
-                <img src={img} alt="" />
+                {/* <img src={img} alt="" /> */}
+                <Image src={img} alt="" />
                 <div className={styles.images__main_grid_actions}>
                   <button onClick={() => handleRemove(img)}>
                     <RiDeleteBin7Fill />

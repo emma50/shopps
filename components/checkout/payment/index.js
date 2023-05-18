@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import styles from './payment.module.scss'
 import { paymentMethods } from '../../../data/paymentMethods'
 
@@ -27,9 +28,13 @@ export default function Payment({ paymentMethod, setPaymentMethod, profile }) {
               checked={paymentMethod === payment.id}
               onChange={() => setPaymentMethod(payment.id)}
             />
-            <img 
+            {/* <img 
               src={`/images/checkout/${payment.id}.webp`}
               alt={payment.name} 
+            /> */}
+            <Image 
+              src={`/images/checkout/${payment.id}.webp`} 
+              alt={payment.name}
             />
             <div className={styles.payment__item_col}>
               <span>Pay with {payment.name}</span>
@@ -37,9 +42,14 @@ export default function Payment({ paymentMethod, setPaymentMethod, profile }) {
                 {
                   payment.images.length > 0 
                   ? payment.images.map((img, index) => (
-                    <img 
-                      src={`/images/payment/${img}.webp`} 
-                      alt="" 
+                    // <img 
+                    //   src={`/images/payment/${img}.webp`} 
+                    //   alt="" 
+                    //   key={index}
+                    // />
+                    <Image
+                      src={`/images/payment/${img}.webp`}
+                      alt=''
                       key={index}
                     />
                   ))

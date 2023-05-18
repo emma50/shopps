@@ -9,6 +9,7 @@ import Slide from "@mui/material/Slide";
 import { useSelector, useDispatch } from "react-redux";
 import { showDialog, hideDialog } from "../../store/dialogSlice";
 import Link from "next/link";
+import Image from 'next/image'
 import styles from "./dialogModal.module.scss";
 
 const Transition = React.forwardRef(
@@ -61,7 +62,15 @@ export default function DialogModal({ type }) {
                 id="alert-dialog-slide-description"
                 key={i}
               >
-                <img
+                {/* <img
+                  src={
+                    msg.type === "error" ?
+                      "https://www.freeiconspng.com/uploads/orange-error-icon-0.png" :
+                      "https://www.pngmart.com/files/20/Success-Transparent-Background.png"
+                  }
+                  alt=""
+                /> */}
+                <Image
                   src={
                     msg.type === "error" ?
                       "https://www.freeiconspng.com/uploads/orange-error-icon-0.png" :
@@ -84,6 +93,5 @@ export default function DialogModal({ type }) {
           )}
         </DialogActions>
       </Dialog>
-    </div>
-  );
+    </div>  );
 }

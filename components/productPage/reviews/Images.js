@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { MdOutlineRemoveCircle } from 'react-icons/md'
+import Image from 'next/image'
 import styles from './reviews.module.scss'
 
 export default function Images({ images, setImages }) {
@@ -73,7 +74,8 @@ export default function Images({ images, setImages }) {
             return (
               <span key={{index}}>
                 <MdOutlineRemoveCircle onClick={() => removeImage(img)}/>
-                <img src={img} alt="" />
+                {/* <img src={img} alt="" /> */}
+                <Image src={img} alt=''/>
               </span>
             )
           })

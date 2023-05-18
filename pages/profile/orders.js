@@ -1,6 +1,7 @@
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
+import Image from 'next/image'
 import { useRouter } from "next/router";
 import slugify from "slugify";
 import { FiExternalLink } from "react-icons/fi";
@@ -64,7 +65,8 @@ export default function Orders({ user, tab, orders }) {
                 <td>{order._id}</td>
                 <td className={styles.orders__images}>
                   {order.products.map((p) => (
-                    <img src={p.image} key={p._id} alt="" />
+                    // <img src={p.image} key={p._id} alt="" />
+                    <Image src={p.image} alt="" key={p._id}/>
                   ))}
                 </td>
                 <td>
@@ -77,9 +79,11 @@ export default function Orders({ user, tab, orders }) {
                 <td>{order.total}$</td>
                 <td className={styles.orders__paid}>
                   {order.isPaid ? (
-                    <img src="../../../images/verified.png" alt="" />
+                    // <img src="../../../images/verified.png" alt="" />
+                    <Image src={'/images/verified.png'} alt=""/>
                   ) : (
-                    <img src="../../../images/unverified.png" alt="" />
+                    // <img src="../../../images/unverified.png" alt="" />
+                    <Image src={'/images/unverified.png'} alt=""/>
                   )}
                 </td>
                 <td>{order.status}</td>

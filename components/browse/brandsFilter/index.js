@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { FaMinus } from "react-icons/fa";
+import Image from 'next/image'
 import styles from "../browse.module.scss";
 
 export default function BrandsFilter({ brands, brandHandler, replaceQuery }) {
@@ -23,7 +24,8 @@ export default function BrandsFilter({ brands, brandHandler, replaceQuery }) {
                 }`}
                 onClick={() => brandHandler(check.result)}
               >
-                <img src={`../../../images/brands/${brand}.png`} alt="" />
+                {/* <img src={`../../../images/brands/${brand}.png`} alt="" /> */}
+                <Image src={`/images/brands/${brand}.png`} alt=""/>
               </button>
             );
           })}

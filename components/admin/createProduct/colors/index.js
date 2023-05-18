@@ -2,6 +2,7 @@ import { ErrorMessage, useField } from "formik";
 import { useState } from "react";
 import { ColorExtractor } from "react-color-extractor";
 import { TbArrowUpRightCircle } from "react-icons/tb";
+import Image from 'next/image';
 import styles from "./colors.module.scss";
 
 export default function Colors({
@@ -47,7 +48,8 @@ export default function Colors({
         <div className={styles.flex}>
           {
             meta.error[name] && 
-            <img src="../../../images/warning.png" alt="" />
+            // <img src="../../../images/warning.png" alt="" />
+            <Image src={'/images/warning.png'} alt=""/>
           }
           Pick a product color
         </div>
@@ -71,7 +73,8 @@ export default function Colors({
       <div className={styles.colors__infos}></div>
       <div className={toggle ? styles.toggle : ""}>
         <ColorExtractor getColors={(colors) => setColors(colors)}>
-          <img src={colorImage} style={{ display: "none" }} />
+          {/* <img src={colorImage} style={{ display: "none" }} /> */}
+          <Image src={colorImage} alt="" style={{ display: "none" }}/>
         </ColorExtractor>
         <div className={styles.wheel}>{renderSwatches()}</div>
       </div>

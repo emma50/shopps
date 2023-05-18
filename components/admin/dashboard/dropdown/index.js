@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import Image from 'next/image'
 //-----------------------
 import {
   MdArrowForwardIos,
@@ -31,7 +32,8 @@ export default function Dropdown({ userImage }) {
       onMouseLeave={() => setShow(false)}
     >
       <div className={styles.dropdown__toggle}>
-        <img src={userImage} alt="" />
+        {/* <img src={userImage} alt="" /> */}
+        <Image src={userImage} alt=''/>
       </div>
       <div
         className={`${styles.dropdown__content} ${show ? styles.active : ""}`}

@@ -1,5 +1,6 @@
 import { TextField, MenuItem } from '@mui/material'
 import { useField, ErrorMessage } from 'formik'
+import Image from 'next/image'
 import styles from './selects.module.scss'
 
 export default function SingularSelect({
@@ -21,7 +22,8 @@ export default function SingularSelect({
         >
           <div className={styles.flex} style={{marginBottom: 0}}>
             {meta.error && (
-              <img src="../../../images/warning.png" alt="warning" />
+              // <img src="../../../images/warning.png" alt="warning" />
+              <Image src={'/images/warning.png'} alt='warning'/>
             )}
             {header}
           </div>

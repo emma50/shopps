@@ -1,5 +1,6 @@
 import { Rating } from '@mui/material'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { BsHandbagFill, BsHeart } from 'react-icons/bs'
@@ -195,10 +196,11 @@ export default function Info({ product, setActiveImg }) {
                   onMouseLeave={() => setActiveImg('')}
                 >
                   <Link href={`/product/${product.slug}?style=${index}`}>
-                    <img 
+                    {/* <img 
                       src={item.image} 
                       alt="product image"
-                    />
+                    /> */}
+                    <Image src={item.image} alt='product image'/>
                   </Link>
                 </span>
               )

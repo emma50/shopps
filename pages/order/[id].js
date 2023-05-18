@@ -2,6 +2,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { useReducer, useEffect } from "react";
 import axios from "axios";
 import { getSession } from "next-auth/react";
+import Image from 'next/image'
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import db from "../../utils/db";
 import StripePayment from "../../components/stripePayment";
@@ -107,8 +108,10 @@ export default function Order({
               <div className={styles.order__header_status}>
                 Payment status: {
                   orderData.isPaid 
-                  ? <img src='/images/verified.png' alt="paid" /> 
-                  : <img src='/images/unverified.png' alt="paid" /> 
+                  // ? <img src='/images/verified.png' alt="paid" /> 
+                  ? <Image src={'/images/verified.png'} alt="paid"/>
+                  // : <img src='/images/unverified.png' alt="paid" /> 
+                  : <Image src={'/images/unverified.png'} alt="paid"/>
                 }
               </div>
               <div className={styles.order__header_status}>
@@ -148,7 +151,8 @@ export default function Order({
                         }
                       </h1>
                       <div className={styles.product__info_style}>
-                        <img src={product.color.image} alt="" /> / {product.size}
+                        {/* <img src={product.color.image} alt="" /> / {product.size} */}
+                        <Image src={product.color.image} alt=""/> / {product.size}
                       </div>
                       <div className={styles.product__info_priceQty}>
                         {product.price}$ * {product.qty}
@@ -218,7 +222,8 @@ export default function Order({
               <h1>Customer&#39;s order</h1>
               <div className={styles.order__address_user}>
                 <div className={styles.order__address_user_info}>
-                  <img src={orderData.user.image} alt="" />
+                  {/* <img src={orderData.user.image} alt="" /> */}
+                  <Image src={orderData.user.image} alt=""/>
                   <div>
                     <span>{orderData.user.name}</span>
                     <span>{orderData.user.email}</span>

@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import Image from 'next/image'
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
@@ -33,9 +34,13 @@ export default function MainSwiper() {
           [1,2,3,4,5,6,7,8,9,10].map((item) => {
             return (
               <SwiperSlide key={item}>
-                <img 
+                {/* <img 
                   src={`/images/swiper/${item}.jpg`}
                   alt={'flash sale'}
+                /> */}
+                <Image 
+                  src={`/images/swiper/${item}.jpg`} 
+                  alt="flash sale"
                 />
               </SwiperSlide>
             )

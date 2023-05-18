@@ -3,6 +3,7 @@ import { AiOutlineDelete } from 'react-icons/ai'
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react' 
+import Image from 'next/image'
 import { updateCart } from '../../../store/cartSlice'
 import styles from './product.module.scss'
 
@@ -48,7 +49,8 @@ export default function Product({ product, selected, setSelected }) {
     <div className={`${styles.card} ${styles.product}`}>
       {product.quantity < 1 && <div className={styles.blur}></div>}
       <div className={styles.product__header}>
-        <img src={'/images/store.webp'} alt="" />
+        {/* <img src={'/images/store.webp'} alt="" /> */}
+        <Image src={'/images/store.webp'} alt=''/>
         EMMANUELS OFFICIAL STORE
       </div>
       <div className={styles.product__image}>
@@ -57,7 +59,8 @@ export default function Product({ product, selected, setSelected }) {
           onClick={() => handleSelect()}
         >
         </div>
-        <img src={product.images[0].url} alt=""/>
+        {/* <img src={product.images[0].url} alt=""/> */}
+        <Image src={product.images[0].url} alt=''/>
         <div className={styles.col}>
           <div className={styles.grid}>
             <h1>
@@ -78,7 +81,8 @@ export default function Product({ product, selected, setSelected }) {
             </div>
           </div>
           <div className={styles.product__style}>
-            <img src={product.color.image} alt=""/>
+            {/* <img src={product.color.image} alt=""/> */}
+            <Image src={product.color.image} alt=''/>
             {product.size && <span>{product.size}</span>}
             {product.price && <span>{product.price}$</span>}
             <MdOutlineKeyboardArrowRight/>

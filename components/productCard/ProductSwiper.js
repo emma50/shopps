@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Image from 'next/image'
 
 // Import Swiper styles
 import "swiper/css";
@@ -43,7 +44,8 @@ export default function ProductSwiper({ images }) {
           images.map((image, index) => {
             return (
               <SwiperSlide key={index}>
-                <img src={image.url} alt={'product image'} />
+                {/* <img src={image.url} alt={'product image'} /> */}
+                <Image src={image.url} alt='product image'/>
               </SwiperSlide>
             )
           })
