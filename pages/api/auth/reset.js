@@ -1,7 +1,7 @@
 import nc from "next-connect";
 import bcrypt from 'bcrypt'
 import db from '../../../utils/db'
-import User from "../../../models/users";
+import User from "../../../models/user";
 
 const handler = nc({
   onError: (err, req, res, next) => {
