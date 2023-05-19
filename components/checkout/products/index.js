@@ -1,4 +1,4 @@
-import Image from 'next/image'
+// import Image from 'next/image'
 import styles from './products.module.scss'
 
 export default function Products({ cart }) {
@@ -19,11 +19,11 @@ export default function Products({ cart }) {
           cart.products.map((product, index) => (
             <div className={styles.product} key={index}>
               <div className={styles.product__img}>
-                {/* <img src={product.image} alt="" /> */}
-                <Image src={product.image} alt=''/>
+                <img src={product.image} alt="" />
+                {/* <Image src={product.image} alt=''/> */}
                 <div className={styles.product__info}>
-                  {/* <img src={product.color.image} alt="" /> */}
-                  <Image src={product.color.image} alt=''/>
+                  <img src={product.color.image} alt="" />
+                  {/* <Image src={product.color.image} alt=''/> */}
                   <span>{product.size}</span>
                   <span>x{product.qty}</span>
                 </div>

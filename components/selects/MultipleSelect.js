@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Image from 'next/image'
+// import Image from 'next/image'
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Input from "@material-ui/core/Input";
+// import Input from "@material-ui/core/Input";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
@@ -63,8 +63,8 @@ export default function MultipleSelect({
         <div className={styles.flex}>
           {
             meta.error[name] && 
-            // <img src="../../../images/warning.png" alt="" />
-            <Image src={'/images/warning.png'} alt=""/>
+            <img src="../../../images/warning.png" alt="" />
+            // <Image src={'/images/warning.png'} alt=""/>
           }
           {header}
         </div>

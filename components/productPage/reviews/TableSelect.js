@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { IoArrowDown } from 'react-icons/io5'
-import Image from 'next/image'
+// import Image from 'next/image'
 import styles from './reviews.module.scss'
 
 export default function TableSelect({ property, text, data, handleChange }) {
@@ -31,8 +31,8 @@ export default function TableSelect({ property, text, data, handleChange }) {
             text === 'Rating' || text == "Size" || text === 'Order'
             ? property || `Select ${text}`
             : text === 'Style' && property?.image 
-            // ? <img src={property.image} alt="" />
-            ? <Image src={property.image} alt=''/>
+            ? <img src={property.image} alt="" />
+            // ? <Image src={property.image} alt=''/>
             : `Select Style`
           }
           <IoArrowDown/>
@@ -73,8 +73,8 @@ export default function TableSelect({ property, text, data, handleChange }) {
                       <span>
                         {
                           item.image 
-                          // ? <img src={item.image} alt=''/>
-                          ? <Image src={item.image} alt=''/>
+                          ? <img src={item.image} alt=''/>
+                          // ? <Image src={item.image} alt=''/>
                           : 'All Styles'
                         }
                       </span>

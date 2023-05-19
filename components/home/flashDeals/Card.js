@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { MdFlashOn } from 'react-icons/md'
-import Image from 'next/image'
+// import Image from 'next/image'
 import styles from './flashDeals.module.scss'
 
 export default function FlashCard({ product }) {
@@ -10,8 +10,8 @@ export default function FlashCard({ product }) {
     <div className={styles.card}>
       <div className={styles.card__img}>
         <Link href={product.link} legacyBehavior>
-          {/* <img src={product.image} alt={'Some image'} /> */}
-          <Image src={product.image} alt=''/>
+          <img src={product.image} alt={'Some image'} />
+          {/* <Image src={product.image} alt=''/> */}
         </Link>
         <div className={styles.flash}>
           <MdFlashOn/>

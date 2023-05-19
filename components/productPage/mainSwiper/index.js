@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ReactImageMagnify from 'react-image-magnify';
-import Image from 'next/image'
+// import Image from 'next/image'
 import styles from './mainSwiper.module.scss'
 
 export default function MainSwiper({ images, activeImg }) {
@@ -34,8 +34,8 @@ export default function MainSwiper({ images, activeImg }) {
                 className={`${styles.swiper__list__item} ${index === active ? styles.active : ''}`}
                 onMouseOver={() => setActive(index)}
               >
-                {/* <img src={image.url} alt={'Product image'} /> */}
-                <Image src={image.url} alt='Product image'/>
+                <img src={image.url} alt={'Product image'} />
+                {/* <Image src={image.url} alt='Product image'/> */}
               </div>
             )
           })

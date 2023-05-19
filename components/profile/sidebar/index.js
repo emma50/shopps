@@ -1,4 +1,4 @@
-import Image from 'next/image'
+// import Image from 'next/image'
 import Item from "./item";
 import styles from "./sidebar.module.scss";
 import { sidebarData } from '../../../data/profile'
@@ -8,8 +8,8 @@ export default function Sidebar({ data }) {
   return (
     <div className={styles.sidebar}>
       <div className={styles.sidebar__container}>
-        {/* <img src={data.image} alt="" /> */}
-        <Image src={data.image} alt=''/>
+        <img src={data.image} alt="" />
+        {/* <Image src={data.image} alt=''/> */}
         <span className={styles.sidebar__name}>{data.name}</span>
         <ul>
           {sidebarData.map((item, i) => (

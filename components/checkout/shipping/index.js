@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { Formik, Form } from "formik";
 import * as Yup from 'yup'
 import 'yup-phone'
@@ -131,8 +131,8 @@ export default function Shipping({
                 onClick={() => changeActiveHandler(address._id)}
               >
                 <div className={styles.address__side}>
-                  {/* <img src={profile ? user.user.image : user.image} alt="" /> */}
-                  <Image src={profile ? user.user.image : user.image} alt=''/>
+                  <img src={profile ? user.user.image : user.image} alt="" />
+                  {/* <Image src={profile ? user.user.image : user.image} alt=''/> */}
                 </div>
                 <div className={styles.address__col}>
                   <span>

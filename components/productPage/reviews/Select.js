@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { IoArrowDown } from 'react-icons/io5'
-import Image from 'next/image'
+// import Image from 'next/image'
 import styles from './reviews.module.scss'
 
 export default function Select({ property, text, data, handleChange }) {
@@ -27,8 +27,8 @@ export default function Select({ property, text, data, handleChange }) {
             text === 'Size' 
             ? property || `Select ${text}`
             : text === 'Style' && property.image 
-            // ? <img src={property.image} alt="" />
-            ? <Image src={property.image} alt=''/>
+            ? <img src={property.image} alt="" />
+            // ? <Image src={property.image} alt=''/>
             : text === 'How does it fit' && property
             ? property
             : text === 'How does it fit' && !property 
@@ -62,8 +62,8 @@ export default function Select({ property, text, data, handleChange }) {
                       style={{background: item.color}}
                     >
                       <span>
-                        {/* <img src={item.image} alt={'Style image'} /> */}
-                        <Image src={item.image} alt='Style image'/>
+                        <img src={item.image} alt={'Style image'} />
+                        {/* <Image src={item.image} alt='Style image'/> */}
                       </span>
                     </li>
                   )

@@ -17,7 +17,7 @@ import {
 } from "react-icons/ri";
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { toggleSidebar } from '../../../../store/expandSlice'
 import styles from './sidebar.module.scss'
@@ -60,8 +60,8 @@ export default function Sidebar() {
           <span></span>
         </div>
         <div className={styles.sidebar__user}>
-          {/* <img src={session?.user?.image} alt="" /> */}
-          <Image src={session?.user?.image} alt=''/>
+          <img src={session?.user?.image} alt="" />
+          {/* <Image src={session?.user?.image} alt=''/> */}
           <div className={styles.show}>
             <span>Welcome back 👋</span>
             <span>

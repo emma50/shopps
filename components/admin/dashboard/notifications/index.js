@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
-import Image from 'next/image'
+// import Image from 'next/image'
 import { IoNotificationsSharp } from "react-icons/io5";
 import { notificationsData } from "../../../../data/notifications";
 import styles from "./notifications.module.scss";
@@ -32,8 +32,8 @@ export default function Notifications({}) {
                   }
                   key={i}
                 >
-                  {/* <img src={n.image} alt="" /> */}
-                  <Image src={n.image} alt=""/>
+                  <img src={n.image} alt="" />
+                  {/* <Image src={n.image} alt=""/> */}
                   <p>
                     <span>{n.user}</span> has created a new order, total of{" "}
                     {n.total} $
@@ -46,8 +46,8 @@ export default function Notifications({}) {
                   }
                   key={i}
                 >
-                  {/* <img src={n.image} alt="" /> */}
-                  <Image src={n.image} alt=""/>
+                  <img src={n.image} alt="" />
+                  {/* <Image src={n.image} alt=""/> */}
                   <span>{n.user}</span> new Account created.
                 </div>
               )}

@@ -32,8 +32,8 @@ export default function Dropdown({ userImage }) {
       onMouseLeave={() => setShow(false)}
     >
       <div className={styles.dropdown__toggle}>
-        {/* <img src={userImage} alt="" /> */}
-        <Image src={userImage} alt=''/>
+        <img src={userImage} alt="" />
+        {/* <Image src={userImage} alt=''/> */}
       </div>
       <div
         className={`${styles.dropdown__content} ${show ? styles.active : ""}`}

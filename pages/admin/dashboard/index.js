@@ -103,11 +103,11 @@ export default function Dashboard({ users, orders, products }) {
                     <td>{order.total} $</td>
                     <td>
                       {order.isPaid ? (
-                        // <img src="../../../images/verified.webp" alt="" />
-                        <Image src={'/images/verified.webp'} alt=""/>
+                        <img src="../../../images/verified.webp" alt="" />
+                        // <Image src={'/images/verified.webp'} alt=""/>
                       ) : (
-                        // <img src="../../../images/unverified1.png" alt="" />
-                        <Image src={'/images/unverified1.png'} alt=""/>
+                        <img src="../../../images/unverified1.png" alt="" />
+                        // <Image src={'/images/unverified1.png'} alt=""/>
                       )}
                     </td>
                     <td>
@@ -150,8 +150,8 @@ export default function Dashboard({ users, orders, products }) {
                   <tr key={user._id}>
                     <td className={styles.user}>
                       <span className={styles.user__img}>
-                        {/* <img src={user.image} alt="" /> */}
-                        <Image src={user.image} alt=""/>
+                        <img src={user.image} alt="" />
+                        {/* <Image src={user.image} alt=""/> */}
                       </span>
                       <span 
                           style={{

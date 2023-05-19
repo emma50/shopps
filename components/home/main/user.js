@@ -4,7 +4,7 @@ import { IoSettingsOutline } from 'react-icons/io5'
 import { HiOutlineClipboard } from 'react-icons/hi'
 import { AiOutlineMessage } from 'react-icons/ai'
 import { BsHeart } from 'react-icons/bs'
-import Image from 'next/image'
+// import Image from 'next/image'
 import styles from './main.module.scss'
 import { userSwiperArray } from '../../../data/home'
 
@@ -33,8 +33,8 @@ export function UserMenuSwiper() {
             return (
               <SwiperSlide key={index}>
                 <Link href={''}>
-                  {/* <img src={item.image} alt="User image"/> */}
-                  <Image src={item.image} alt='User image'/>
+                  <img src={item.image} alt="User image"/>
+                  {/* <Image src={item.image} alt='User image'/> */}
                 </Link>
               </SwiperSlide>
             )
@@ -62,14 +62,14 @@ export default function User() {
         {
           session ? (
             <div className={styles.user__info}>
-              {/* <img src={session.user?.image} alt='User image'/> */}
-              <Image src={session.user?.image} alt='User image'/>
+              <img src={session.user?.image} alt='User image'/>
+              {/* <Image src={session.user?.image} alt='User image'/> */}
               <h4>{session.user?.name}</h4>
             </div>
           ) : (
             <div className={styles.user__info}>
-              {/* <img src={'./images/human.jpeg'} alt='User image'/> */}
-              <Image src={'/images/human.jpeg'} alt='User image'/>
+              <img src={'./images/human.jpeg'} alt='User image'/>
+              {/* <Image src={'/images/human.jpeg'} alt='User image'/> */}
               <div className={styles.user__info_btns}>
                 <button>Register</button>
                 <button>Login</button>

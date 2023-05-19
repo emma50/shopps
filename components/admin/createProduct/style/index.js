@@ -78,8 +78,8 @@ export default function Style({
         <div className={styles.flex}>
           {
             meta.error && 
-            // <img src="../../../images/warning.png" alt="" />
-            <Image src="/images/warning.png" alt="" />
+            <img src="../../../images/warning.png" alt="" />
+            // <Image src="/images/warning.png" alt="" />
           }
           Pick a Product style image
         </div>
