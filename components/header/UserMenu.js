@@ -33,6 +33,12 @@ export default function UserMenu({session}) {
         </div>
       }
       <ul>
+        {
+          session?.user?.role === 'admin' &&
+          <li>
+            <Link href={'admin/dashboard'}>Dashboard</Link>
+          </li>
+        }
         <li>
           <Link href={'profile'}>Account</Link>
         </li>
