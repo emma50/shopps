@@ -26,7 +26,7 @@ export default function UserMenu({session}) {
           <button className={styles.btn_primary}>Register</button>
           <button
             className={styles.btn_outlined}
-            onClick={() => signIn()}
+            onClick={async() => await signIn()}
           >
             Login
           </button>
