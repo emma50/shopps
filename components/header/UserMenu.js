@@ -36,7 +36,7 @@ export default function UserMenu({session}) {
         {
           session?.user?.role === 'admin' &&
           <li>
-            <Link href={'admin/dashboard'}>Dashboard</Link>
+            <Link href={'admin/dashboard'}> Admin dashboard</Link>
           </li>
         }
         <li>

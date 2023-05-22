@@ -22,8 +22,7 @@ import { validateCreateProduct } from '../../../../utils/validation'
 import { showDialog } from '../../../../store/dialogSlice'
 import dataURItoBlob from '../../../../utils/dataURItoBlob'
 import { uploadImages } from '../../../../requests/upload'
-
-
+ 
 const initialState = {
   name: "",
   description: "",
