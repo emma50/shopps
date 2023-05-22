@@ -56,7 +56,7 @@ handler.get((req, res) => {
     })    
     const url = `${process.env.BASE_URL}/activate/${activationToken}`
 
-    sendEmail(email, url, 'Activate your account', activateEmailTemplate)
+    await sendEmail(email, url, 'Activate your account', activateEmailTemplate)
 
     await db.disconnectDB()
 

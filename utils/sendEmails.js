@@ -50,5 +50,5 @@ export const sendEmail = async (to, url, subject, template) => {
       return err
     }
     return info
-})
+  })
 }
